@@ -1,0 +1,8 @@
+@use "../sass/variables" as *;
+
+@layer reset, primeng;
+
+/* Reset CSS */
+@layer reset {
+    button{}
+}

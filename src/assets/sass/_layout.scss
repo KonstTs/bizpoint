@@ -1,0 +1,51 @@
+@use 'variables';
+@use 'helpers';
+
+.layout-wrapper{
+    height: 100%;
+    width: 100%;
+    position: relative;
+    background-color: #c5c5c5;
+    overflow: hidden;
+  
+  
+    .topbar{
+      position: fixed;
+      left:0;
+      right: 0;
+      top: 0;
+      color: variables.$whiteColor;
+      height: variables.$topbarHeight;
+      display: flex;
+      align-items: center;
+      padding:0 2rem;
+      background-color: variables.$greyDDD;
+      border-bottom: variables.$borderWhite;
+      border-top: variables.$borderWhite;
+      
+      ._section{
+        width: 33vw;
+        height: inherit;
+        display: flex;
+        align-items: center;
+  
+        ._logo{
+          height: 100%;
+          width: 12vw;
+          background: url(../img/bizpoint-logo.svg) center / 100% auto no-repeat;
+          }
+      }
+    }
+  
+    .content{
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: var(--content-padding);
+      top: variables.$topbarHeight;
+    }
+  }
+
+  
+  

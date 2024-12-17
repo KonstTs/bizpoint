@@ -1,3 +1,3 @@
 export interface BpBaseEntity {
-  id?: string;
+  id: string;
 }

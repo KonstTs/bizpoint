@@ -19,7 +19,7 @@ export class BpFeedService extends BaseService {
       super(config, http);
     }
 
-    static readonly feedPath = '/feed/';
+    static readonly feedPageGetPath = '/feed/';
     
     /**
     * "methodName$Response" methods provide access to the full `HttpResponse`, allowing access to response headers.
@@ -34,7 +34,7 @@ export class BpFeedService extends BaseService {
     
     //list
     apiFeedGet$Response(): Observable<StrictHttpResponse<Array<any>>> {
-        const rb = new RequestBuilder(environment.bpFeedBaseURL, BpFeedService.feedPath, 'get');
+        const rb = new RequestBuilder(environment.bpFeedBaseURL, BpFeedService.feedPageGetPath, 'get');
 
         return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(
             filter((r: any) => r instanceof HttpResponse), 

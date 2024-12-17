@@ -1,10 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, of, Subject, switchMap } from 'rxjs';
-import { BpCacheService } from '../config/cache';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { deviceIsMobile } from '../shared/utils';
 import { tap } from 'rxjs/operators';
-@UntilDestroy()
 @Injectable({providedIn:'root'})
 export class BpDeviceService implements OnDestroy{
      readonly deviceIsMobile$ = new Subject<boolean>();
@@ -13,7 +10,6 @@ export class BpDeviceService implements OnDestroy{
           return of(null).pipe(
                switchMap(_ => of(deviceIsMobile())),
                tap(res => this.deviceIsMobile$.next(res)),
-               untilDestroyed(this)
           )
      }
      ngOnDestroy(): void {

@@ -8,6 +8,8 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { IbpFeed } from '../../models/feed.model';
+import { IbpFeedEntryContent } from '../../models/feed-entry.model';
 
 
 @Injectable({
@@ -19,31 +21,73 @@ export class BpFeedService extends BaseService {
       super(config, http);
     }
 
-    static readonly feedPageGetPath = '/feed/';
+    static readonly feedPageGetPath = '/api/vi/feed/{last}';
+    static readonly feedPageByIdGetPath = '/api/vi/feed/{id}';
+    static readonly feedEntryByIdGetPath = '/api/vi/feedentry/{id}';
     
     /**
     * "methodName$Response" methods provide access to the full `HttpResponse`, allowing access to response headers.
     * To access only the response body, use the one that follows it.
     */
     
-    /*
-     -H 'accept: application/json' \
-  -H 'If-Modified-Since: Thu, 31 Dec 1992 11:56:00 +0200' \
-  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJHZW9yZ2VEQE9ESU4tS29uc3VsdC5ubyIsImtpZCI6IjE3MmU3OWY2LTcxZWUtNDJiNy1hZTc1LTM3OTM0M2JiZWJkZCIsImlzcyI6Im5hdi1ubyIsImF1ZCI6ImZlZWQtYXBpLXYyIiwiaWF0IjoxNzI5MjU1NjMxLCJleHAiOm51bGx9.iWVPjNV0moSrsz4G1N2KEcB24Wiji4hY_HVNEeetdTY'
-    */
     
-    //list
-    apiFeedGet$Response(): Observable<StrictHttpResponse<Array<any>>> {
+    //page
+    apiFeedGet$Response(params?: { last:string }): Observable<StrictHttpResponse<IbpFeed>> {
         const rb = new RequestBuilder(environment.bpFeedBaseURL, BpFeedService.feedPageGetPath, 'get');
+        
+        //auth key should be handled by interceptor
+        //will implement probably
+        rb.header('Authorization', `Bearer ${environment.psFeedAthToken})`);
+        if (params) rb.path('last', params.last);
 
         return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(
             filter((r: any) => r instanceof HttpResponse), 
-            map((r: HttpResponse<any>) => r as StrictHttpResponse<Array<any>>)
+            map((r: HttpResponse<any>) => r as StrictHttpResponse<IbpFeed>)
         );
     }
    
-    apiFeedGet(): Observable<Array<any>> {
-        return this.apiFeedGet$Response().pipe(map((r: StrictHttpResponse<Array<any>>) => r.body as Array<any>));
+    apiFeedGet(params?: { last:string }): Observable<IbpFeed> {
+        return this.apiFeedGet$Response(params).pipe(map((r: StrictHttpResponse<IbpFeed>) => r.body as IbpFeed));
+    }
+
+
+    //page by id
+    feedPageByIdGet$Response(params?: { id:string }): Observable<StrictHttpResponse<IbpFeed>> {
+        const rb = new RequestBuilder(environment.bpFeedBaseURL, BpFeedService.feedPageByIdGetPath, 'get');
+        
+        //auth key should be handled by interceptor
+        //will implement probably
+        rb.header('Authorization', `Bearer ${environment.psFeedAthToken})`);
+        if (params) rb.path('last', params.id);
+
+        return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(
+            filter((r: any) => r instanceof HttpResponse), 
+            map((r: HttpResponse<any>) => r as StrictHttpResponse<IbpFeed>)
+        );
+    }
+   
+    feedPageByIdGet(params?: { id:string }): Observable<IbpFeed> {
+        return this.feedPageByIdGet$Response(params).pipe(map((r: StrictHttpResponse<IbpFeed>) => r.body as IbpFeed));
+    }
+
+
+    //entry by id
+    feedEntryByIdGet$Response(params?: { id:string }): Observable<StrictHttpResponse<IbpFeedEntryContent>> {
+        const rb = new RequestBuilder(environment.bpFeedBaseURL, BpFeedService.feedEntryByIdGetPath, 'get');
+        
+        //auth key should be handled by interceptor
+        //will implement probably
+        rb.header('Authorization', `Bearer ${environment.psFeedAthToken})`);
+        if (params) rb.path('last', params.id);
+
+        return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(
+            filter((r: any) => r instanceof HttpResponse), 
+            map((r: HttpResponse<any>) => r as StrictHttpResponse<IbpFeedEntryContent>)
+        );
+    }
+   
+    feedEntryByIdGet(params?: { id:string }): Observable<IbpFeedEntryContent> {
+        return this.feedEntryByIdGet$Response(params).pipe(map((r: StrictHttpResponse<IbpFeedEntryContent>) => r.body as IbpFeedEntryContent));
     }
 
 }

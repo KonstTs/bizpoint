@@ -5,36 +5,54 @@
     height: 100%;
     width: 100%;
     position: relative;
-    background-color: #c5c5c5;
     overflow: hidden;
   
   
     .topbar{
-      position: fixed;
-      left:0;
+      position: sticky;
+      left: 0;
       right: 0;
       top: 0;
-      color: variables.$whiteColor;
-      height: variables.$topbarHeight;
       display: flex;
-      align-items: center;
-      padding:0 2rem;
-      background-color: variables.$greyDDD;
-      border-bottom: variables.$borderWhite;
-      border-top: variables.$borderWhite;
-      
-      ._section{
-        width: 33vw;
-        height: inherit;
-        display: flex;
-        align-items: center;
+      align-items: flex-end;
+      justify-content: center;
+      height: 120px;
   
-        ._logo{
-          height: 100%;
-          width: 12vw;
-          background: url(../img/bizpoint-logo.svg) center / 100% auto no-repeat;
+        .logo{    
+          width: 100%;
+          ._graph{
+            width: 100%;
+            // border-bottom: 1px solid var(--blue-100);
+            border: 10px solid;
+            border-width: 2px;
+            border-image-source: linear-gradient(to right, #ffd30f, #F44336, #66db49, #c7ffbc);
+            border-image-slice: 2%;
+            border-left: 0;
+    border-right: 0;
+    border-top: 0;
+            img{
+              width: 260px;
+              margin: 0 auto -1px auto;
+              display: block;
+            }
           }
-      }
+          ._word{
+            color: #cdcdcd;
+    letter-spacing: 12px;
+    font-weight: 100 !important;
+    text-align: center;
+    font-size: 1.6rem;
+    margin: -2px auto 0;
+    background: #fff;
+    width: 253px;
+    padding-top: 3px;
+          }
+        }
+        
+        // .border-gradient-red-green {
+        //   border-image-source: linear-gradient(to left, #F44336, #4CAF50);
+        // }
+        
     }
   
     .content{
@@ -43,9 +61,9 @@
       right: 0;
       bottom: 0;
       padding: var(--content-padding);
-      top: variables.$topbarHeight;
+      top: 120px;
     }
   }
 
   
-  
+  // border-image-source: linear-gradient(to right, #F44336, #E91E63, #9C27B0, #673AB7, #3F51B5,#4285f4, #00BCD4, #009688, #4CAF50);

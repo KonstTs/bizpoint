@@ -1,9 +1,9 @@
 import { InjectionToken } from '@angular/core';
-import { BpLoggingLevel } from './logs';
+import { JbLoggingLevel } from './logs';
 
-export interface BpEnvironment {
+export interface JbEnvironment {
   production: boolean;
-  loggerLevel: BpLoggingLevel;
+  loggerLevel: JbLoggingLevel;
 }
 
-export const BP_ENVIRONMENT = new InjectionToken<BpEnvironment>('Environment');
+export const Jb_ENVIRONMENT = new InjectionToken<JbEnvironment>('Environment');

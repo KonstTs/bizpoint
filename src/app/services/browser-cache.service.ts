@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
-import { BpCacheService } from '../config/cache';
+import { JbCacheService } from '../config/cache';
 
-export class BpBrowserCacheService implements BpCacheService {
+export class JbBrowserCacheService implements JbCacheService {
   constructor(private _storage: Storage) {}
 
   get<T>(key: string, args?: any): Observable<T> {

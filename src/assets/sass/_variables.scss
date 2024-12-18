@@ -1,4 +1,4 @@
-$fontFamily: 'Roboto', 'Helvetica Neue', sans-serif!default;
+$fontFamily: 'Open sans', 'Helvetica Neue', sans-serif!default;
 $fontSize: 1rem !default;
 $fontWeight100: 100 !default;
 $fontWeight300: 300 !default;
@@ -7,29 +7,20 @@ $fontWeight700: 700 !default;
 $fontWeight900: 900 !default;
 
 //pallette
-$textColor: #525c65 !default;
 $whiteColor: #fff !default;
-$greyDDD: #ddd !default;
-$greyC0C0C0: #c0c0c0 !default;
-$greyEFEFEF: #efefef !default;
-$greyF3F3F3: #f3f3f3 !default;
-$red: #FF0000 !default;	
-$redDark: #cc0000 !default;
-$blue: #4285f4 !default;
-$blueLight: #a8dcf4 !default;
-$blueDark: #1a5ecd !default;
-$green: #6FA824 !default;
-$greenDark: #3d600f !default;
-$errorColor: #f44336 !default;
-$warningColor: #ffb900 !default;
-$successColor: #00cb62 !default;
-$infoColor: #4285f4 !default;
 
-$topbarHeight: 64px !default;
-$borderWhite: solid 3px #fff !default;
-$inputBg: #ededed !default;
-$inputColor: #999 !default;
-$rowHover: #ddeaff !default;
-$headerLightGrey: #bfbfbf !default;
+$red: #F44336 !default;
+$pink: #E91E63 !default;
+$purle: #9C27B0 !default;	
+$mauve: #673AB7 !default;
+$indigo: #3F51B5 !default;
+$blue: #4285f4 !default;
+$cyan: #00BCD4 !default;
+$teal: #009688 !default;
+$green: #4CAF50 !default;
+
+
+$topbarHeight: 10vh !default;
+
 $shadow: 0px 2px 5px -4px rgba(0, 0, 0, 0.4) !default;
 $shadowGentle: 0px 2px 5px -2px rgba(0, 0, 0, 0.4) !default;

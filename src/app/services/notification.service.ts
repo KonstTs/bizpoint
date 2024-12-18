@@ -4,7 +4,7 @@ import { Observable, ReplaySubject, Subject, tap } from 'rxjs';
 
 
 @Injectable()
-export class BpNotificationService implements OnDestroy{
+export class JbNotificationService implements OnDestroy{
      data: any;
 
 

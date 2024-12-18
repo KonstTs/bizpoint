@@ -1,4 +1,4 @@
-export enum BpLoggingLevel {
+export enum JbLoggingLevel {
   None,
   Verbose,
   Info,

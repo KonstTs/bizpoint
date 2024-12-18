@@ -1,42 +1,42 @@
 import { Inject, Injectable } from '@angular/core';
-import { BpLoggingLevel } from '../config/logs';
-import { BP_ENVIRONMENT, BpEnvironment } from '../config/environment';
+import { JbLoggingLevel } from '../config/logs';
+import { Jb_ENVIRONMENT, JbEnvironment } from '../config/environment';
 
 @Injectable()
-export class BpLoggerService {
-  private _level: BpLoggingLevel;
+export class JbLoggerService {
+  private _level: JbLoggingLevel;
 
-  constructor(@Inject(BP_ENVIRONMENT) environment: BpEnvironment) {
-    this._level = environment.loggerLevel ?? BpLoggingLevel.Verbose;
+  constructor(@Inject(Jb_ENVIRONMENT) environment: JbEnvironment) {
+    this._level = environment.loggerLevel ?? JbLoggingLevel.Verbose;
   }
 
   logError(message: any, ...params: any[]) {
-    this.log(message, BpLoggingLevel.Error, ...params);
+    this.log(message, JbLoggingLevel.Error, ...params);
   }
 
   logWarning(message: any, ...params: any[]) {
-    this.log(message, BpLoggingLevel.Warning, ...params);
+    this.log(message, JbLoggingLevel.Warning, ...params);
   }
 
   logInfo(message: any, ...params: any[]) {
-    this.log(message, BpLoggingLevel.Info, ...params);
+    this.log(message, JbLoggingLevel.Info, ...params);
   }
 
   logVerbose(message: any, ...params: any[]) {
-    this.log(message, BpLoggingLevel.Verbose, ...params);
+    this.log(message, JbLoggingLevel.Verbose, ...params);
   }
 
-  log(message: any, level = BpLoggingLevel.Warning, ...params: any[]) {
-    if (this._level !== BpLoggingLevel.None) {
+  log(message: any, level = JbLoggingLevel.Warning, ...params: any[]) {
+    if (this._level !== JbLoggingLevel.None) {
       if (level >= this._level) {
         switch (level) {
-          case BpLoggingLevel.Error:
+          case JbLoggingLevel.Error:
             console.error(message, ...params);
             break;
-          case BpLoggingLevel.Warning:
+          case JbLoggingLevel.Warning:
             console.warn(message, ...params);
             break;
-          case BpLoggingLevel.Info:
+          case JbLoggingLevel.Info:
             console.info(message, ...params);
             break;
           default:

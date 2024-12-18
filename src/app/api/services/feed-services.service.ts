@@ -8,14 +8,14 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { IbpFeed } from '../../models/feed.model';
-import { IbpFeedEntryContent } from '../../models/feed-entry.model';
+import { IjbFeed } from '../../models/feed.model';
+import { IjbFeedEntryContent } from '../../models/feed-entry.model';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class BpFeedService extends BaseService {
+export class JbFeedService extends BaseService {
 
     constructor(config: ApiConfiguration, http: HttpClient) {
       super(config, http);
@@ -32,50 +32,50 @@ export class BpFeedService extends BaseService {
     
     
     //page
-    apiFeedGet$Response(params?: { last?:string }): Observable<StrictHttpResponse<IbpFeed>> {
-        const rb = new RequestBuilder(environment.bpFeedBaseURL, BpFeedService.feedPageGetPath, 'get');
+    apiFeedGet$Response(params?: { last?:string }): Observable<StrictHttpResponse<IjbFeed>> {
+        const rb = new RequestBuilder(environment.JbFeedBaseURL, JbFeedService.feedPageGetPath, 'get');
         if (params) rb.path('last', params.last);
 
         return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(
             filter((r: any) => r instanceof HttpResponse), 
-            map((r: HttpResponse<any>) => r as StrictHttpResponse<IbpFeed>)
+            map((r: HttpResponse<any>) => r as StrictHttpResponse<IjbFeed>)
         );
     }
    
-    apiFeedGet(params?: { last?:string }): Observable<IbpFeed> {
-        return this.apiFeedGet$Response(params).pipe(map((r: StrictHttpResponse<IbpFeed>) => r.body as IbpFeed));
+    apiFeedGet(params?: { last?:string }): Observable<IjbFeed> {
+        return this.apiFeedGet$Response(params).pipe(map((r: StrictHttpResponse<IjbFeed>) => r.body as IjbFeed));
     }
 
 
     //page by id
-    feedPageByIdGet$Response(params?: { id:string }): Observable<StrictHttpResponse<IbpFeed>> {
-        const rb = new RequestBuilder(environment.bpFeedBaseURL, BpFeedService.feedPageByIdGetPath, 'get');
+    feedPageByIdGet$Response(params?: { id:string }): Observable<StrictHttpResponse<IjbFeed>> {
+        const rb = new RequestBuilder(environment.JbFeedBaseURL, JbFeedService.feedPageByIdGetPath, 'get');
         if (params) rb.path('id', params.id);
 
         return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(
             filter((r: any) => r instanceof HttpResponse), 
-            map((r: HttpResponse<any>) => r as StrictHttpResponse<IbpFeed>)
+            map((r: HttpResponse<any>) => r as StrictHttpResponse<IjbFeed>)
         );
     }
    
-    feedPageByIdGet(params?: { id:string }): Observable<IbpFeed> {
-        return this.feedPageByIdGet$Response(params).pipe(map((r: StrictHttpResponse<IbpFeed>) => r.body as IbpFeed));
+    feedPageByIdGet(params?: { id:string }): Observable<IjbFeed> {
+        return this.feedPageByIdGet$Response(params).pipe(map((r: StrictHttpResponse<IjbFeed>) => r.body as IjbFeed));
     }
 
 
     //entry by id
-    feedEntryByIdGet$Response(params?: { id:string }): Observable<StrictHttpResponse<IbpFeedEntryContent>> {
-        const rb = new RequestBuilder(environment.bpFeedBaseURL, BpFeedService.feedEntryByIdGetPath, 'get');
+    feedEntryByIdGet$Response(params?: { id:string }): Observable<StrictHttpResponse<IjbFeedEntryContent>> {
+        const rb = new RequestBuilder(environment.JbFeedBaseURL, JbFeedService.feedEntryByIdGetPath, 'get');
         if (params) rb.path('id', params.id);
 
         return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(
             filter((r: any) => r instanceof HttpResponse), 
-            map((r: HttpResponse<any>) => r as StrictHttpResponse<IbpFeedEntryContent>)
+            map((r: HttpResponse<any>) => r as StrictHttpResponse<IjbFeedEntryContent>)
         );
     }
    
-    feedEntryByIdGet(params?: { id:string }): Observable<IbpFeedEntryContent> {
-        return this.feedEntryByIdGet$Response(params).pipe(map((r: StrictHttpResponse<IbpFeedEntryContent>) => r.body as IbpFeedEntryContent));
+    feedEntryByIdGet(params?: { id:string }): Observable<IjbFeedEntryContent> {
+        return this.feedEntryByIdGet$Response(params).pipe(map((r: StrictHttpResponse<IjbFeedEntryContent>) => r.body as IjbFeedEntryContent));
     }
 
 }

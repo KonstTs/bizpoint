@@ -1,6 +1,6 @@
-import { IbpFeedEntry } from "./feed-entry.model";
+import { IjbFeedEntry } from "./feed-entry.model";
 
-export interface IbpFeed { 
+export interface IjbFeed { 
     version: string,
     title: string,
     home_page_url: string,
@@ -9,14 +9,14 @@ export interface IbpFeed {
     next_url?: string,
     id: string,
     next_id?: string,
-    items: IbpFeedLine[];
+    items: IjbFeedLine[];
 }
 
-export interface IbpFeedLine {
+export interface IjbFeedLine {
     id: string,
     url: string,
     title: string,
     content_text: string,
     date_modified?: Date | string;
-    _feed_entry: IbpFeedEntry;
+    _feed_entry: IjbFeedEntry;
 }

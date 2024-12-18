@@ -6,7 +6,7 @@ import { Directive, ElementRef, Input, HostListener} from '@angular/core';
     host: {'(window:wheel)': 'scroll($event)'},
     standalone: true
   })
-  export class BpHorizontalScrollerDirective {
+  export class JbHorizontalScrollerDirective {
     @Input('scrolly') selector: string;
     scroller: Element | HTMLElement;
     allowed = false;

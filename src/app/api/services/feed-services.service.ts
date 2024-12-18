@@ -21,7 +21,7 @@ export class BpFeedService extends BaseService {
       super(config, http);
     }
 
-    static readonly feedPageGetPath = '/api/vi/feed/{last}';
+    static readonly feedPageGetPath = '/api/vi/feed/';
     static readonly feedPageByIdGetPath = '/api/vi/feed/{id}';
     static readonly feedEntryByIdGetPath = '/api/vi/feedentry/{id}';
     
@@ -32,12 +32,8 @@ export class BpFeedService extends BaseService {
     
     
     //page
-    apiFeedGet$Response(params?: { last:string }): Observable<StrictHttpResponse<IbpFeed>> {
+    apiFeedGet$Response(params?: { last?:string }): Observable<StrictHttpResponse<IbpFeed>> {
         const rb = new RequestBuilder(environment.bpFeedBaseURL, BpFeedService.feedPageGetPath, 'get');
-        
-        //auth key should be handled by interceptor
-        //will implement probably
-        rb.header('Authorization', `Bearer ${environment.psFeedAthToken})`);
         if (params) rb.path('last', params.last);
 
         return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(
@@ -46,7 +42,7 @@ export class BpFeedService extends BaseService {
         );
     }
    
-    apiFeedGet(params?: { last:string }): Observable<IbpFeed> {
+    apiFeedGet(params?: { last?:string }): Observable<IbpFeed> {
         return this.apiFeedGet$Response(params).pipe(map((r: StrictHttpResponse<IbpFeed>) => r.body as IbpFeed));
     }
 
@@ -54,11 +50,7 @@ export class BpFeedService extends BaseService {
     //page by id
     feedPageByIdGet$Response(params?: { id:string }): Observable<StrictHttpResponse<IbpFeed>> {
         const rb = new RequestBuilder(environment.bpFeedBaseURL, BpFeedService.feedPageByIdGetPath, 'get');
-        
-        //auth key should be handled by interceptor
-        //will implement probably
-        rb.header('Authorization', `Bearer ${environment.psFeedAthToken})`);
-        if (params) rb.path('last', params.id);
+        if (params) rb.path('id', params.id);
 
         return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(
             filter((r: any) => r instanceof HttpResponse), 
@@ -74,11 +66,7 @@ export class BpFeedService extends BaseService {
     //entry by id
     feedEntryByIdGet$Response(params?: { id:string }): Observable<StrictHttpResponse<IbpFeedEntryContent>> {
         const rb = new RequestBuilder(environment.bpFeedBaseURL, BpFeedService.feedEntryByIdGetPath, 'get');
-        
-        //auth key should be handled by interceptor
-        //will implement probably
-        rb.header('Authorization', `Bearer ${environment.psFeedAthToken})`);
-        if (params) rb.path('last', params.id);
+        if (params) rb.path('id', params.id);
 
         return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(
             filter((r: any) => r instanceof HttpResponse), 

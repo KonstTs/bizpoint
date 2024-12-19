@@ -6,6 +6,7 @@
     width: 100%;
     position: relative;
     overflow: hidden;
+    background-color: #f0f0f0;
   
   
     .topbar{
@@ -37,15 +38,16 @@
             }
           }
           ._word{
-            color: #cdcdcd;
-    letter-spacing: 12px;
+            color: #000000;
+    letter-spacing: 7px;
     font-weight: 100 !important;
     text-align: center;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     margin: -2px auto 0;
     background: #fff;
     width: 253px;
     padding-top: 3px;
+
           }
         }
         

@@ -1,42 +1,42 @@
 import { Inject, Injectable } from '@angular/core';
-import { JbLoggingLevel } from '../config/logs';
-import { Jb_ENVIRONMENT, JbEnvironment } from '../config/environment';
+import { ktLoggingLevel } from '../config/logs';
+import { kt_ENVIRONMENT, ktEnvironment } from '../config/environment';
 
 @Injectable()
-export class JbLoggerService {
-  private _level: JbLoggingLevel;
+export class ktLoggerService {
+  private _level: ktLoggingLevel;
 
-  constructor(@Inject(Jb_ENVIRONMENT) environment: JbEnvironment) {
-    this._level = environment.loggerLevel ?? JbLoggingLevel.Verbose;
+  constructor(@Inject(kt_ENVIRONMENT) environment: ktEnvironment) {
+    this._level = environment.loggerLevel ?? ktLoggingLevel.Verbose;
   }
 
   logError(message: any, ...params: any[]) {
-    this.log(message, JbLoggingLevel.Error, ...params);
+    this.log(message, ktLoggingLevel.Error, ...params);
   }
 
   logWarning(message: any, ...params: any[]) {
-    this.log(message, JbLoggingLevel.Warning, ...params);
+    this.log(message, ktLoggingLevel.Warning, ...params);
   }
 
   logInfo(message: any, ...params: any[]) {
-    this.log(message, JbLoggingLevel.Info, ...params);
+    this.log(message, ktLoggingLevel.Info, ...params);
   }
 
   logVerbose(message: any, ...params: any[]) {
-    this.log(message, JbLoggingLevel.Verbose, ...params);
+    this.log(message, ktLoggingLevel.Verbose, ...params);
   }
 
-  log(message: any, level = JbLoggingLevel.Warning, ...params: any[]) {
-    if (this._level !== JbLoggingLevel.None) {
+  log(message: any, level = ktLoggingLevel.Warning, ...params: any[]) {
+    if (this._level !== ktLoggingLevel.None) {
       if (level >= this._level) {
         switch (level) {
-          case JbLoggingLevel.Error:
+          case ktLoggingLevel.Error:
             console.error(message, ...params);
             break;
-          case JbLoggingLevel.Warning:
+          case ktLoggingLevel.Warning:
             console.warn(message, ...params);
             break;
-          case JbLoggingLevel.Info:
+          case ktLoggingLevel.Info:
             console.info(message, ...params);
             break;
           default:

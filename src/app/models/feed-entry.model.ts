@@ -1,5 +1,5 @@
-import { IjbFeedAd } from "./feed-ad.model";
-export interface IjbFeedEntry { 
+import { IktFeedAd } from "./feed-ad.model";
+export interface IktFeedEntry { 
      uuid: string;
      status: string;
      title: string;
@@ -8,9 +8,9 @@ export interface IjbFeedEntry {
      sistEndret: Date | string;
 }
 
-export interface IjbFeedEntryContent { 
+export interface IktFeedEntryContent { 
      uuid: string;
      status: string;
      sistEndret: Date | string;
-     ad_content: IjbFeedAd;
+     ad_content: IktFeedAd;
 }

@@ -1,21 +1,21 @@
-export interface IjbFeedAd {
+export interface IktFeedAd {
      uuid: string;
      published:  Date | string;
      expires:  Date | string;
      updated:  Date | string;
-     workLocations: ΙJbFeedLocation[];
-     contactList: ΙJbFeedContact[];
+     workLocations: ΙktFeedLocation[];
+     contactList: ΙktFeedContact[];
      title: string;
      description?:string;
      sourceurl?:string;
      source?:string;
      applicationUrl?:string;
      applicationDue?:string;
-     occupationCategories: ΙJbFeedOccupation[];
-     categoryList: ΙJbFeedCategory[];
+     occupationCategories: ΙktFeedOccupation[];
+     categoryList: ΙktFeedCategory[];
      jobtitle?: string;
      link: string;
-     employer: ΙJbFeedEmployer;
+     employer: ΙktFeedEmployer;
      engagementtype?:string;
      extent?:string;
      starttime?:string;
@@ -23,7 +23,7 @@ export interface IjbFeedAd {
      sector?: string;
 }
 
-export interface ΙJbFeedLocation { 
+export interface ΙktFeedLocation { 
      country?:string;
      address?:string;
      city?:string;
@@ -32,7 +32,7 @@ export interface ΙJbFeedLocation {
      municipal?: string;
 }
 
-export interface ΙJbFeedContact {
+export interface ΙktFeedContact {
      name?:string;
      email?:string;
      phone?:string;
@@ -40,7 +40,7 @@ export interface ΙJbFeedContact {
      title?:string
 }
 
-export interface ΙJbFeedCategory {
+export interface ΙktFeedCategory {
      categoryType :string;
      code: string;
      name: string;
@@ -49,12 +49,12 @@ export interface ΙJbFeedCategory {
 
 }
 
-export interface ΙJbFeedOccupation {
+export interface ΙktFeedOccupation {
      level1: string;
      level2: string
 }
 
-export interface ΙJbFeedEmployer { 
+export interface ΙktFeedEmployer { 
      name: string;
      orgnr?: string;
      description?: string;

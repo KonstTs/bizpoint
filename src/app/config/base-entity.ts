@@ -1,3 +1,3 @@
-export interface JbBaseEntity {
+export interface ktBaseEntity {
   id: string;
 }

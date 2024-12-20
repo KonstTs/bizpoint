@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
-import { JbCacheService } from '../config/cache';
+import { ktCacheService } from '../config/cache';
 
-export class JbBrowserCacheService implements JbCacheService {
+export class ktBrowserCacheService implements ktCacheService {
   constructor(private _storage: Storage) {}
 
   get<T>(key: string, args?: any): Observable<T> {

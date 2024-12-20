@@ -1,4 +1,4 @@
-export enum JbLoggingLevel {
+export enum ktLoggingLevel {
   None,
   Verbose,
   Info,

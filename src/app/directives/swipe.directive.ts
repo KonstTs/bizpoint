@@ -3,16 +3,16 @@ import { Directive, HostListener, Output, EventEmitter, HostBinding, ElementRef,
 import { fromEvent, merge } from 'rxjs';
 import { take, tap, map } from 'rxjs/operators';
  
-  export interface IjbSwipeEvent {
-    element: JbSwipeDirective;
+  export interface IktSwipeEvent {
+    element: ktSwipeDirective;
     incrX: number;
     incrY: number;
   }
 
-  export interface IjbSwipeoptions {
+  export interface IktSwipeoptions {
     mode: string;
     status: string;
-    state: any | IjbSwipeState;
+    state: any | IktSwipeState;
     onSwipeCssClass?: string;
     min?: number;
     max?: number;
@@ -21,37 +21,37 @@ import { take, tap, map } from 'rxjs/operators';
     minFn?: (...args) => void;
     maxFn?: (...args) => void;
     setOption?: (option, value) => void;
-    setoptions?: (obj:IjbSwipeoptions) => void;
-    setState?: (state:IjbSwipeState) => void;
+    setoptions?: (obj:IktSwipeoptions) => void;
+    setState?: (state:IktSwipeState) => void;
     setStatus?: (status:string) => void;
   }
 
-  export type IjbSwipeState = {
+  export type IktSwipeState = {
     [status: string]: { min: number; max: number; x: number; y: number };
   };
 
-export type IjbCoords = {x:number, y:number}
+export type IktCoords = {x:number, y:number}
   @Directive({
     selector: '[swipe]',
     exportAs: 'swipe',
     standalone: true
   })
-  export class JbSwipeDirective {
+  export class ktSwipeDirective {
     @Input('swipe') direction: 'horizontal' | 'vertical' | null = null;
-    @Input('swipeoptions') options?:IjbSwipeoptions;
+    @Input('swipeoptions') options?:IktSwipeoptions;
     @Output() onSwipe: EventEmitter<any> = new EventEmitter<any>();
  
     @HostBinding('style') get _() {
       return this.style;
     }
-    @HostBinding('class.jb-user-select-none') get __() {
+    @HostBinding('class.kt-user-select-none') get __() {
       return this.onDrag;
     }
 
     nativeEl: HTMLElement;
-    origin: IjbCoords = { x: 0, y: 0 };
+    origin: IktCoords = { x: 0, y: 0 };
     style: any = null;
-    rect: IjbCoords = { x: 0, y: 0 };
+    rect: IktCoords = { x: 0, y: 0 };
     incrX: number = 0;
     incrY: number = 0;
 
@@ -62,7 +62,7 @@ export type IjbCoords = {x:number, y:number}
    
     mode: string;
     status: string;
-    state: IjbSwipeState;
+    state: IktSwipeState;
     onSwipeCssClass: string;
     min: number;
     max: number;

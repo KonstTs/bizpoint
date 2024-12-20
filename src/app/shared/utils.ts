@@ -6,11 +6,7 @@ export const colorme = () => Math.floor(Math.random() * 16777215).toString(16);
 
 export const extract = (key: any, { [key]: extracted, ...rest }: any) => rest;
 
-export const extractPropertyPath = (path: string) =>
-  path
-    .split('.')
-    .filter((p) => isNaN(p as any))
-    .join('.');
+export const extractPropertyPath = (path: string) => path.split('.').filter((p) => isNaN(p as any)).join('.');
 
 export const hasValue = (value: string | any[] | null): boolean => !(value == null || value.length === 0);
 

@@ -1,9 +1,9 @@
 import { InjectionToken } from '@angular/core';
-import { JbLoggingLevel } from './logs';
+import { ktLoggingLevel } from './logs';
 
-export interface JbEnvironment {
+export interface ktEnvironment {
   production: boolean;
-  loggerLevel: JbLoggingLevel;
+  loggerLevel: ktLoggingLevel;
 }
 
-export const Jb_ENVIRONMENT = new InjectionToken<JbEnvironment>('Environment');
+export const kt_ENVIRONMENT = new InjectionToken<ktEnvironment>('Environment');

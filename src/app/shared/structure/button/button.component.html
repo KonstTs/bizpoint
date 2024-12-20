@@ -1,0 +1,20 @@
+<button
+  pRipple
+  pButton
+  type="button"
+  [attr.class]="config?.styleClass"
+  [attr.style.color]="config?.color"
+  [attr.style.backgroundColor]="config?.bgColor"
+  [label]="config?.label || label || ''"
+  [ngStyle]="config?.style"
+  [disabled]="!!config.disabled"
+  [icon]="config?.icon || icon"
+  [ngClass]="{
+    'p-button-text': config?.textOnly,
+    'p-button-raised':config?.raised,
+    'p-button-rounded': config?.rounded,
+    'p-button-outlined': config?.outline,
+    'kt-motion-fast': true,
+    'kt-button': true
+  }"
+></button>

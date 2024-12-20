@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { JbCacheService } from '../config/cache';
+import { ktCacheService } from '../config/cache';
 
 @Injectable()
-export class JbMemoryCacheService implements JbCacheService {
+export class ktMemoryCacheService implements ktCacheService {
   protected storage: Map<string, any>;
 
   constructor() {

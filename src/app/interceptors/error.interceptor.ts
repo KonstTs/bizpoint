@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { JbLoggerService } from '../services/logger.service';
+import { ktLoggerService } from '../services/logger.service';
 
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private _router: Router, private _loggerSvc: JbLoggerService) {}
+  constructor(private _router: Router, private _loggerSvc: ktLoggerService) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(

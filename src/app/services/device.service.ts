@@ -3,7 +3,7 @@ import { Observable, of, Subject, switchMap } from 'rxjs';
 import { deviceIsMobile } from '../shared/utils';
 import { tap } from 'rxjs/operators';
 @Injectable({providedIn:'root'})
-export class JbDeviceService implements OnDestroy{
+export class ktDeviceService implements OnDestroy{
      readonly deviceIsMobile$ = new Subject<boolean>();
 
      isMobile$(): Observable<any> { 

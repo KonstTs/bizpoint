@@ -69,7 +69,6 @@
           "configurations": {
             "production": {
               "buildTarget": "bizpoint:build:production",
-              "proxyConfig": "src/proxy.conf.json"
             },
             "development": {
               "buildTarget": "bizpoint:build:development",

@@ -1,10 +1,9 @@
 {
-  "/api": {
+    "/api": {  
     "target": "https://pam-stilling-feed.nav.no",
     "secure": false,
-    "pathRewrite": {
-      "^/api": ""
-    },
-    "changeOrigin": true
+    "logLevel": "debug",
+    "pathRewrite": { "^/api": "" },
+    "changeOrigin": true 
   }
 }

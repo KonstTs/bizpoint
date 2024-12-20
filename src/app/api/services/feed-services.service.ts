@@ -32,9 +32,11 @@ export class JbFeedService extends BaseService {
     
     
     //page
-    apiFeedGet$Response(params?: { last?:string }): Observable<StrictHttpResponse<IjbFeed>> {
+    // .../last return 500 erroe
+    apiFeedGet$Response(): Observable<StrictHttpResponse<IjbFeed>> {
         const rb = new RequestBuilder(environment.JbFeedBaseURL, JbFeedService.feedPageGetPath, 'get');
-        if (params) rb.path('last', params.last);
+        rb.header('Authorization', `Bearer ${environment.psFeedAthToken}`);
+        rb.header('If-Modified-Since', '31 Dec 2023 11:56:00 +0200');
 
         return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(
             filter((r: any) => r instanceof HttpResponse), 
@@ -42,14 +44,16 @@ export class JbFeedService extends BaseService {
         );
     }
    
-    apiFeedGet(params?: { last?:string }): Observable<IjbFeed> {
-        return this.apiFeedGet$Response(params).pipe(map((r: StrictHttpResponse<IjbFeed>) => r.body as IjbFeed));
+    apiFeedGet(): Observable<IjbFeed> {
+        return this.apiFeedGet$Response().pipe(map((r: StrictHttpResponse<IjbFeed>) => r.body as IjbFeed));
     }
 
 
     //page by id
     feedPageByIdGet$Response(params?: { id:string }): Observable<StrictHttpResponse<IjbFeed>> {
         const rb = new RequestBuilder(environment.JbFeedBaseURL, JbFeedService.feedPageByIdGetPath, 'get');
+        rb.header('Authorization', `Bearer ${environment.psFeedAthToken}`);
+        rb.header('If-Modified-Since', '31 Dec 2023 11:56:00 +0200');
         if (params) rb.path('id', params.id);
 
         return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(
@@ -66,6 +70,8 @@ export class JbFeedService extends BaseService {
     //entry by id
     feedEntryByIdGet$Response(params?: { id:string }): Observable<StrictHttpResponse<IjbFeedEntryContent>> {
         const rb = new RequestBuilder(environment.JbFeedBaseURL, JbFeedService.feedEntryByIdGetPath, 'get');
+        rb.header('Authorization', `Bearer ${environment.psFeedAthToken}`);
+        rb.header('If-Modified-Since', '31 Dec 2023 11:56:00 +0200');
         if (params) rb.path('id', params.id);
 
         return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(

@@ -10,7 +10,7 @@
           "style": "scss"
         }
       },
-      "root": "",
+      "root": "/",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
@@ -63,12 +63,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "proxyConfig": "proxy.config.json"
-          },
           "configurations": {
             "production": {
-              "buildTarget": "bizpoint:build:production",
+              "buildTarget": "bizpoint:build:production"
             },
             "development": {
               "buildTarget": "bizpoint:build:development",

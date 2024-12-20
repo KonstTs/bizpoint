@@ -64,7 +64,6 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "buildTarget": "bizpoint:build:development",
             "proxyConfig": "proxy.config.json"
           },
           "configurations": {

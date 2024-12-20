@@ -21,7 +21,7 @@ export class JbFeedService extends BaseService {
       super(config, http);
     }
 
-    static readonly feedPageGetPath = '/api/vi/feed/';
+    static readonly feedPageGetPath = '/api/vi/feed';
     static readonly feedPageByIdGetPath = '/api/vi/feed/{id}';
     static readonly feedEntryByIdGetPath = '/api/vi/feedentry/{id}';
     

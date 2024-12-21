@@ -1,10 +1,9 @@
-import { AfterViewInit, Component, HostBinding, Input, NgModule, OnDestroy, OnInit, Renderer2, TemplateRef, ViewChild, forwardRef } from '@angular/core';
+import { AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatInput } from '@angular/material/input';
 import { TrustHTMLPipe } from '../../../pipes/html-sanitizer.pipe';
-import { ktDashboardViewModelService } from '../../../views/dashboard/dashboard-viewmodel.service';
 import { SESSIONSTORAGE_CACHE } from '../../../config/cache';
 import { ktButtonConfig } from '../button/button.component';
+import { ktListViewModelService } from './list-viewmodel.service';
 
 
 @Component({
@@ -17,17 +16,17 @@ import { ktButtonConfig } from '../button/button.component';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ktlistComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
   static nextId = 0;
   //availanility flag
   loading;
     
   //DOM concerning variables
-  @HostBinding() id = `kt-list-${ktlistComponent.nextId++}`;
-  @ViewChild('filterCtrl') filterCtrl: MatInput;
+  @HostBinding() id = `kt-list-${ktListComponent.nextId++}`;
+  // @ViewChild('filterCtrl') filterCtrl: ktTextComponent;;
 
   //exposed configuration
-  @Input() VM: ktDashboardViewModelService;
+  @Input() VM: ktListViewModelService<any>;
   @Input() pagination: boolean = true;
   @Input() pagesize = 50;
   @Input() pagerClass: string
@@ -35,9 +34,6 @@ export class ktlistComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() searchable = true;
   @Input() sorlist: boolean;
   @Input() filterable: boolean;
-  @Input() filterableColumns: boolean;
-  @Input() reorderable = false;
-  @Input() freeze: string[] = [];
   @Input() sticky = false;
 
   @Input() stripe = true;
@@ -55,8 +51,8 @@ export class ktlistComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onFilter(e: Event) {
-    this.VM.listDataSource.filter = (e.target as HTMLInputElement).value.trim().toLowerCase();
-    if (this.VM.listDataSource.paginator) this.VM.listDataSource.paginator.firstPage();
+    // this.VM.model.filter = (e.target as HTMLInputElement).value.trim().toLowerCase();
+    // if (this.VM.list) this.VM. go to.firstPage();
   }
 
   ngOnInit(): void {

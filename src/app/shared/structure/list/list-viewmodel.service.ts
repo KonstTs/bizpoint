@@ -82,6 +82,7 @@ export abstract class ktListViewModelService<TModel extends ktBaseEntity> implem
       return of(null).pipe(
           tap(() => this.emitIsBusy(true)),
           switchMap(() => this.getListItemCb(_id)),
+          tap((res) => !!res && (this.spotlightItem = res)),
           untilDestroyed(this),
           finalize(() => {
             this.emitIsBusy(false);

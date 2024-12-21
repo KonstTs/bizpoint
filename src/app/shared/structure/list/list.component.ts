@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TrustHTMLPipe } from '../../../pipes/html-sanitizer.pipe';
+import { TrustHTMLPipe } from '../../pipes/html-sanitizer.pipe';
 import { SESSIONSTORAGE_CACHE } from '../../../config/cache';
 import { ktButtonConfig } from '../button/button.component';
 import { ktListViewModelService } from './list-viewmodel.service';

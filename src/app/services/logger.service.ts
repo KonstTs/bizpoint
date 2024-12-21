@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { ktLoggingLevel } from '../config/logs';
+import { ktLoggingLevel } from '../model/logs.model';
 import { kt_ENVIRONMENT, ktEnvironment } from '../config/environment';
 
 @Injectable()

@@ -3,7 +3,7 @@ import { Directive, InjectionToken, Injector, OnDestroy, OnInit } from '@angular
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, finalize, switchMap, tap } from 'rxjs/operators';
-import { ktBaseEntity } from '../../../config/base-entity';
+import { ktBaseEntity } from '../../../model/base-entity.model';
 import { mergeObjects } from '../../utils';
 import { MatTableDataSource } from '@angular/material/table';
 import { ktNotificationService } from '../../../services/notification.service';

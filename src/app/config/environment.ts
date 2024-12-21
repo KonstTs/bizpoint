@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { ktLoggingLevel } from './logs';
+import { ktLoggingLevel } from '../model/logs.model';
 
 export interface ktEnvironment {
   production: boolean;

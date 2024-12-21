@@ -1,6 +1,8 @@
 @use 'variables';
 @use 'helpers';
-
+:root{
+  --gradient-multi: linear-gradient(to right, #ffd30f, #F44336, #66db49, #c7ffbc);
+}
 .layout-wrapper{
     height: 100%;
     width: 100%;
@@ -10,14 +12,15 @@
   
   
     .topbar{
-      position: sticky;
+      position: fixed;
       left: 0;
       right: 0;
       top: 0;
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
       justify-content: center;
       height: 120px;
+      padding-top: 3vh;
   
         .logo{    
           width: 100%;
@@ -26,26 +29,30 @@
             // border-bottom: 1px solid var(--blue-100);
             border: 10px solid;
             border-width: 2px;
-            border-image-source: linear-gradient(to right, #ffd30f, #F44336, #66db49, #c7ffbc);
+            border-image-source: var(--gradient-multi) ;
+            // linear-gradient(to right, #ffd30f, #F44336, #66db49, #c7ffbc);
             border-image-slice: 2%;
             border-left: 0;
     border-right: 0;
     border-top: 0;
             img{
-              width: 260px;
+              max-width: 320px;
+              min-width: 280px;
+              width: 25%;
               margin: 0 auto -1px auto;
               display: block;
             }
           }
           ._word{
             color: #000000;
-    letter-spacing: 7px;
     font-weight: 100 !important;
     text-align: center;
-    font-size: 1.5rem;
-    margin: -2px auto 0;
+    font-size: 2vh;
+    margin: -3px auto 0;
     background: #f0f0f0;
-    width: 253px;
+    max-width: 312px;
+    min-width: 272px;
+    width: 33%;
     padding-top: 3px;
 
           }

@@ -16,7 +16,7 @@ export interface IPeriodFormatter {
   format: (...args) => IPeriodFormatter;
   formatDateForUI: (...args) => IPeriodFormatter;
   formatHTTPDateRFC1123: (...args) => IPeriodFormatter;
-  convertDateForAPI: (...args) => IPeriodFormatter;
+  convertDateForQueryParam: (...args) => IPeriodFormatter;
   countDaysBetween: (from, to) => number;
   offset: number;
 }
@@ -86,7 +86,7 @@ export const Period = (_start?, _end?): IPeriodProcessor => {
       owner['endDate'] = date;
       return Formatter;
     },
-    convertDateForAPI: (date?) => {
+    convertDateForQueryParam: (date?) => {
       const _date = date ?? Formatter.UIdate;
       if(_date) Formatter.APIdate = _date.split('/').reverse().join('-');
       return Formatter;
@@ -99,8 +99,9 @@ export const Period = (_start?, _end?): IPeriodProcessor => {
 
 
   const uidate = (_date) => Formatter.formatDateForUI(_date).UIdate;
-  const apidate = (_date) => Formatter.convertDateForAPI(uidate(_date)).APIdate;
- 
+  const apidate = (_date) => Formatter.convertDateForQueryParam(uidate(_date)).APIdate;
+  const httpdate = (_date) => Formatter.formatHTTPDateRFC1123(_date).RFC1123Date;
+  
   const yesterday = apidate(startOfYesterday());
   const day = apidate(subDays(new Date(yesterday), 1));
   const week = apidate(subWeeks(new Date(yesterday), 1));
@@ -119,9 +120,8 @@ export const Period = (_start?, _end?): IPeriodProcessor => {
   return new (function() {
     const self = this;
 
-
     // this.epoch =
-    this.startDate =  
+    // this.startDate =  
     this.formatter = Formatter;
     this.start = start;
     this.end = end;
@@ -135,6 +135,7 @@ export const Period = (_start?, _end?): IPeriodProcessor => {
     this.asEndDate = (_date) => Formatter.setEndDateTo(self, uidate(_date));
     this.uidate = (_date) => uidate(_date);
     this.apidate = (_date) => apidate(_date);
+    this.httpdate = (_date) => httpdate(_date);
     this.apiYesterday = () => apidate(startOfYesterday());
     this.startingAt$ = () => {
       return of(this.start);

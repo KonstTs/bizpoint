@@ -8,8 +8,8 @@ import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { IktFeed } from '../../model/feed/feed.model';
-import { IktFeedEntryContent } from '../../model/feed/feed-entry.model';
+import { IktFeed } from '../model/feed-dto/feed.model';
+import { IktFeedEntryContent } from '../model/feed-dto/feed-entry.model';
 
 
 @Injectable({

@@ -12,3 +12,5 @@ export const p_filterOptions = {
      numeric: [flm.EQUALS, flm.NOT_EQUALS, flm.LESS_THAN, flm.LESS_THAN_OR_EQUAL_TO, flm.GREATER_THAN, flm.GREATER_THAN_OR_EQUAL_TO],
      date: [flm.DATE_IS, flm.DATE_IS_NOT, flm.DATE_BEFORE, flm.DATE_AFTER]
  };
+
+ export type p_filterMatchMode = "endsWith" | "startsWith" | "contains" | "equals" | "notEquals" | "in" | "lt" | "lte" | "gt" | "gte";

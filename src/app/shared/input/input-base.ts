@@ -1,8 +1,8 @@
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, Directive, EventEmitter, HostBinding, InjectFlags, Injector, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALIDATORS, NgModel, Validator } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ktLoggerService } from '../../../services/logger.service';
-import { ktNotificationService } from '../../../services/notification.service';
+import { ktLoggerService } from '../../services/logger.service';
+import { ktNotificationService } from '../../services/notification.service';
 
 
 @UntilDestroy()

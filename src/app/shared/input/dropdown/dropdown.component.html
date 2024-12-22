@@ -1,0 +1,34 @@
+<div class="grid">
+    <div class="col-12 kt-ai-center-flex kt-rel">
+        <i *ngIf="!!iconClass" [attr.class]="iconClass" [attr.style]="iconStyle"></i>
+
+        <span class="p-float-label">
+            <p-dropdown  
+                [name]="name"
+                inputId="float-label"
+                [options]="options"
+                [optionLabel]="optionLabel"
+                [optionValue]="optionValue"
+                [(ngModel)]="selection"
+                [readonly]="readonly"
+                [disabled]="disabled"
+                [required]="required"
+                [filter]="filter"
+                [filterBy]="filterBy"
+                [placeholder]="placeholder"
+                [style]="style"
+                [styleClass]="styleClass"
+                [dropdownIcon]="dropdownIcon"
+                [showClear]="showClear"
+                [panelStyleClass]="panelStyleClass"
+                [appendTo]="appendTo"
+                [virtualScroll]="virtualScroll"
+                [virtualScrollItemSize]="virtualScrollItemSize"
+                (ngModelChange)="valueChanged($event)"
+            >
+            </p-dropdown>
+            <label for="float-label">{{label}}</label>
+            <span *ngIf="hint" class="kt-input-hint">{{hint}}</span>
+        </span>
+    </div>
+</div>

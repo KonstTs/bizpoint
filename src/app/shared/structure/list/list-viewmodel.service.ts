@@ -4,7 +4,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable, of, Subject } from 'rxjs';
 import { catchError, finalize, switchMap, tap } from 'rxjs/operators';
 import { ktBaseEntity } from '../../../model/base-entity.model';
-import { mergeObjects } from '../../utils';
+import { mergeObjects } from '../../../config/utils';
 import { MatTableDataSource } from '@angular/material/table';
 import { ktNotificationService } from '../../../services/notification.service';
 import { StrictHttpResponse } from '../../../api/strict-http-response';
@@ -12,24 +12,21 @@ import { ktBaseListOptions } from '../../../config/list';
 
 
 export type ktListOptions = {
-  groupBy?: string;
-  orderBy?: string;
-  pageSize?: number;
-  atPage?: [id?:string, index?:number];
   layoutMode?: 'row' | 'grid';
   useCache?: boolean;
-  filterBy?: (term) => void;
 };
 
 
 @UntilDestroy()
 @Directive()
 export abstract class ktListViewModelService<TModel extends ktBaseEntity> implements OnInit, OnDestroy {
-    //raw responce
+    //data
     model: TModel[]
     //datastream
     source$ = new Subject<TModel[]>();
-    spotlightItem: any;
+    //raw responce
+    raw: any[];
+    spotlight: any;
     //list bootstraping resources
     options: ktListOptions;
     totalEntries: number;
@@ -82,7 +79,7 @@ export abstract class ktListViewModelService<TModel extends ktBaseEntity> implem
       return of(null).pipe(
           tap(() => this.emitIsBusy(true)),
           switchMap(() => this.getListItemCb(_id)),
-          tap((res) => !!res && (this.spotlightItem = res)),
+          tap((res) => !!res && (this.spotlight = res)),
           untilDestroyed(this),
           finalize(() => {
             this.emitIsBusy(false);

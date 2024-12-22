@@ -1,0 +1,38 @@
+<div class="grid">
+    <div class="col-12 kt-ai-center-flex kt-rel">
+        <i *ngIf="!!iconClass" [attr.class]="iconClass" [attr.style]="iconStyle"></i>
+        <p-listbox 
+            [options]="options" 
+            [(ngModel)]="selection" 
+            [optionLabel]="optionLabel" 
+            [optionValue]="optionLabel" 
+            [selectAll]="selectAll" 
+            [showToggleAll]="showToggleAll" 
+            [tabindex]="tabindex" 
+            [filter]="filter" 
+            [filterBy]="filterBy" 
+            [filterMatchMode]="filterMatchMode" 
+            [filterFields]="filterFields" 
+            [filterValue]="filterValue" 
+            [filterPlaceHolder]="filterPlaceHolder" 
+            [dataKey]="dataKey" 
+            [readonly]="readonly" 
+            [disabled]="disabled" 
+            [listStyleClass]="listStyleClass" 
+            [scrollHeight]="scrollHeight" 
+            [style]="style" 
+            [listStyle]="listStyle" 
+            [styleClass]="styleClass" 
+            [group]="group" 
+            [optionGroupChildren]="optionGroupChildren" 
+            [optionGroupLabel]="optionGroupLabel" 
+            [checkbox]="checkbox"
+            [filter]="filter" 
+            [multiple]="multiple"
+            [style]="style" 
+            [listStyle]="listStyle" 
+            (onFilter)="onFilter($event)"
+        />
+    </div>
+</div>
+

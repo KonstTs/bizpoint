@@ -1,0 +1,55 @@
+<div class="grid kt-rel kt-list">
+  <div class="col-12">
+    <p-dataView
+      #dv
+      [value]="VM.source$ | async"
+      [totalRecords]="(VM.source$ | async).length"
+      [rows]="rows"
+      [layout]="layout"
+      [filterBy]="title"
+      [trackBy]="trackBy"
+      [sortField]="sortField"
+      [sortOrder]="sortOrder"
+      [first]="first"
+      [paginator]="paginator"
+      [rowsPerPageOptions]="rowsPerPageOptions"
+      [alwaysShowPaginator]="alwaysShowPaginator"
+      [paginatorPosition]="paginatorPosition"
+      [pageLinks]="pageLinks"
+      [loading]="loading"
+      [loadingIcon]="loadingIcon"
+      [lazy]="lazy"
+      [lazyLoadOnInit]="lazyLoadOnInit"
+      [gridStyleClass]="gridStyleClass"
+      [styleClass]="styleClass"
+      [emptyMessage]="emptyMessage"
+      [stripe]="stripe"
+    >
+    @if(headerTpl){
+    <ng-template pTemplate="header">
+      <ng-container *ngTemplateOutlet="headerTpl"></ng-container>
+    </ng-template>
+    }
+    
+    @if(layout==='list'){
+    <ng-template pTemplate="listItem">
+      <ng-container *ngTemplateOutlet="listItemTpl"></ng-container>
+    </ng-template>
+    }
+    
+    @if(layout==='grid'){
+    <ng-template pTemplate="gridItem">
+      <ng-container *ngTemplateOutlet="gridItemTpl"></ng-container>
+    </ng-template>
+    }
+    
+    @if(footerTpl){
+    <ng-template pTemplate="footer">
+      <ng-container *ngTemplateOutlet="footerTpl"></ng-container>
+    </ng-template>
+    }
+    
+    
+    </p-dataView>
+    </div>
+    </div>

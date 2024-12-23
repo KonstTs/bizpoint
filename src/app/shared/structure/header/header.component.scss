@@ -1,0 +1,193 @@
+.p-dialog-header {
+    background: #f6f6f6;
+    border-bottom: solid 2px #eee;
+    color: inherit;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+
+
+    .kt-dialog-header-title-pic {
+      margin-right: 5px;
+
+      .kt-pic {
+
+
+        &.__avatar {
+          width: 46px
+        }
+
+        &.__upload {
+          overflow: visible;
+
+          ._camera-bg {
+            color: #fff;
+          }
+
+          ._camera {
+            color: #ccc;
+            position: absolute;
+            bottom: -5px;
+            right: -3px;
+            font-size: 1.2em;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+
+    .--title {
+      margin: 0;
+      font-size: 1.7rem;
+      flex: 1;
+
+      .kt-icon {
+        color: #ddd;
+        font-size: 2.6rem !important;
+      }
+    }
+
+
+    .p-checkbox {
+      .p-checkbox-box {
+        // background-color: #fff;
+        // border-color: #ccc;
+        background-color: #ddd;
+        border-color: #ddd;
+
+
+        &.p-highlight {
+          background-color: #f6f6f6;
+          border-color: #00aeba;
+
+
+          .p-checkbox-icon {
+            color: #00aeba;
+            font-size: 13px;
+            font-weight: bold;
+          }
+        }
+
+        &:hover {
+          .p-checkbox-icon {
+            color: #fff;
+          }
+        }
+
+
+      }
+    }
+
+
+    // ACTIONS
+    ._actions {
+      margin-right: 20px;
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+
+      ._action {
+        .p-button {
+          padding: 0;
+          background-color: transparent;
+          border: none;
+
+          .kt-icon {
+            color: #495057;
+            font-size: 1.7rem !important;
+          }
+        }
+
+        &:hover {
+          opacity: .6;
+        }
+      }
+
+
+
+
+      &.__group {
+        padding: 6px 6px 6px 15px;
+        background: #f6f6f6;
+        border-radius: 30px;
+        // border: 1px solid #eee !important;
+        overflow: hidden;
+
+
+        ._action {
+          overflow: hidden;
+          width: 42px;
+
+          .p-button {
+            .kt-icon {
+              color: #ccc;
+              font-size: 1.4rem !important;
+            }
+          }
+        }
+
+
+        ._checkbox-label {
+          width: 0;
+          opacity: 0;
+        }
+
+        ._checkbox {
+          display: inline-block;
+          height: 30px;
+          width: 30px;
+          margin-right: 5px;
+
+
+          .grid {
+            height: inherit;
+          }
+
+
+          .field-checkbox {
+            margin: 0 !important;
+            padding: 0 !important;
+          }
+        }
+
+
+        &.__dormant {
+          ._checkbox-label {
+            margin-right: 10px;
+            margin-left: unset;
+            opacity: 1;
+            width: auto;
+            // padding-left: 10px;
+            // padding-right: 5px;
+          }
+
+          ._action {
+            width: 0;
+          }
+        }
+
+
+      }
+    }
+
+
+    ._header-icon {
+      color: #fff !important;
+      background: #ddd !important;
+      width: 24px;
+      height: 24px;
+      padding: unset;
+
+
+      .pi {
+        font-size: .9rem;
+        line-height: 90%;
+      }
+
+
+      &:hover {
+        background: #999 !important;
+      }
+    }
+  }
+

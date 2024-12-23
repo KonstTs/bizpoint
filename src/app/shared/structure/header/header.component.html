@@ -1,0 +1,57 @@
+<div class="grid --header">
+    <ng-template pTemplate="header">
+        <ng-container *ngIf="!!headerTpl; else defaultHeader">
+          <ng-container *ngTemplateOutlet="headerTpl"></ng-container>
+        </ng-container>
+      </ng-template>
+</div>
+
+
+
+<!-- default 3 segmented header -->
+<ng-template #defaultHeader>
+    <div class="col">
+        <ng-container *ngTemplateOutlet="headerLeftTpl"></ng-container>
+    </div>
+    <div class="col">
+        <ng-container *ngTemplateOutlet="headerMidTpl"></ng-container>
+    </div>
+    <div class="col">
+        <ng-container *ngTemplateOutlet="headerRightTpl"></ng-container>
+    </div>
+</ng-template>
+
+
+<!-- sections tpls left-mid-right -->
+<ng-template pTemplate="headerLeftTpl">
+    <div class="_section --left --title">
+        <i *ngIf="!!iconClass" [attr.class]="iconClass" [attr.style]="iconStyle"></i>   
+        <h2 [ngClass]="{'kt-pdl50': headerIconClass}">{{title}}</h2>
+    </div>
+</ng-template>
+
+
+<ng-template pTemplate="headerMidTpl">
+    <div class="_section --mid">
+        <kt-text
+            class="kt-header-input-text"
+            name="search"
+            [iconClass]="'pi pi-search'"
+            [(ngModel)]="search"
+            [searchFn$]="search$"
+        ></kt-text>
+    </div>
+</ng-template>
+
+
+<ng-template pTemplate="headerRightTpl">
+    <div class="_section --right">
+        <div *ngIf="!!headerActions?.length" class="_actions" [ngClass]="{'__group': headerActionsGroup}">
+            <span class="kt-motion-fast _action" *ngFor="let action of headerActions">
+                <kt-button [config]="action" (click)="action.command()" [attr.class]="action.hostClass"></kt-button>
+            </span>
+        </div>
+    </div>
+</ng-template>
+
+</ng-template>

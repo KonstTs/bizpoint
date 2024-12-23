@@ -1,65 +1,91 @@
-import { AfterViewInit, Component, HostBinding, Input, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ContentChildren, HostBinding, Input, OnDestroy, OnInit, QueryList, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TrustHTMLPipe } from '../../../pipes/html-sanitizer.pipe';
 import { SESSIONSTORAGE_CACHE } from '../../../config/cache';
-import { ktButtonConfig } from '../button/button.component';
+import { IktButtonConfig } from '../button/button.component';
 import { ktListViewModelService } from './list-viewmodel.service';
+import { DataViewLayoutChangeEvent, DataViewModule, DataViewPageEvent, DataViewSortEvent } from 'primeng/dataview';
+import { ktListItemComponent } from './list-item.component';
+import { ktTemplateDirective } from '../../../directives/template.directive';
+import { ktHeaderComponent } from '../header/header.component';
 
 
 @Component({
   selector: 'kt-list',
   standalone: true,
-  imports: [
-    CommonModule, TrustHTMLPipe
-  ],
+  imports: [CommonModule, DataViewModule],
   providers: [SESSIONSTORAGE_CACHE],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
 export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
   static nextId = 0;
-  //availanility flag
-  loading;
-    
-  //DOM concerning variables
   @HostBinding() id = `kt-list-${ktListComponent.nextId++}`;
 
-  //exposed configuration
   @Input() VM: ktListViewModelService<any>;
-  @Input() pagination: boolean = true;
-  @Input() pagesize = 50;
-  @Input() pagerClass: string
-    
-  @Input() searchable = true;
-  @Input() sorlist: boolean;
-  @Input() filterable: boolean;
-  @Input() sticky = false;
-
+  @Input() rows = 100;
+  @Input() layout = 'list'
+  @Input() totalRecords:number;
+  @Input() filterBy: string[];
+  @Input() trackBy;
+  @Input() sortField;
+  @Input() sortOrder:number;
+  @Input() first = 1;
+  @Input() paginator = true;
+  @Input() rowsPerPageOptions;
+  @Input() alwaysShowPaginator = true;
+  @Input() paginatorPosition = 'bottom';
+  @Input() pageLinks = 5;
+  @Input() loading = true;
+  @Input() loadingIcon;
+  @Input() lazy = false;
+  @Input() lazyLoadOnInit = false;
+  @Input() gridStyleClass = 'kt-dataview-grid';
+  @Input() styleClass: string;
+  @Input() emptyMessage = 'Nothing here :(';
   @Input() stripe = true;
-  @Input() styles: any = undefined;
+  @Input() pageFn:(...args) => void;
+  @Input() sortFn:(...args) => void;
+  @Input() layoutFn:(...args) => void;
 
-  @Input() rowActions: ktButtonConfig[] = [];
-  @Input() hideActions = true;
-  @Input() rowClickFn: ((...args: any) => void) | undefined;
-  @Input() filterFn: ((e: UIEvent) => void) | undefined;
+  @ContentChildren(ktTemplateDirective) templates: QueryList<ktTemplateDirective>;
 
+    headerTpl: TemplateRef<ktHeaderComponent>;
+    listItemTpl: TemplateRef<ktListItemComponent>;
+    gridItemTpl: TemplateRef<ktListItemComponent>;
+    footerTpl: TemplateRef<any>;
+  
   constructor(private _renderer: Renderer2) { }
 
-  onRowClick(row: any) {
-    if (this.rowClickFn) this.rowClickFn(row);
-  }
+  ngAfterContentInit(): void {
+    this.templates.forEach((tpl) => {
+        switch (tpl.name) {
+            case 'header': this.headerTpl = tpl.template;
+                break;
+            case 'listItem': this.listItemTpl = tpl.template;
+                break;
+            case 'gridItem': this.gridItemTpl = tpl.template;
+                break;
+            case 'footer': this.footerTpl = tpl.template;
+                break;
+            default:
+                throw new Error(`Unsupported template type ${tpl.name}`);
+        }
+    });
+}
 
-  onFilter(e: Event) {
-    // this.VM.model.filter = (e.target as HTMLInputElement).value.trim().toLowerCase();
-    // if (this.VM.list) this.VM. go to.firstPage();
+  onPage(e: DataViewPageEvent) {
+    if(this.pageFn) this.pageFn(e);
   }
-
+  onSort(e:DataViewSortEvent){
+    if(this.sortFn) this.sortFn(e);
+  }
+  onChangeLayout(e:DataViewLayoutChangeEvent){
+    if(this.layoutFn) this.layoutFn(e);
+  }
+  
   ngOnInit(): void {
     this.VM.ngOnInit();
-    // this.VM.isBusy$.subscribe(busy => { 
-    //   this.loading = busy;
-    // })
-    
   }
 
   ngAfterViewInit(): void {

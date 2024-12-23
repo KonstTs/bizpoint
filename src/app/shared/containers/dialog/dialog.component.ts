@@ -28,13 +28,14 @@ export class ktDialogComponent implements OnInit, AfterContentInit, AfterViewIni
     @Input() modal = false;
     @Input() loading = false;
     @Input() style = { width: '65vw', height: 'auto', 'max-height': '85vh', display: 'flex', 'flex-direction': 'column' };
-    @Input() headerTpl: TemplateRef<unknown>;
-    @Input() bodyTpl: TemplateRef<unknown>;
-    @Input() footerTpl: TemplateRef<unknown>;
     @Input() contentOverflowVisible = false;
     @Input() headerIconClass: string
     @Input() headerActions: IktButtonConfig[];
     @Input() headerActionsGroup: boolean;
+    
+    headerTpl: TemplateRef<unknown>;
+    bodyTpl: TemplateRef<unknown>;
+    footerTpl: TemplateRef<unknown>;
 
     @ContentChildren(ktTemplateDirective) templates: QueryList<ktTemplateDirective>;
 

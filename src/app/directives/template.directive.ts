@@ -7,5 +7,5 @@ import { ktTemplateType } from '../model/template.model';
 })
 export class ktTemplateDirective {
   @Input('ktTemplate') name: ktTemplateType;
-  constructor(public template: TemplateRef<unknown>) {}
+  constructor(public template: TemplateRef<any>) {}
 }

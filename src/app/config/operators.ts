@@ -31,7 +31,7 @@ export const OPERATOR_SYMBOLS = {
     symbol: string;
   }
   
-  export const FILTER_OPERATORS: ktFilterOperatorInfo[] = [
+  export const FILTER_OPERATORS: IktFilterOperatorInfo[] = [
     { id: 'equalsCaseInsensitive', caption: 'Equal to', symbol: OPERATOR_SYMBOLS.equalsCaseInsensitive },
     { id: 'equalsCaseSensitive', caption: 'Equal to', symbol: OPERATOR_SYMBOLS.equalsCaseSensitive },
     { id: 'notEqualsCaseInsensitive', caption: 'Not equal to', symbol: OPERATOR_SYMBOLS.notEqualsCaseInsensitive },

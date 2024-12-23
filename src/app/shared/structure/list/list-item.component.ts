@@ -1,4 +1,4 @@
-import { Directive, HostBinding, Input, TemplateRef } from "@angular/core";
+import { Component, Directive, HostBinding, Input, TemplateRef } from "@angular/core";
 import { Observable } from "rxjs";
 import { IktButtonConfig } from "../button/button.component";
 
@@ -7,8 +7,8 @@ import { IktButtonConfig } from "../button/button.component";
 export abstract class ktBaseListItemComponent{
     static nextId = 0;
     @HostBinding() id = `kt-list-item-${ktBaseListItemComponent.nextId++}`;
-    @Input() title?: string;
-    @Input() subtitle?: string;
+    @Input() title: string;
+    @Input() subtitle: string;
     @Input() clckFn: (...args) => any | void;
     @Input() clckFn$: (...args) => Observable<any>;
     @Input() swipeFn: (...args) => any | void;
@@ -16,17 +16,20 @@ export abstract class ktBaseListItemComponent{
 }
 
 
-@Directive()
-export abstract class ktListItemComponent extends ktBaseListItemComponent{
-    @Input() titleIcon?: string;
-    @Input() thumbnail?: string;
-    @Input() description?: string;
-    @Input() styles?: any;
-    @Input() cssClass?: string;
+@Component({
+    selector: 'kt-list-item',
+    standalone: true
+})
+export class ktListItemComponent extends ktBaseListItemComponent{
+    @Input() titleIcon: string;
+    @Input() thumbnail: string;
+    @Input() description: string;
+    @Input() styles: any;
+    @Input() cssClass: string;
     @Input() actions: IktButtonConfig[];
     @Input() hideActions: boolean;
-    @Input() headerTpl?: TemplateRef<unknown>;
-    @Input() bodyTpl?: TemplateRef<unknown>;
-    @Input() footerTpl?: TemplateRef<unknown>;
+    headerTpl: TemplateRef<any>;
+    bodyTpl: TemplateRef<any>;
+    footerTpl: TemplateRef<any>;
 }
 

@@ -49,7 +49,7 @@ export const ktRating = (_count = 5, _item?: IktRatingItemModel) => {
         this.rate = (_i) => {
             for (let i=0; i<_count; i++) self.items[i].setActive((i <= _i));
             const score = scored();
-            self.score = score*2;
+            self.score = score;
             self.mood = mood(score);
             self.rated = true;
         }

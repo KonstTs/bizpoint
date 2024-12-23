@@ -1,5 +1,4 @@
 import { Injector, Type, ViewContainerRef } from '@angular/core';
-import { Subject } from 'rxjs';
 
 
 export class ktDialogContext<T> {
@@ -8,7 +7,7 @@ export class ktDialogContext<T> {
 }
 
 
-export interface ktDialogConfig {
+export interface IktDialogConfig {
   componentType: Type<any>;
   // componentType: any;
   data?: unknown;

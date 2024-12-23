@@ -1,6 +1,6 @@
 import { ktFilterOperatorId } from '../config/operators';
 
-export interface ktFilterModelDefinition {
+export interface IktFilterModelDefinition {
   name?: string;
   caption?: string;
   required?: boolean;

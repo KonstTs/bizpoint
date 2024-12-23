@@ -5,7 +5,7 @@ import { ktToastPosition } from './toast.model';
 export const CONFIRM_CONTEXT = new InjectionToken<any>('CONFIRM_CONTEXT');
 
 
-export interface ktConfirmationInfo {
+export interface IktConfirmationInfo {
   contentType: Type<any>;
   acceptLabel: string;
   rejectLabel: string;

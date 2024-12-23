@@ -1,0 +1,47 @@
+<ng-container *ngIf="scrollable; else panel">
+  <p-scrollPanel #scrollPanel [style]="style" [styleClass]="styleClass">
+    <ng-container [ngTemplateOutlet]="body"></ng-container>
+  </p-scrollPanel>
+</ng-container>
+
+
+<ng-template #panel>
+  <p-panel
+    [style]="style"
+    [styleClass]="styleClass"
+    [header]="!!headerTpl ? '' : label"
+    [toggleable]="toggleable"
+    [toggler]="toggler"
+    [collapsed]="collapsed"
+    (collapsedChange)="collapsedChange.emit($event)"
+    expandIcon="pi pi-plus"
+    collapseIcon="pi pi-minus"
+  >
+    <ng-container *ngIf="!!headerTpl">
+      <ng-template pTemplate="header">
+        <ng-container *ngTemplateOutlet="headerTpl"></ng-container>
+      </ng-template>
+    </ng-container>
+
+
+    <ng-container *ngIf="!!bodyTpl; else body">
+      <ng-container *ngTemplateOutlet="bodyTpl"></ng-container>
+    </ng-container>
+
+
+    <ng-container *ngIf="!!footerTpl">
+      <ng-template pTemplate="footer">
+        <ng-container *ngTemplateOutlet="footerTpl"></ng-container>
+      </ng-template>
+    </ng-container>
+  </p-panel>
+</ng-template>
+
+
+<ng-template #body>
+  <ng-content></ng-content>
+</ng-template>
+
+
+
+

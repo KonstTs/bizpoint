@@ -5,7 +5,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { TooltipModule } from 'primeng/tooltip';
 import { ktInputBase } from '../input-base';
-import { ktTextIconStyle } from '../../../model/icon.model';
+import { IktTextIconStyle } from '../../../model/icon.model';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -17,7 +17,6 @@ const kt_INPUT_BASE = { provide: ktInputBase, useExisting: forwardRef(() => ktTe
 @Component({
     selector: 'kt-text',
     templateUrl: './text.component.html',
-    styleUrls: ['./text.component.scss'],
     imports: [CommonModule, InputTextModule, MessageModule, TooltipModule, FormsModule, ReactiveFormsModule],
     standalone: true,
     providers: [VALUE_ACCESSOR, kt_INPUT_BASE],
@@ -40,7 +39,7 @@ export class ktTextComponent extends ktInputBase implements OnInit, AfterViewIni
     @Input() searchQuerySize = 3;
     @Input() searchFn$: (e) => Observable<any[]>;
     @Input() blurFn: (e) => void;
-    iconStyle: ktTextIconStyle;
+    iconStyle: IktTextIconStyle;
 
 
     constructor(injector: Injector) {

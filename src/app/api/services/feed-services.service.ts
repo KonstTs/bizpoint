@@ -33,10 +33,10 @@ export class ktFeedService extends BaseService {
     
     //page
     // .../last return 500 erroe
-    apiFeedGet$Response(): Observable<StrictHttpResponse<IktFeed>> {
+    apiFeedGet$Response(params?: { ifModifiedSince: string }): Observable<StrictHttpResponse<IktFeed>> {
         const rb = new RequestBuilder(environment.ktFeedBaseURL, ktFeedService.feedPageGetPath, 'get');
         rb.header('Authorization', `Bearer ${environment.psFeedAthToken}`);
-        rb.header('If-Modified-Since', '31 Dec 2023 11:56:00 +0200');
+        rb.header('If-Modified-Since', params.ifModifiedSince);
 
         return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(
             filter((r: any) => r instanceof HttpResponse), 
@@ -44,34 +44,36 @@ export class ktFeedService extends BaseService {
         );
     }
    
-    apiFeedGet(): Observable<IktFeed> {
-        return this.apiFeedGet$Response().pipe(map((r: StrictHttpResponse<IktFeed>) => r.body as IktFeed));
+    apiFeedGet(params?: { ifModifiedSince: string }): Observable<IktFeed> {
+        return this.apiFeedGet$Response(params).pipe(map((r: StrictHttpResponse<IktFeed>) => r.body as IktFeed));
     }
+
 
 
     //page by id
-    feedPageByIdGet$Response(params?: { id:string }): Observable<StrictHttpResponse<IktFeed>> {
+    feedPageByIdGet$Response(params?: { id:string, ifNoneMatchPageETag: string}): Observable<StrictHttpResponse<IktFeed>> {
         const rb = new RequestBuilder(environment.ktFeedBaseURL, ktFeedService.feedPageByIdGetPath, 'get');
         rb.header('Authorization', `Bearer ${environment.psFeedAthToken}`);
-        rb.header('If-Modified-Since', '31 Dec 2023 11:56:00 +0200');
-        if (params) rb.path('id', params.id);
-
+        rb.header('If-None-Match', params.ifNoneMatchPageETag);
+        rb.path('id', params.id);
+        
         return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(
             filter((r: any) => r instanceof HttpResponse), 
             map((r: HttpResponse<any>) => r as StrictHttpResponse<IktFeed>)
         );
     }
    
-    feedPageByIdGet(params?: { id:string }): Observable<IktFeed> {
+    feedPageByIdGet(params?: { id:string, ifNoneMatchPageETag: string}): Observable<IktFeed> {
         return this.feedPageByIdGet$Response(params).pipe(map((r: StrictHttpResponse<IktFeed>) => r.body as IktFeed));
     }
 
 
+
     //entry by id
-    feedEntryByIdGet$Response(params?: { id:string }): Observable<StrictHttpResponse<IktFeedEntryContent>> {
+    feedEntryByIdGet$Response(params?: { id:string, ifNoneMatchEntryETag: string}): Observable<StrictHttpResponse<IktFeedEntryContent>> {
         const rb = new RequestBuilder(environment.ktFeedBaseURL, ktFeedService.feedEntryByIdGetPath, 'get');
         rb.header('Authorization', `Bearer ${environment.psFeedAthToken}`);
-        rb.header('If-Modified-Since', '31 Dec 2023 11:56:00 +0200');
+        rb.header('If-None-Match', params.ifNoneMatchEntryETag);
         if (params) rb.path('id', params.id);
 
         return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(
@@ -80,7 +82,7 @@ export class ktFeedService extends BaseService {
         );
     }
    
-    feedEntryByIdGet(params?: { id:string }): Observable<IktFeedEntryContent> {
+    feedEntryByIdGet(params?: { id:string, ifNoneMatchEntryETag: string}): Observable<IktFeedEntryContent> {
         return this.feedEntryByIdGet$Response(params).pipe(map((r: StrictHttpResponse<IktFeedEntryContent>) => r.body as IktFeedEntryContent));
     }
 

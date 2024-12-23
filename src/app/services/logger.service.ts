@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
 import { ktLoggingLevel } from '../model/logs.model';
-import { kt_ENVIRONMENT, ktEnvironment } from '../config/environment';
+import { kt_ENVIRONMENT, IktEnvironment } from '../config/environment';
 
 @Injectable()
 export class ktLoggerService {
   private _level: ktLoggingLevel;
 
-  constructor(@Inject(kt_ENVIRONMENT) environment: ktEnvironment) {
+  constructor(@Inject(kt_ENVIRONMENT) environment: IktEnvironment) {
     this._level = environment.loggerLevel ?? ktLoggingLevel.Verbose;
   }
 

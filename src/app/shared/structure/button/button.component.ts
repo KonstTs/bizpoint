@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 
-export interface ktButtonConfig {
+export interface IktButtonConfig {
 	id?: string;
 	default?: boolean;
 	label?: string;

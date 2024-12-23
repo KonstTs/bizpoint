@@ -1,4 +1,4 @@
-export interface ktTextIconStyle {
+export interface IktTextIconStyle {
     'font-size'?: string;
     'color'?: string;
 }

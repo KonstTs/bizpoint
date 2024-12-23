@@ -10,8 +10,8 @@ export type loadingType = 'progressSpinner' | 'progressBar' | 'skeleton';
 
 @Component({
   selector: 'kt-loading',
-  templateUrl: './loading.component.html',
-  styleUrls: ['./loading.component.scss'],
+  templateUrl: './loader.component.html',
+  styleUrls: ['./loader.component.scss'],
   standalone: true,
   imports: [CommonModule, ProgressSpinnerModule, ProgressBarModule, SkeletonModule],
 })

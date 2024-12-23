@@ -15,7 +15,6 @@ const kt_INPUT_BASE = { provide: ktInputBase, useExisting: forwardRef(() => ktLi
     standalone: true,
     imports: [CommonModule, FormsModule, ListboxModule],
     templateUrl: './listbox.component.html',
-    styleUrls: ['./listbox.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [VALUE_ACCESSOR, kt_INPUT_BASE]
 })
@@ -47,8 +46,10 @@ export class ktListboxComponent extends ktInputBase implements OnInit, AfterView
     @Input() style: Object;
     @Input() listStyle: Object;    
     @Input() styleClass: string;
+    @Input() iconClass: string;
+    @Input() iconStyle: Object;
     @Input() group: boolean;    
-    @Input() optionGroupChildren: any[];
+    @Input() optionGroupChildren: string;
     @Input() optionGroupLabel: string;
     @Input() checkbox: boolean;
     selection:any;

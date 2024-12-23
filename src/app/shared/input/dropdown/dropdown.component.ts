@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, forwardRef, HostBinding, Injector, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { ktInputBase } from '../input-base';
-import { ktTextIconStyle } from '../../../model/icon.model';
+import { IktTextIconStyle } from '../../../model/icon.model';
 import {DropdownModule} from 'primeng/dropdown';
 import { Observable, take } from 'rxjs';
 import { untilDestroyed } from '@ngneat/until-destroy';
@@ -15,7 +15,6 @@ const kt_INPUT_BASE = { provide: ktInputBase, useExisting: forwardRef(() => ktDr
   standalone: true,
   imports:[CommonModule, DropdownModule, FormsModule, ReactiveFormsModule],
   templateUrl: './dropdown.component.html',
-  styleUrls: ['./dropdown.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [VALUE_ACCESSOR, kt_INPUT_BASE]
 })
@@ -47,7 +46,7 @@ export class ktDropdownComponent extends ktInputBase implements OnInit, AfterVie
   @Input() iconClass = '';
   @Input() iconColor: string;
   @Input() iconSize?: string;
-  @Input() iconStyle: ktTextIconStyle;
+  @Input() iconStyle: IktTextIconStyle;
   @Input() showClear: boolean;
   @Input() appendTo? :any;
   @Input() virtualScroll = false;

@@ -3,12 +3,13 @@ import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { Subject } from 'rxjs';
-import { ktConfirmationInfo } from '../../../model/confirm.model';
+import { IktConfirmationInfo } from '../../../model/confirm.model';
+import { ktButtonComponent } from "../../structure/button/button.component";
 
 
 @Component({
     standalone: true,
-    imports: [CommonModule, ConfirmDialogModule],
+    imports: [CommonModule, ConfirmDialogModule, ktButtonComponent],
     template: `
     <p-confirmDialog #dlg [style]="style" [baseZIndex]="10000">
         <ng-template pTemplate="header">
@@ -33,7 +34,7 @@ export class ktConfirmDialogComponent implements AfterViewInit, OnDestroy {
     constructor(private _confirmationSvc: ConfirmationService) { }
 
 
-    showQuestion(msg: ktConfirmationInfo, result$: Subject<boolean>): void {
+    showQuestion(msg: IktConfirmationInfo, result$: Subject<boolean>): void {
         this.label = msg.header;
         this.okLabel = msg.acceptLabel;
         this.okIcon = msg.acceptIcon;

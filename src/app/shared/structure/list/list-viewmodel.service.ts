@@ -1,15 +1,24 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Directive, InjectionToken, Injector, OnDestroy, OnInit } from '@angular/core';
+import { HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { Directive, Injector, OnDestroy, OnInit, Optional } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable, of, Subject } from 'rxjs';
-import { catchError, finalize, switchMap, tap } from 'rxjs/operators';
+import { finalize, Observable, of, Subject, switchMap, tap } from 'rxjs';
 import { ktBaseEntity } from '../../../model/base-entity.model';
 import { mergeObjects } from '../../../config/utils';
-import { MatTableDataSource } from '@angular/material/table';
 import { ktNotificationService } from '../../../services/notification.service';
 import { StrictHttpResponse } from '../../../api/strict-http-response';
-import { ktBaseListOptions } from '../../../config/list';
+import { ktInitListOptions } from '../../../config/list';
+import { ktFilterModelValues } from '../../../model/filters.model';
 
+export interface IktBaseSearchModel { 
+  filters?: string | ktFilterModelValues[];
+  queryPrams?: string | HttpParams;
+  sorts?: string;
+  page?: number; 
+  pageSize?: number;
+  applyRowCount?: boolean;
+}
+
+export type ktSearchModel<T extends IktBaseSearchModel> = (T);
 
 export type ktListOptions = {
   layoutMode?: 'row' | 'grid';
@@ -27,9 +36,10 @@ export abstract class ktListViewModelService<TModel extends ktBaseEntity> implem
     //raw responce
     raw: any[];
     spotlight: any;
-    //list bootstraping resources
+
+    //bootstraping
     options: ktListOptions;
-    totalEntries: number;
+    searchModel: ktSearchModel<any>;
   
     //instance restricted callbacks ensuring generic's class independence and immutability
     protected abstract getListCb(_query: any): Observable<TModel[]>;
@@ -51,9 +61,14 @@ export abstract class ktListViewModelService<TModel extends ktBaseEntity> implem
     }
 
   
-  constructor(protected injector: Injector, _options: ktListOptions = {}) 
+  constructor(
+    protected injector: Injector, 
+    @Optional() readonly _options?: ktListOptions,
+    @Optional() readonly _searchModel?: ktSearchModel<any>
+  ) 
     {
-      this.options = mergeObjects(structuredClone(ktBaseListOptions), _options),
+      this.options = mergeObjects(structuredClone(ktInitListOptions), _options ?? {}),
+      this.searchModel = _searchModel;
       this.notificationSvc = injector.get<ktNotificationService>(ktNotificationService);
   }
 

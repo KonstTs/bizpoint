@@ -4,8 +4,9 @@ import { DialogModule } from 'primeng/dialog';
 import { ktDialogContext } from '../../../model/dialog.model';
 import { ktTemplateDirective } from '../../../directives/template.directive';
 import { ktNotificationService } from '../../../services/notification.service';
-import { ktButtonConfig } from '../../structure/button/button.component';
+import { IktButtonConfig, ktButtonComponent } from '../../structure/button/button.component';
 import { ktLoadingComponent } from '../loader/loader.component';
+import { ktPanelComponent } from '../panel/panel.component';
 
 
 @Component({
@@ -13,12 +14,12 @@ import { ktLoadingComponent } from '../loader/loader.component';
     templateUrl: './dialog.component.html',
     styleUrls: ['./dialog.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule, ktTemplateDirective, ktLoadingComponent]
+    imports: [CommonModule, DialogModule, ktLoadingComponent, ktButtonComponent, ktPanelComponent]
 })
 export class ktDialogComponent implements OnInit, AfterContentInit, AfterViewInit, OnDestroy {
     @Input() visible = true;
     @Input() label: string;
-    @Input() position: string = 'center';
+    @Input() position:any = 'center';
     @Input() keepInViewport = true;
     @Input() transitionOptions: string = '150ms cubic-bezier(0, 0, 0.2, 1)';
     @Input() closable = true;
@@ -32,7 +33,7 @@ export class ktDialogComponent implements OnInit, AfterContentInit, AfterViewIni
     @Input() footerTpl: TemplateRef<unknown>;
     @Input() contentOverflowVisible = false;
     @Input() headerIconClass: string
-    @Input() headerActions: ktButtonConfig[];
+    @Input() headerActions: IktButtonConfig[];
     @Input() headerActionsGroup: boolean;
 
     @ContentChildren(ktTemplateDirective) templates: QueryList<ktTemplateDirective>;

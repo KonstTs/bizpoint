@@ -1,6 +1,6 @@
 import { Directive, HostBinding, Input, TemplateRef } from "@angular/core";
 import { Observable } from "rxjs";
-import { ktButtonConfig } from "../button/button.component";
+import { IktButtonConfig } from "../button/button.component";
 
 
 @Directive()
@@ -23,7 +23,7 @@ export abstract class ktListItemComponent extends ktBaseListItemComponent{
     @Input() description?: string;
     @Input() styles?: any;
     @Input() cssClass?: string;
-    @Input() actions: ktButtonConfig[];
+    @Input() actions: IktButtonConfig[];
     @Input() hideActions: boolean;
     @Input() headerTpl?: TemplateRef<unknown>;
     @Input() bodyTpl?: TemplateRef<unknown>;

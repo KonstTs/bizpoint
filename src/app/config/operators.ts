@@ -25,7 +25,7 @@ export const OPERATOR_SYMBOLS = {
     | 'doesNotContainsCaseInsensitive'
     | 'beginsWithCaseInsensitive';
   
-  export interface ktFilterOperatorInfo {
+  export interface IktFilterOperatorInfo {
     id: ktFilterOperatorId;
     caption: string;
     symbol: string;

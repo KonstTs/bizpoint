@@ -9,7 +9,7 @@ export class ktNotificationContext<T> {
   close: (result?: unknown) => void;
   data: T;
 }
-export interface ktNotificationInfo {
+export interface IktNotificationInfo {
   contentType: Type<any>;
   id: string;
   life: number;

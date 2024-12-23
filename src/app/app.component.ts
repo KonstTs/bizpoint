@@ -12,7 +12,7 @@ import { p_filterOptions, p_zIndex } from './config/prime';
   styleUrl: './app.component.scss'
 })
 export class AppComponent{
-  title = 'bizpoint';
+  title = 'Instajob';
   constructor(
     public appVCR: ViewContainerRef,
     private _config: PrimeNGConfig,
@@ -21,3 +21,10 @@ export class AppComponent{
     this._config.filterMatchModeOptions = p_filterOptions;
    }
 }
+
+
+//------------------------------------------------------------------------------
+
+// responsive device rotation
+
+//-------------------------------------------------------------------------------

@@ -1,0 +1,57 @@
+<p-dialog
+  [showHeader]="!!label || !!headerTpl"
+  [visible]="visible"
+  [modal]="modal"
+  [maskStyleClass]="maskStyleClass"
+  [dismissableMask]="dismissableMask"
+  [keepInViewport]="keepInViewport"
+  [resizable]="false"
+  [closable]="closable"
+  [draggable]="false"
+  [style]="style"
+  (visibleChange)="!$event ? close() : undefined"
+  [baseZIndex]="1000"
+  [position]="position"
+  [transitionOptions]="transitionOptions"
+  [dismissableMask]="dismissableMask"
+  [ngClass]="{'kt-dialog-content-visible': contentOverflowVisible, 'kt-dialog-with-actions': headerIconClass}"
+>
+@if(loading){
+  <div class="progressBar-loading-cont" *ngIf="loading">
+    <kt-loading [isLoading]="true" [type]="'progressBar'"></kt-loading>
+  </div>
+}
+  
+
+  <ng-template pTemplate="header">
+    <ng-container *ngIf="!!headerTpl; else defaultHeader">
+      <ng-container *ngTemplateOutlet="headerTpl"></ng-container>
+    </ng-container>
+  </ng-template>
+
+
+  <kt-panel [scrollable]="true">
+    @if(loading) {<div class="spinner-loading-cont" *ngIf="loading"><kt-loading [isLoading]="true"></kt-loading> </div>}
+    <ng-container *ngTemplateOutlet="bodyTpl"></ng-container>
+  </kt-panel>
+
+
+  <ng-container *ngIf="!!footerTpl">
+    <ng-template pTemplate="footer">
+      <ng-container *ngTemplateOutlet="footerTpl"></ng-container>
+    </ng-template>
+  </ng-container>
+</p-dialog>
+
+
+<ng-template #defaultHeader>
+  <h2 class="p-dialog-title kt-ai-center-flex kt-rel" [ngClass]="{'kt-pdl50': headerIconClass}">
+    <i *ngIf="headerIconClass" [ngClass]="{'kt-icon': headerIconClass.includes('icon-'), 'pi': headerIconClass.includes('pi-'), 'kt-animation-fade-in': true}" [attr.class]="headerIconClass"></i>
+    <span class="kt-animation-slide-in-right kt-mrgl10">{{ label }}</span>
+  </h2>
+  <div *ngIf="headerActions && !!headerActions.length" class="kt-dialog-header-actions" [ngClass]="{'__group': (headerActionsGroup && headerActions.length > 1)}">
+    <span class="kt-motion-fast _action" *ngFor="let action of headerActions">
+        <kt-button [config]="action" (click)="action.command()" [attr.class]="action.hostClass"></kt-button>
+    </span>
+  </div>
+</ng-template>

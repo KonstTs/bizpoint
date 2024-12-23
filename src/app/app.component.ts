@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewContainerRef } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { RouterOutlet } from '@angular/router';
 import { p_filterOptions, p_zIndex } from './config/prime';
-import { formatRFC7231 } from 'date-fns';
 
 
 @Component({
@@ -15,6 +14,7 @@ import { formatRFC7231 } from 'date-fns';
 export class AppComponent{
   title = 'bizpoint';
   constructor(
+    public appVCR: ViewContainerRef,
     private _config: PrimeNGConfig,
   ) {
     this._config.zIndex = p_zIndex;

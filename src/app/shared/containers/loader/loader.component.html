@@ -1,0 +1,47 @@
+
+
+<ng-container *ngIf="isLoading">
+
+  <p-progressSpinner *ngIf="type === 'progressSpinner'" [style]="{  width: '20px', height: '20px', position: 'absolute', marginLeft: '5px' }" strokeWidth="6" fill="var(--surface-ground)" animationDuration=".4s"></p-progressSpinner>
+
+  <p-progressBar class="kt-progressBar" *ngIf="type === 'progressBar'" mode="indeterminate" [style]="{ height: '8px' }"></p-progressBar>
+
+  <div class="grid p-formgrid kt-skeleton" *ngIf="type === 'skeleton'">
+    <div class="p-field col-12 p-md-4">
+      <p-skeleton styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="10rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="5rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="10rem" height="4rem"></p-skeleton>
+      <p-skeleton styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="10rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="5rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="10rem" height="4rem"></p-skeleton>
+    </div>
+    <div class="p-field col-12 p-md-4">
+      <p-skeleton styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="10rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="5rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="10rem" height="4rem"></p-skeleton>
+      <p-skeleton styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="10rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="5rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="10rem" height="4rem"></p-skeleton>
+    </div>
+    <div class="p-field col-12 p-md-4">
+      <p-skeleton styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="10rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="5rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="10rem" height="4rem"></p-skeleton>
+      <p-skeleton styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="10rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="5rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton height="2rem" styleClass="p-mb-2"></p-skeleton>
+      <p-skeleton width="10rem" height="4rem"></p-skeleton>
+    </div>
+  </div>
+</ng-container>

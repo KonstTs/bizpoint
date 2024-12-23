@@ -1,0 +1,1 @@
+export type ktTemplateType = 'header' | 'body' | 'footer';

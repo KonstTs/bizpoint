@@ -1,0 +1,357 @@
+:host {
+
+  &.kt-dialog-with-actions,
+  &.kt-dialog-with-avatar {
+    ::ng-deep {
+      .p-dialog-header {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+      }
+    }
+  }
+
+
+
+
+}
+
+:host ::ng-deep {
+  .kt-dialog-with-actions {
+    .p-dialog-header {
+      padding: 1rem;
+    }
+  }
+
+
+  .p-dialog-mask {
+    z-index: 1 !important;
+  }
+
+
+  .p-dialog {
+    border: none;
+    border-radius: 15px;
+    border-radius: 15px;
+
+
+    .p-dialog-header {
+      background: #f6f6f6;
+      border-bottom: solid 2px #eee;
+      color: inherit;
+      border-top-right-radius: 15px;
+      border-top-left-radius: 15px;
+
+
+      .kt-dialog-header-title-pic {
+        margin-right: 5px;
+
+        .kt-pic {
+
+
+          &.__avatar {
+            width: 46px
+          }
+
+          &.__upload {
+            overflow: visible;
+
+            ._camera-bg {
+              color: #fff;
+            }
+
+            ._camera {
+              color: #ccc;
+              position: absolute;
+              bottom: -5px;
+              right: -3px;
+              font-size: 1.2em;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+
+
+      .p-dialog-title {
+        margin: 0;
+        font-size: 1.7rem;
+        flex: 1;
+
+
+        .kt-icon {
+          color: #ddd;
+          font-size: 2.6rem !important;
+        }
+      }
+
+
+      .p-checkbox {
+        .p-checkbox-box {
+          // background-color: #fff;
+          // border-color: #ccc;
+          background-color: #ddd;
+          border-color: #ddd;
+
+
+          &.p-highlight {
+            background-color: #f6f6f6;
+            border-color: #00aeba;
+
+
+            .p-checkbox-icon {
+              color: #00aeba;
+              font-size: 13px;
+              font-weight: bold;
+            }
+          }
+
+          &:hover {
+            .p-checkbox-icon {
+              color: #fff;
+            }
+          }
+
+
+        }
+      }
+
+
+      // ACTIONS
+      .kt-dialog-header-actions {
+        margin-right: 20px;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+
+
+        ._action {
+          .p-button {
+            padding: 0;
+            background-color: transparent;
+            border: none;
+
+
+            .kt-icon {
+              color: #495057;
+              font-size: 1.7rem !important;
+            }
+          }
+
+          &:hover {
+            opacity: .6;
+          }
+        }
+
+
+
+
+        &.__group {
+          padding: 6px 6px 6px 15px;
+          background: #f6f6f6;
+          border-radius: 30px;
+          // border: 1px solid #eee !important;
+          overflow: hidden;
+
+
+          ._action {
+            overflow: hidden;
+            width: 42px;
+
+
+            .p-button {
+              .kt-icon {
+                color: #ccc;
+                font-size: 1.4rem !important;
+              }
+            }
+          }
+
+
+
+
+          ._checkbox-label {
+            width: 0;
+            opacity: 0;
+          }
+
+
+          ._checkbox {
+            display: inline-block;
+            height: 30px;
+            width: 30px;
+            margin-right: 5px;
+
+
+            .grid {
+              height: inherit;
+            }
+
+
+            .field-checkbox {
+              margin: 0 !important;
+              padding: 0 !important;
+            }
+          }
+
+
+          &.__dormant {
+            ._checkbox-label {
+              margin-right: 10px;
+              margin-left: unset;
+              opacity: 1;
+              width: auto;
+              // padding-left: 10px;
+              // padding-right: 5px;
+            }
+
+            ._action {
+              width: 0;
+            }
+          }
+
+
+        }
+      }
+
+
+      .p-dialog-header-icon {
+        color: #fff !important;
+        background: #ddd !important;
+        width: 24px;
+        height: 24px;
+        padding: unset;
+
+
+        .pi {
+          font-size: .9rem;
+          line-height: 90%;
+        }
+
+
+        &:hover {
+          background: #999 !important;
+        }
+      }
+    }
+
+
+    .p-dialog-content {
+      flex-grow: 1;
+      color: inherit;
+
+
+      .p-scrollpanel-content {
+        padding: 0 23px 0 18px;
+      }
+
+
+      .kt-dialog-scrollpanel-mask {
+        position: absolute;
+        top: 30px;
+        bottom: 18px;
+        left: 7px;
+        right: 25px;
+        overflow: hidden;
+
+
+        .__mask-scroll-area {
+          height: 100%;
+          overflow: auto;
+          padding-top: 0;
+        }
+
+
+        .__kt-dialog-map-column {
+          height: 100%;
+        }
+      }
+    }
+
+
+    .p-dialog-footer {
+      padding: 0;
+      border-bottom-right-radius: 15px;
+      border-bottom-left-radius: 15px;
+      border-top: 1px solid #eee;
+
+
+
+      kt-button {
+        button {
+          margin: 0;
+          width: 100%;
+          color: #fff;
+          background-color: #00aeba;
+          height: 6.5vh;
+          border-radius: 0;
+          border: none;
+
+
+          &:disabled {
+            filter: grayscale(1);
+          }
+        }
+
+
+        &:first-child {
+          button {
+            border-bottom-left-radius: 15px;
+          }
+        }
+
+        &:last-child {
+          button {
+            border-bottom-right-radius: 15px;
+          }
+        }
+      }
+
+
+
+    }
+
+  }
+
+
+  .kt-dialog-content-visible {
+    .p-dialog-content {
+      overflow: visible !important;
+
+
+      .p-scrollpanel {
+        overflow: visible !important;
+
+
+        .p-scrollpanel-wrapper {
+          overflow: visible !important;
+
+
+          .p-scrollpanel-content {
+            overflow: visible !important;
+          }
+        }
+      }
+    }
+  }
+
+
+  .progressBar-loading-cont {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    left: -1px;
+  }
+
+
+  .spinner-loading-cont {
+    height: 100%;
+    position: absolute;
+    z-index: 999;
+    background: #ffffffb8;
+    width: 100%;
+  }
+
+
+
+}

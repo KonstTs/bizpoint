@@ -8,7 +8,7 @@ import { untilDestroyed } from '@ngneat/until-destroy';
 import { p_filterMatchMode } from '../../../config/prime';
 
 const VALUE_ACCESSOR = { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ktListboxComponent), multi: true };
-const kt_INPUT_BASE = { provide: ktInputBase, useExisting: forwardRef(() => ktListboxComponent) };
+const INPUT_BASE = { provide: ktInputBase, useExisting: forwardRef(() => ktListboxComponent) };
 
 @Component({
     selector: 'kt-listbox',
@@ -16,7 +16,7 @@ const kt_INPUT_BASE = { provide: ktInputBase, useExisting: forwardRef(() => ktLi
     imports: [CommonModule, FormsModule, ListboxModule],
     templateUrl: './listbox.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [VALUE_ACCESSOR, kt_INPUT_BASE]
+    providers: [VALUE_ACCESSOR, INPUT_BASE]
 })
 export class ktListboxComponent extends ktInputBase implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {
     static nextId = 0;

@@ -11,7 +11,7 @@ import { take } from 'rxjs/operators';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 const VALUE_ACCESSOR = { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ktTextComponent), multi: true };
-const kt_INPUT_BASE = { provide: ktInputBase, useExisting: forwardRef(() => ktTextComponent) };
+const INPUT_BASE = { provide: ktInputBase, useExisting: forwardRef(() => ktTextComponent) };
 
 @UntilDestroy()
 @Component({
@@ -19,7 +19,7 @@ const kt_INPUT_BASE = { provide: ktInputBase, useExisting: forwardRef(() => ktTe
     templateUrl: './text.component.html',
     imports: [CommonModule, InputTextModule, MessageModule, TooltipModule, FormsModule, ReactiveFormsModule],
     standalone: true,
-    providers: [VALUE_ACCESSOR, kt_INPUT_BASE],
+    providers: [VALUE_ACCESSOR, INPUT_BASE],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ktTextComponent extends ktInputBase implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {

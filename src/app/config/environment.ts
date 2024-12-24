@@ -6,4 +6,4 @@ export interface IktEnvironment {
   loggerLevel: ktLoggingLevel;
 }
 
-export const kt_ENVIRONMENT = new InjectionToken<ktEnvironment>('Environment');
+export const kt_ENVIRONMENT = new InjectionToken<IktEnvironment>('Environment');

@@ -1,0 +1,516 @@
+<div class="grid">
+    <div class="col-12 flex align-items-center lm-rel">
+        <i *ngIf="!!iconClass" [attr.class]="iconClass" [attr.style]="iconStyle"></i>
+
+
+        <span class="p-float-label" [ngClass]="{'lm-dropdown-footer-enabled': footerEnabled}">
+            <p-multiSelect  
+                id="multi-select"
+                [name]="name"
+                inputId="float-label"
+                [options]="options"
+                [optionLabel]="optionLabel"
+                [optionValue]="optionValue"
+                [(ngModel)]="selections"
+                [ngModelOptions]="{standalone: true}"
+                [readonly]="readonly"
+                [disabled]="disabled"
+                [required]="required"
+                [placeholder]="placeholder"
+                [autocomplete]="autocomplete"
+                [style]="style"
+                [styleClass]="styleClass"
+                [dropdownIcon]="dropdownIcon"
+                [showClear]="showClear"
+                [showHeader]="showHeader"
+                [filter]="filter"
+                [panelStyleClass]="panelStyleClass"
+                [dataKey]="dataKey"
+                [appendTo]="appendTo"
+                [showToggleAll]="showToggleAll"
+                [virtualScroll]="virtualScroll"
+                [virtualScrollItemSize]="virtualScrollItemSize"
+                (ngModelChange)="valueChanged($event)"
+                display="chip"
+                (onSelectAllChange)="onSelectAllChange($event)"
+                (onClear)="onClear($event)"
+            >
+              <ng-template #footerTpl pTemplate="footer">
+                <div class="lm-dropdown-footer lm-jc-end-flex lm-ai-center-flex">
+                    <!-- <lm-button class="lm-motion lm-dropdown-footer-button lm-colorize" [config]="cancelBtnConfig" (click)="footerCancel($event)"></lm-button> -->
+                    <lm-button class="lm-motion lm-dropdown-footer-button lm-colorize" [config]="confirmBtnConfig" (click)="footerConfirm($event)"></lm-button>
+               </div>
+              </ng-template>
+            </p-multiSelect>
+            <label for="float-label">{{label}}</label>
+            <span *ngIf="hint" class="lm-input-hint">{{hint}}</span>
+        </span>
+    </div>
+</div>
+
+
+:host ::ng-deep {
+    label {
+        font-size: 1rem;
+        color: #999;
+        margin-left: 10px;
+    }
+
+
+    .p-float-label label{
+        font-size: .95rem;
+        margin-top: -.7rem;
+    }
+
+
+    .p-multiselect.p-multiselect-chip .p-multiselect-token {
+        background: #00aeba;
+    }
+
+
+    .p-multiselect {
+        background: #f3f3f3;
+        border: none;
+        padding: 0.75rem;
+        margin: 0 0 8px 0;
+
+
+        &:not(.p-disabled):hover, &:not(.p-disabled).p-focus{
+            border: 1px solid #eee;
+        }
+       
+        .p-multiselect-label {
+            height: 30px;
+            &.p-placeholder{
+                opacity: 1;
+                padding: 0 .5rem;
+                color: inherit;
+            }
+           
+        }
+    }
+
+
+    .p-inputwrapper-filled .p-multiselect.p-multiselect-chip .p-multiselect-label {
+        padding: 0;
+    }
+
+
+    .lm-multi-select-control {
+        width: 100%;
+        display: flex;
+        background: #f6f6f6;
+        margin: 0 0 8px 0;
+        border: 1px solid #eee !important;
+        border: 1px solid #eee !important;
+        box-shadow: none !important;
+        padding: 0.5rem;
+
+
+        .p-multiselect-trigger{
+            color: #999;
+
+
+            .p-multiselect-trigger-icon:before{
+                content: '\e902';
+                font-family: 'primeicons';
+                speak: none;
+                font-style: normal;
+                font-weight: 400;
+                font-feature-settings: normal;
+                font-variant: normal;
+                text-transform: none;
+                line-height: 1;
+                display: inline-block;
+                -webkit-font-smoothing: antialiased;
+            }
+        }
+       
+
+
+        .p-multi-select-container {
+            &:not(.p-disabled) {
+                border: none !important;
+                box-shadow: none !important;
+                padding-left: 10px;
+                padding-right: 10px;
+                margin-left: 10px;
+                background: #f3f3f3;
+            }
+
+
+            &:not(.p-disabled):hover {
+                border: none !important;
+                box-shadow: none !important;
+            }
+
+
+
+
+            &:not(.p-disabled).p-focus {
+                border: none !important;
+                box-shadow: none !important;
+                // box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+            }
+
+
+            .p-autocomplete-token {
+                max-width: 100%;
+                font-size: .9rem;
+                padding: 0.3rem 0.2rem;
+                color: #495057;
+                background: none;
+
+
+                .p-autocomplete-token-label {
+                    line-height: 120%;
+                }
+            }
+
+
+            .p-autocomplete-input-token {
+                padding: 0;
+
+
+                input {
+                    color: #495057;
+                }
+            }
+        }
+
+
+        .lm-multi-select-input {
+            border: none;
+            background: #f3f3f3;
+            border-radius: 7px;
+
+
+            .p-inputtext {
+                border: none
+            }
+        }
+
+
+        .lm-multi-select-panel{
+            .p-multiselect-filter-container .p-inputtext{
+                padding: 0 .5rem;
+                background: #fff;
+                border-radius: 2rem;
+                border: 1px solid #eee;
+                margin: 0;
+                height: 30px;
+                box-sizing: border-box;
+                font-size: 1rem;
+            }
+        }
+
+
+
+
+        //material overwrite
+        input[type=text]:not(.browser-default):focus:not([readonly]) {
+            box-shadow: none !important;
+            border: none !important;
+        }
+
+
+        .lm-multi-select-panel{
+            .p-multiselect-filter-container .p-inputtext{
+                padding: 0 .5rem;
+                background: #fff;
+                border-radius: 2rem;
+                border: 1px solid #eee !important;
+                margin: 0;
+                height: 25px;
+                box-sizing: border-box;
+                font-size: 1rem;
+            }
+        }
+       
+
+
+    }
+
+
+    .lm-multi-select-panel {
+        right: 0;
+        left: 10px !important;
+        min-width: unset !important;
+        margin-top: -5px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+       
+        .p-multiselect-header{
+            padding: 0.5rem 1rem;
+            background-color: #f6f6f6;
+            border-bottom: 1px solid #eee !important;
+        }
+       
+        .p-autocomplete-items {
+            padding-top: 0;
+            padding-bottom: 0;
+
+
+            .p-autocomplete-item {
+                color: #26a69a;
+                padding-top: 10px;
+                padding-bottom: 10px;
+
+
+                &:hover {
+                    color: #495057;
+                    background: #c8edf0;
+                }
+
+
+                span {
+                    display: block;
+                    width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+
+
+        input[type=text]:not(.browser-default):focus:not([readonly]){
+            box-shadow: none !important;
+            border: none !important;
+        }
+
+
+        .p-multiselect-panel .p-multiselect-items .p-multiselect-empty-message {
+            color: #999;
+        }
+        input[type=text]:not(.browser-default):focus:not([readonly]){
+            box-shadow: none !important;
+            border: none !important;
+        }
+
+
+        .p-multiselect-panel .p-multiselect-items .p-multiselect-empty-message {
+            color: #999;
+        }
+    }
+
+
+    p-autocomplete {
+        &.ng-dirty {
+            .p-autocomplete-input-token {
+                input {
+                    background: rgba(155, 155, 155, .1);
+                }
+            }
+        }
+
+
+        &.p-inputwrapper-focus {
+            box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3) !important;
+        }
+    }
+
+
+    i.pi:not(.pi-spinner) {
+        width: 30px;
+        font-size: 20px;
+        color: #ccc;
+        height: 30px;
+        position: absolute;
+        top: 50%;
+        margin-top: -10px;
+    }
+
+
+    .p-float-label {
+        padding-left: 10px;
+        width: 100%;
+    }
+
+
+    .lm-filled-select {
+        .lm-select-wrapper {
+            background: #f3f3f3;
+            border-radius: 6px;
+
+
+            .p-inputtext {
+                border-color: #f3f3f3;
+            }
+        }
+    }
+}
+
+
+.svg-fix {
+    position: absolute;
+    top: 10px;
+    left: -5px;
+}
+
+
+
+
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, ChangeDetectionStrategy, Component, forwardRef, HostBinding, Injector, Input, NgModule, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { LmInputBase } from '../input-base';
+import { LmTextIconStyle } from '@app/model/icons-model';
+import {MultiSelect, MultiSelectModule} from 'primeng/multiselect';
+import { Observable, take } from 'rxjs';
+import { untilDestroyed } from '@ngneat/until-destroy';
+import { LmButtonConfig, LmButtonModule } from '@app/shared/structure/button/button.component';
+import { mergeObjects } from '@app/shared/utils';
+
+
+const VALUE_ACCESSOR = { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => LmMultiSelectComponent), multi: true };
+const LM_INPUT_BASE = { provide: LmInputBase, useExisting: forwardRef(() => LmMultiSelectComponent) };
+
+
+@Component({
+  selector: 'lm-multi-select',
+  templateUrl: './multi-select.component.html',
+  styleUrls: ['./multi-select.component.scss'],
+  providers: [VALUE_ACCESSOR, LM_INPUT_BASE]
+})
+export class LmMultiSelectComponent extends LmInputBase implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {
+  static nextId = 0;
+
+
+  @HostBinding() id = `lm-multi-select-${LmMultiSelectComponent.nextId++}`;
+  name = `lm-multi-select-${LmMultiSelectComponent.nextId++}`;
+
+
+  @ViewChild(NgModel) model: NgModel;
+  @ViewChild(MultiSelect) ctrl:MultiSelect
+
+
+  @Input() label: string;
+  @Input() placeholder: string;
+  @Input() options: any[] = [];
+  @Input() readonly = false;
+  @Input() disabled = false;
+  @Input() required = false;
+  @Input() dataKey: string;
+  @Input() optionLabel = 'name';
+  @Input() optionValue = 'id';
+  @Input() style: any;
+  @Input() styleClass = 'lm-multi-select-control';
+  @Input() inputStyleClass = 'lm-multi-select-input';
+  @Input() panelStyleClass = 'lm-multi-select-panel';
+  @Input() dropdownIcon: string
+  @Input() autocomplete = 'off';
+  @Input() iconClass = '';
+  @Input() iconColor: string;
+  @Input() iconSize?: string;
+  @Input() iconStyle: LmTextIconStyle;
+  @Input() showClear: boolean;
+  @Input() showHeader = false;
+  @Input() filter = false;
+  @Input() customIconName = "";
+  @Input() appendTo? :any;
+  @Input() showToggleAll = false;
+  @Input() virtualScroll = false;
+  @Input() virtualScrollItemSize = 43;
+  @Input() modelOptions: any
+  @Input() footerEnabled = false;
+  @Input() confirmBtnConfig: LmButtonConfig;
+  @Input() cancelBtnConfig: LmButtonConfig;
+  selections: number[];
+ 
+  @Input() footerConfirmFn: (...args) => Observable<any[]> | any[] | void;
+  @Input() footerCancelFn: (...args) => Observable<any[]> | any[] | void;
+  @Input() optionsFn: (...args) => any[];
+  @Input() optionsFn$: (...args) => Observable<any[]>;
+  @Input() selectAllFn: (...args) => any[];
+  @Input() clearFn: (...args) => void;
+
+
+  constructor(injector: Injector) {
+    super(injector);
+
+
+    this.confirmBtnConfig = mergeObjects({icon:'icon-tick-fill', textOnly: true, color: '#00aeba', command: this.footerConfirm}, (this.confirmBtnConfig ?? {}))
+    this.cancelBtnConfig = mergeObjects({icon:'icon-tick-fill', textOnly: true, color: '#f00000', command: this.footerConfirm}, (this.cancelBtnConfig ?? {}))
+
+
+    this.iconStyle = {
+      'font-size': this.iconSize || '1.4rem',
+      'color': this.iconColor || '#d3d3d3'
+    }
+  }
+
+
+  footerConfirm(e?){
+    setTimeout(_=> {
+      this.ctrl.hide();
+      if(this.footerConfirmFn) this.footerConfirmFn(e);
+    }, 300)
+  }
+
+
+  footerCancel(e?){
+    setTimeout(_=> {
+      this.ctrl.hide();
+      if(this.footerCancelFn) this.footerCancelFn(e);
+    }, 300)
+  }
+
+
+  onClear = (e) => {
+    if(this.clearFn) this.clearFn(e);
+  };
+
+
+  onSelectAllChange(e){
+    if(this.selectAllFn) this.selectAllFn(e);
+  }
+
+
+  onChange = (_: any) => {};
+  onTouched = () => {};
+
+
+  valueChanged(value: any) {
+    this.onChange(value);
+    this.onTouched();
+  }
+
+
+  registerOnChange(fn): void {
+    this.onChange = fn;
+  }
+
+
+  registerOnTouched(fn): void {
+    this.onTouched = fn;
+  }
+
+
+  writeValue(value: any): void {
+    this.selections = value;
+  }
+
+
+  updateValues() {
+    if(this.optionsFn) this.options = this.optionsFn();
+    if(this.optionsFn$) this.optionsFn$().pipe(take(1), untilDestroyed(this)).subscribe(res => this.options = res)
+  }
+
+
+  ngOnInit(): void {
+    super.ngOnInit();
+    if(this.optionsFn) this.options = this.optionsFn();
+    if(this.optionsFn$) this.optionsFn$().pipe(take(1), untilDestroyed(this)).subscribe(res => this.options = res)
+  }
+
+
+  ngAfterViewInit(): void {
+    super.ngAfterViewInit();
+  }
+
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+}

@@ -8,7 +8,7 @@ import { Observable, take } from 'rxjs';
 import { untilDestroyed } from '@ngneat/until-destroy';
 
 const VALUE_ACCESSOR = { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ktDropdownComponent), multi: true };
-const kt_INPUT_BASE = { provide: ktInputBase, useExisting: forwardRef(() => ktDropdownComponent) };
+const INPUT_BASE = { provide: ktInputBase, useExisting: forwardRef(() => ktDropdownComponent) };
 
 @Component({
   selector: 'kt-dropdown',
@@ -16,7 +16,7 @@ const kt_INPUT_BASE = { provide: ktInputBase, useExisting: forwardRef(() => ktDr
   imports:[CommonModule, DropdownModule, FormsModule, ReactiveFormsModule],
   templateUrl: './dropdown.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [VALUE_ACCESSOR, kt_INPUT_BASE]
+  providers: [VALUE_ACCESSOR, INPUT_BASE]
 })
 export class ktDropdownComponent extends ktInputBase implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {
   static nextId = 0;

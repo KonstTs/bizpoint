@@ -16,7 +16,7 @@ export abstract class ktBaseListItemComponent{
 }
 
 
-@Component({
+@Directive({
     selector: 'kt-list-item',
     standalone: true
 })

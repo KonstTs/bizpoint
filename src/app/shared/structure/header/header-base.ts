@@ -1,5 +1,4 @@
 import { Directive, HostBinding, Input } from "@angular/core";
-import { IktButtonConfig } from "../button/button.component";
 
 @Directive()
 export abstract class ktHeader {

@@ -1,0 +1,96 @@
+import { IktFeedLine } from "../../api/model/feed-dto/feed.model";
+import { colorme } from "../../config/utils";
+import { IktButtonConfig } from "../../shared/structure/button/button.component";
+import { ktFeedViewModelService } from "./feed-viewmodel.service";
+
+export type IktDashboardLayoutType = {
+  id: string;
+  hostClass: string;
+};  
+
+export interface Ikt_DASHBOARD_MODE {
+  default: IktDashboardLayoutType;
+  min: IktDashboardLayoutType;
+  max: IktDashboardLayoutType;
+};
+
+export const DASHBOARD_CONFIG = {
+  layouts: {
+    min: {
+      id: 'min',
+      hostClass: '--min',
+      iconClass: 'toast'
+    },
+    default: {
+      id: 'default',
+      hostClass: '',
+      iconClass: 'chips'
+    },
+    max: {
+      id: 'max',
+      hostClass: '--max',
+      iconClass: 'toolbar'
+    }
+  },
+  ordering: [
+    { value: 'market_cap_asc', label: 'MCap Asc' },
+    { value: 'market_cap_desc', label: 'MCap Desc' },
+    { value: 'volume_asc', label: 'Vol Asc' },
+    { value: 'volume_desc', label: 'Vol Desc' },
+    { value: 'id_asc', label: 'Id Asc' },
+    { value: 'id_desc', label: 'Id Desc' }
+  ],
+  provideLayoutActionsFor: (layouts, fn): IktButtonConfig[] =>
+    Object.entries(layouts)
+      .map(([key, obj]) =>
+      ({
+          id: key,
+          color: '#c1c1c1',
+          activeColor: '#4285f4',
+          icon: (<any>obj).iconClass,
+          styleClass: `--layout-action-${key}`,
+          command: () => fn(key),
+          ...(key === 'default' && { active: true })
+  })),
+  provideChartData: ([d, v]: [[], []], vm: ktFeedViewModelService<IktFeedLine>): any => {
+    const { Renderer: { CurrencyFormatter: { formatWithOptions } } } = vm;
+    const fo = { maximumFractionDigits: 2, notation: 'compact' };
+    const clr = v?.map(_ => `#${colorme()}`)
+    const stacks = d?.map((dt, i) => ({ name: dt, type: 'bar', stack: 'total', label: { show: false }, data:[{ value: v[i], itemStyle: { color: clr[i] } }] }))
+    
+    return {
+      desktop: {
+        xAxis: { data: d },
+        yAxis: {
+          axisLabel: {
+            formatter: (d) => formatWithOptions(d, fo).value
+          }
+        },
+        series: [{
+          name: 'Market Cap',
+          type: 'bar',
+          itemStyle: { borderRadius: [50, 50, 0, 0] },
+          data: v?.map((val,i) => ({ value: val, itemStyle: { color: clr[i] } }))
+        }]
+      },
+      mobile: {
+        yAxis: { data: d?.reverse() },
+        xAxis: {
+          axisLabel: {
+            formatter: (d) => formatWithOptions(d, {...fo, maximumFractionDigits: 0}).value
+          }
+        },
+        series: [{
+          name: 'Market Cap',
+          type: 'bar',
+          itemStyle: { borderRadius: [0, 50, 50, 0] },
+          data: v?.map((val,i) => ({ value: val, itemStyle: { color: clr[i] } }))?.reverse()
+        }]
+      },
+      stack: {
+        series: stacks,
+        focus: 'series'
+      }
+    }
+  }
+}

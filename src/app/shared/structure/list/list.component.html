@@ -3,10 +3,10 @@
     <p-dataView
       #dv
       [value]="VM.source$ | async"
-      [totalRecords]="(VM.source$ | async).length"
+      [totalRecords]="(VM.source$ | async)?.length"
       [rows]="rows"
       [layout]="layout"
-      [filterBy]="title"
+      [filterBy]="filterBy"
       [trackBy]="trackBy"
       [sortField]="sortField"
       [sortOrder]="sortOrder"
@@ -23,7 +23,6 @@
       [gridStyleClass]="gridStyleClass"
       [styleClass]="styleClass"
       [emptyMessage]="emptyMessage"
-      [stripe]="stripe"
     >
     @if(headerTpl){
     <ng-template pTemplate="header">

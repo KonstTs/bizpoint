@@ -65,7 +65,7 @@
     }
     .kt-table{
         thead{
-            border-bottom: solid 1px $greyDDD;
+            border-bottom: solid 1px #dddddd;
         }
         tr,td{
             border-top: none;
@@ -107,13 +107,13 @@
     }
         
     .mat-mdc-input-element ._kt-table-filter-input .cdk-text-field-autofill-monitored{
-        background-color: $inputBg;
-        color: $inputColor;
+        // background-color: $inputBg;
+        // color: $inputColor;
     }
 
     &::ng-deep{
         .mat-mdc-header-cell{
-            background-color: $white !important;
+            // background-color: $white !important;
             color: $blue;
             font-weight: 700;
         }

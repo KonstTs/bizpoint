@@ -70,6 +70,7 @@ export abstract class ktListViewModelService<TModel extends ktBaseEntity> implem
           switchMap(() => this.getListCb(_query)),
           tap((res) => {
               if (!res) res = [];
+              console.log('res:', res)
               this.model = res;
               this.source$.next(this.model);
           }),

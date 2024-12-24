@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, Input } from "@angular/core";
+import { AfterContentInit, Component, Directive, Input } from "@angular/core";
 import { ktButtonComponent } from "../button/button.component";
 import { Observable } from "rxjs";
 import { CommonModule } from "@angular/common";
@@ -10,7 +10,7 @@ import { ktHeaderComponent } from "../header/header.component";
 @Component({
     selector: 'kt-list-header',
     standalone: true,
-    imports: [CommonModule, DialogModule, ktLoadingComponent, ktButtonComponent, ktPanelComponent]
+    template: ''
 })
 export class ktListHeaderComponent extends ktHeaderComponent implements AfterContentInit {
     @Input() sorting?: boolean;

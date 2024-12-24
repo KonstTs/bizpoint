@@ -3,6 +3,10 @@
 @import './assets/sass/_layout';
 @import './assets/sass/overrides';
 
+:root{
+  --font-family: "Open Sans";
+}
+
 *, *:before, *:after {
   margin: 0;
   padding: 0;

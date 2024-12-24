@@ -47,7 +47,7 @@ export type ktButtonIconSet = { name: string; value:string, active:boolean}
 	`]
 })
 export class ktButtonComponent {
-	@Input() config?: ktButtonConfig;
+	@Input() config?: IktButtonConfig;
 	@Input() label: string;
 	@Input() icon: string;
 

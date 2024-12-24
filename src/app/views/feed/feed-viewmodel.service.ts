@@ -7,6 +7,8 @@ import { IktFeedAd } from "../../api/model/feed-dto/feed-ad.model";
 import { ktFeedService } from "../../api/services/feed-services.service";
 import { ktBaseEntity } from "../../model/base-entity.model";
 import { IktFeedSearchModel } from "../../model/search.model";
+import { IktCellRenderer, kt_CELL_FORMATTER_TOKEN } from "../../services/row-cell-renderers";
+import * as dummy from './dummy'
 
 export const kt_FEED_INIT_SEARCH_TOKEN = new InjectionToken<IktFeedSearchModel>('initFeedSearch')
 
@@ -15,9 +17,12 @@ export const kt_FEED_INIT_SEARCH_TOKEN = new InjectionToken<IktFeedSearchModel>(
 export class ktFeedViewModelService<IktFeedLine extends ktBaseEntity> extends ktListViewModelService<IktFeedLine> implements OnInit, OnDestroy {
     protected override getListCb = this.getList.bind(this);
     protected override getListItemCb = this.getItem.bind(this);
+    columns: any;
+    barchart$: any;
 
     constructor(
         injector: Injector,
+        @Inject(kt_CELL_FORMATTER_TOKEN) public Renderer:IktCellRenderer,
         @Inject(kt_FEED_INIT_SEARCH_TOKEN) public searchModel: ktSearchModel<IktFeedSearchModel>,
         @Inject(forwardRef(() => ktFeedService)) private _apiSvc: ktFeedService
     ){
@@ -29,7 +34,7 @@ export class ktFeedViewModelService<IktFeedLine extends ktBaseEntity> extends kt
     }
 
     getList(_query?:any): Observable<IktFeedLine[]>{
-        return of(null)
+        return of(dummy['items'])
     }
     getItem(id:string): Observable<IktFeedAd>{
         return of(null)

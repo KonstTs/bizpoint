@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Type } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { ktNotificationInfo, ktToastPosition } from '../../../model/toast.model';
+import { IktNotificationInfo, ktToastPosition } from '../../../model/toast.model';
 
 @Component({
     standalone: true,
@@ -31,7 +31,7 @@ export class ktToastComponent {
     constructor(private _messageSvc: MessageService) {
     }
 
-    showMessage(msg: ktNotificationInfo): void {
+    showMessage(msg: IktNotificationInfo): void {
         this.id = msg.id;
         this.position = msg.position;
         this.toastContent = msg.contentType;

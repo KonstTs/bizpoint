@@ -1,5 +1,132 @@
-<div class="grid">
-    <div class="col-12">
-        <kt-list></kt-list>
+<!-- <div class="widget --feed">
+    <kt-list>
+        <ng-template ktTemplate="header">
+            <kt-list-header
+                [title]="'A really long feed title'"
+            ></kt-list-header>
+        </ng-template>
+        
+    </kt-list>
+</div> -->
+
+
+
+
+
+
+
+<!-- 
+@if(bootstraktorMobile){
+    <section
+        #drawer
+        id="drawer"
+        class="widget --dock __drawer kt-motion-fast"
+        [ngClass]="{'kt-invisible kt-user-select-none': (!showDrawer)}"
+        swipe='vertical'
+        [swipeoptions]="{
+            mode:'drawer',
+            status: 'closed',
+            onSwipeCssClass: '__moving',
+            state:{
+                closed: { min: -80, max: -80, x:0, y: -90 },
+                open: { min:70, max:70, x:0, y: 0 }
+            }
+        }"
+        (onSwipe)="drawerSwiped($event)"
+    >
+
+        
+    @if(showDrawerTip){
+        <div class="kt-swipe-tip kt-animation-fade-out kt-motion-delay-2">
+            <div class="kt-swipe-vertical-img kt-swipe-vertical-motion _animation kt-shadow"></div>
+        </div>
+    }
+    
+    <kt-chart-widget-header
+        [title]="titleCharts"
+        [titleIcon]="'bar_chart_4_bars'"
+        [actions]="chartActions"
+        [headerClass]="'--bg-blue'"
+        [stackData]="stackData"
+    ></kt-chart-widget-header>
+
+    <div class="_charts kt-motion kt-animation-fade-in">
+        <kt-chart [options]="chartMobile" [merge]="chartDataM" [sizer]="'._charts'"></kt-chart>
+    </div>
+</section>
+}
+@if(!bootstraktorMobile){
+    <section class="widget --dock">
+        <kt-chart-widget-header
+            [title]="titleCharts"
+            [titleIcon]="'bar_chart_4_bars'"
+            [actions]="chartActions"
+            [headerClass]="'--bg-blue'"
+            [stackData]="stackData"
+        ></kt-chart-widget-header>
+
+        <div class="_charts kt-motion kt-animation-fade-in">
+            <kt-chart [options]="chartDesktop" [merge]="chartDataD" [sizer]="'._charts'"></kt-chart>
+        </div>
+    </section>
+} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="_header --bg-blue" (click)="(layout['hostClass']==='--max') && provideLayout('default')">
+    <div class="kt-ai-jc-center-flex --title">
+        <h2 class="kt-mrgr10 kt-ai-jc-center-flex kt-animation-slide-in-right --text-white">
+            <span class="kt-icon material-symbols-outlined">paid</span>
+            <span class="--text-white">{{ titleCoins }}</span>
+        </h2>
+        <kt-text
+            class="--not-max _filter-txt"
+            [iconClass]="'filter_alt'" 
+            [iconColor]="'#d5d5d5'" 
+            [cssClass]="'kt-table-filter-input'" 
+            [clearable]="true" 
+            (keyup)="ktTable.onFilter($event)"
+        ></kt-text>
+    </div>
+    <div class="kt-ai-jc-center-flex --filters --not-max">
+        <kt-select
+            class="_filter-coloumns"
+            [label]="'Columns'" 
+            [options]="columnsMap" 
+            [multiple]="true" 
+            [(ngModel)]="VM.displayedColumns"
+        ></kt-select>
+
+        <kt-select
+            class="_filter-order"
+            [label]="'Order'" 
+            [options]="orderOptions" 
+            [(ngModel)]="VM.filterModel.order" 
+            (ngModelChange)="search$($event)"
+        ></kt-select>
     </div>
 </div>
+<kt-table 
+    [VM]="VM"
+    [filterable]="true" 
+    [sticky]="true" 
+    [pagination]="true"
+    [pagesize]="50"
+    [pagerClass]="'--not-max'"
+></kt-table> -->

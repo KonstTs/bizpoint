@@ -10,6 +10,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi()),
+    
     { provide: HTTP_INTERCEPTORS, useClass: PreflightInterceptor, multi: true }
   ]
 };

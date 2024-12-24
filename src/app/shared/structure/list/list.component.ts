@@ -24,9 +24,9 @@ export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() VM: ktListViewModelService<any>;
   @Input() rows = 100;
-  @Input() layout = 'list'
+  @Input() layout:any = 'list'
   @Input() totalRecords:number;
-  @Input() filterBy: string[];
+  @Input() filterBy: 'title';
   @Input() trackBy;
   @Input() sortField;
   @Input() sortOrder:number;
@@ -34,7 +34,7 @@ export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() paginator = true;
   @Input() rowsPerPageOptions;
   @Input() alwaysShowPaginator = true;
-  @Input() paginatorPosition = 'bottom';
+  @Input() paginatorPosition:any = 'bottom';
   @Input() pageLinks = 5;
   @Input() loading = true;
   @Input() loadingIcon;
@@ -43,7 +43,6 @@ export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() gridStyleClass = 'kt-dataview-grid';
   @Input() styleClass: string;
   @Input() emptyMessage = 'Nothing here :(';
-  @Input() stripe = true;
   @Input() pageFn:(...args) => void;
   @Input() sortFn:(...args) => void;
   @Input() layoutFn:(...args) => void;
@@ -60,16 +59,11 @@ export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterContentInit(): void {
     this.templates.forEach((tpl) => {
         switch (tpl.name) {
-            case 'header': this.headerTpl = tpl.template;
-                break;
-            case 'listItem': this.listItemTpl = tpl.template;
-                break;
-            case 'gridItem': this.gridItemTpl = tpl.template;
-                break;
-            case 'footer': this.footerTpl = tpl.template;
-                break;
-            default:
-                throw new Error(`Unsupported template type ${tpl.name}`);
+            case 'header': this.headerTpl = tpl.template; break;
+            case 'listItem': this.listItemTpl = tpl.template; break;
+            case 'gridItem': this.gridItemTpl = tpl.template; break;
+            case 'footer': this.footerTpl = tpl.template; break;
+            default: throw new Error(`Unsupported template type ${tpl.name}`);
         }
     });
 }
@@ -85,7 +79,7 @@ export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   
   ngOnInit(): void {
-    this.VM.ngOnInit();
+    if(this.VM) this.VM.ngOnInit();
   }
 
   ngAfterViewInit(): void {

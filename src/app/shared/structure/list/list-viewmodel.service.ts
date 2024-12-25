@@ -102,6 +102,7 @@ export abstract class ktListViewModelService<TModel extends ktBaseEntity> implem
     }
 
     ngOnInit(): void {
+      // this.getList$().subscribe()
     }
 
     ngOnDestroy(): void {

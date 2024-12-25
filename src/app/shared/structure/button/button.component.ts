@@ -3,6 +3,8 @@ import { Component, HostBinding, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+
 
 export interface IktButtonConfig {
 	id?: string;
@@ -33,7 +35,7 @@ export interface IktButtonConfig {
 }
 
 export type ktButtonIconSet = { name: string; value:string, active:boolean}
-
+@UntilDestroy()
 @Component({
      selector: 'kt-button',
      standalone: true,
@@ -50,6 +52,11 @@ export class ktButtonComponent {
 	@Input() config?: IktButtonConfig;
 	@Input() label: string;
 	@Input() icon: string;
+
+	onclick(e){
+		if(this.config?.command) this.config.command(e);
+		if(this.config?.command$) this.config.command$(e).pipe(untilDestroyed(this)).subscribe();
+	}
 
 	@HostBinding('style.pointer-events') get events(): string {
 		if (this.config?.disabled) return 'none';

@@ -2,8 +2,8 @@
   <div class="col-12">
     <p-dataView
       #dv
-      [value]="VM.source$ | async"
-      [totalRecords]="(VM.source$ | async)?.length"
+      [value]="items"
+      [totalRecords]="items?.length"
       [rows]="rows"
       [layout]="layout"
       [filterBy]="filterBy"
@@ -19,36 +19,54 @@
       [loading]="loading"
       [loadingIcon]="loadingIcon"
       [lazy]="lazy"
-      [lazyLoadOnInit]="lazyLoadOnInit"
+      [lazyLoadOnInit]="lazyLoadOnInit" 
       [gridStyleClass]="gridStyleClass"
       [styleClass]="styleClass"
       [emptyMessage]="emptyMessage"
     >
-    @if(headerTpl){
+
     <ng-template pTemplate="header">
-      <ng-container *ngTemplateOutlet="headerTpl"></ng-container>
+      <ng-container *ngIf="!!headerTpl; else defaultHeader">
+        <ng-container *ngTemplateOutlet="headerTpl"></ng-container>
+      </ng-container>
     </ng-template>
-    }
-    
-    @if(layout==='list'){
-    <ng-template pTemplate="listItem">
-      <ng-container *ngTemplateOutlet="listItemTpl"></ng-container>
-    </ng-template>
-    }
-    
-    @if(layout==='grid'){
-    <ng-template pTemplate="gridItem">
-      <ng-container *ngTemplateOutlet="gridItemTpl"></ng-container>
-    </ng-template>
-    }
-    
-    @if(footerTpl){
-    <ng-template pTemplate="footer">
-      <ng-container *ngTemplateOutlet="footerTpl"></ng-container>
-    </ng-template>
-    }
-    
-    
-    </p-dataView>
+
+
+      <ng-template pTemplate="header">
+        <ng-container *ngIf="!!headerTpl; else defaultHeader">
+          <ng-container *ngTemplateOutlet="headerTpl"></ng-container>
+        </ng-container>
+      </ng-template>
+      
+      <ng-template let-items pTemplate="list">
+        <div *ngFor="let item of items; let first = first"><h2>{{item.title}}</h2>
+        </div>  
+        <!-- <ng-container *ngTemplateOutlet="listItemTpl"></ng-container> -->
+      </ng-template>
+      
+      <!-- <ng-template pTemplate="gridItem">
+        <ng-container *ngTemplateOutlet="gridItemTpl"></ng-container>
+      </ng-template>
+      
+      @if(footerTpl){
+      <ng-template pTemplate="footer">
+        <ng-container *ngTemplateOutlet="footerTpl"></ng-container>
+      </ng-template>
+      } -->
+      
+      </p-dataView>
     </div>
-    </div>
+  </div>
+
+  <ng-template #defaultHeader>
+    <h2>bbbbb</h2>
+    <!-- <h2 class="p-dialog-title kt-ai-center-flex kt-rel" [ngClass]="{'kt-pdl50': headerIconClass}">
+      <i *ngIf="headerIconClass" [ngClass]="{'kt-icon': headerIconClass.includes('icon-'), 'pi': headerIconClass.includes('pi-'), 'kt-animation-fade-in': true}" [attr.class]="headerIconClass"></i>
+      <span class="kt-animation-slide-in-right kt-mrgl10">{{ label }}</span>
+    </h2>
+    <div *ngIf="headerActions && !!headerActions.length" class="kt-dialog-header-actions" [ngClass]="{'__group': (headerActionsGroup && headerActions.length > 1)}">
+      <span class="kt-motion-fast _action" *ngFor="let action of headerActions">
+          <kt-button [config]="action" (click)="action.command()" [attr.class]="action.hostClass"></kt-button>
+      </span>
+    </div> -->
+  </ng-template>

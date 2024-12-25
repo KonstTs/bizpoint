@@ -37,7 +37,7 @@ export class ktTextComponent extends ktInputBase implements OnInit, AfterViewIni
     @Input() iconColor?: string;
     @Input() styles?: any
     @Input() searchQuerySize = 3;
-    @Input() searchFn$: (e) => Observable<any[]>;
+    @Input() searchFn$: (e) => Observable<any[]> | any | void;
     @Input() blurFn: (e) => void;
     iconStyle: IktTextIconStyle;
 

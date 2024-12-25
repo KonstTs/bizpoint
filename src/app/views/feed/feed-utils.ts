@@ -3,18 +3,18 @@ import { colorme } from "../../config/utils";
 import { IktButtonConfig } from "../../shared/structure/button/button.component";
 import { ktFeedViewModelService } from "./feed-viewmodel.service";
 
-export type IktDashboardLayoutType = {
+export type IktFeedLayoutType = {
   id: string;
   hostClass: string;
 };  
 
-export interface Ikt_DASHBOARD_MODE {
-  default: IktDashboardLayoutType;
-  min: IktDashboardLayoutType;
-  max: IktDashboardLayoutType;
+export interface Ikt_FEED_MODE {
+  default: IktFeedLayoutType;
+  min: IktFeedLayoutType;
+  max: IktFeedLayoutType;
 };
 
-export const DASHBOARD_CONFIG = {
+export const FEED_CONFIG = {
   layouts: {
     min: {
       id: 'min',
@@ -52,7 +52,7 @@ export const DASHBOARD_CONFIG = {
           command: () => fn(key),
           ...(key === 'default' && { active: true })
   })),
-  provideChartData: ([d, v]: [[], []], vm: ktFeedViewModelService<IktFeedLine>): any => {
+  provideChartData: ([d, v]: [[], []], vm: ktFeedViewModelService): any => {
     const { Renderer: { CurrencyFormatter: { formatWithOptions } } } = vm;
     const fo = { maximumFractionDigits: 2, notation: 'compact' };
     const clr = v?.map(_ => `#${colorme()}`)

@@ -833,6 +833,10 @@
   cursor: pointer !important;
 }
 
+.kt-no-events{
+  pointer-events: none !important;
+}
+
 .kt-nowrap {
   white-space: nowrap !important;
 }

@@ -11,46 +11,29 @@
 <!-- default 3 segmented header -->
 <ng-template #defaultHeader>
     <div class="col">
-        <ng-container *ngTemplateOutlet="headerLeftTpl"></ng-container>
+        <div class="_section --left --title">
+            <i *ngIf="config?.iconClass" [attr.class]="config?.iconClass" [attr.style]="config?.iconStyle"></i>   
+            <h2 [ngClass]="{'kt-pdl50': config?.headerIconClass}">{{config?.title}}</h2>
+        </div>
     </div>
     <div class="col">
-        <ng-container *ngTemplateOutlet="headerMidTpl"></ng-container>
+        <div [ngClass]="{'_section --mid': true}"
+            [attr.class]="config?.intermediateClass">
+            <ng-template pTemplate="body">
+                <ng-container *ngIf="!!bodyTpl;">
+                  <ng-container *ngTemplateOutlet="bodyTpl"></ng-container>
+                </ng-container>
+              </ng-template>
+        </div>
     </div>
     <div class="col">
-        <ng-container *ngTemplateOutlet="headerRightTpl"></ng-container>
-    </div>
-</ng-template>
-
-
-<!-- sections tpls left-mid-right -->
-<ng-template pTemplate="headerLeftTpl">
-    <div class="_section --left --title">
-        <i *ngIf="!!iconClass" [attr.class]="iconClass" [attr.style]="iconStyle"></i>   
-        <h2 [ngClass]="{'kt-pdl50': headerIconClass}">{{title}}</h2>
-    </div>
-</ng-template>
-
-
-<ng-template pTemplate="headerMidTpl">
-    <div class="_section --mid">
-        <!-- <kt-text
-            class="kt-header-input-text"
-            name="search"
-            [iconClass]="'pi pi-search'"
-            [(ngModel)]="search"
-            [searchFn$]="search$"
-        ></kt-text> -->
-    </div>
-</ng-template>
-
-
-<ng-template pTemplate="headerRightTpl">
-    <div class="_section --right">
-        <div *ngIf="!!headerActions?.length" class="_actions" [ngClass]="{'__group': headerActionsGroup}">
-            <span class="kt-motion-fast _action" *ngFor="let action of headerActions">
-                <kt-button [config]="action" (click)="action.command()" [attr.class]="action.hostClass"></kt-button>
-            </span>
+        <div class="_section --right">
+            <div *ngIf="!!config?.headerActions?.length" class="_actions" [ngClass]="{'__group': config?.headerActionsGroup}">
+                <span class="kt-motion-fast _action" *ngFor="let action of config?.headerActions">
+                    <kt-button [config]="action" (click)="action.command()" [attr.class]="action.hostClass"></kt-button>
+                </span>
+            </div>
         </div>
     </div>
 </ng-template>
-
+>

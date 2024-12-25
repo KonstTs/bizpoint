@@ -24,6 +24,7 @@
                 [appendTo]="appendTo"
                 [virtualScroll]="virtualScroll"
                 [virtualScrollItemSize]="virtualScrollItemSize"
+                (onChange)="optionSet($event)"
                 (ngModelChange)="valueChanged($event)"
             >
             </p-dropdown>

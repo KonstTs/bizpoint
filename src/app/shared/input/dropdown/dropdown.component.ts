@@ -3,7 +3,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, forwardRef, HostBind
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR, NgModel, ReactiveFormsModule } from '@angular/forms';
 import { ktInputBase } from '../input-base';
 import { IktTextIconStyle } from '../../../model/icon.model';
-import {DropdownModule} from 'primeng/dropdown';
+import { DropdownModule } from 'primeng/dropdown';
 import { Observable, take } from 'rxjs';
 import { untilDestroyed } from '@ngneat/until-destroy';
 
@@ -13,7 +13,7 @@ const INPUT_BASE = { provide: ktInputBase, useExisting: forwardRef(() => ktDropd
 @Component({
   selector: 'kt-dropdown',
   standalone: true,
-  imports:[CommonModule, DropdownModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, DropdownModule, FormsModule, ReactiveFormsModule],
   templateUrl: './dropdown.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [VALUE_ACCESSOR, INPUT_BASE]
@@ -48,13 +48,13 @@ export class ktDropdownComponent extends ktInputBase implements OnInit, AfterVie
   @Input() iconSize?: string;
   @Input() iconStyle: IktTextIconStyle;
   @Input() showClear: boolean;
-  @Input() appendTo? :any;
+  @Input() appendTo?: any;
   @Input() virtualScroll = false;
-  @Input() virtualScrollItemSize? :number;
-  selection:any;
-
+  @Input() virtualScrollItemSize?: number;
+  @Input() optionSetFn: (...args) => void;
   @Input() optionsFn: (...args) => any[];
   @Input() optionsFn$: (...args) => Observable<any[]>;
+  selection: any;
 
   constructor(injector: Injector) {
     super(injector);
@@ -66,9 +66,12 @@ export class ktDropdownComponent extends ktInputBase implements OnInit, AfterVie
     }
   }
 
+  optionSet(e) {
+    if (this.optionSetFn) this.optionSetFn();
+  }
 
-  onChange = (_: any) => {};
-  onTouched = () => {};
+  onChange = (_: any) => { };
+  onTouched = () => { };
 
   valueChanged(value: any) {
     this.onChange(value);
@@ -89,8 +92,8 @@ export class ktDropdownComponent extends ktInputBase implements OnInit, AfterVie
 
   ngOnInit(): void {
     super.ngOnInit();
-    if(this.optionsFn) this.options = this.optionsFn();
-    if(this.optionsFn$) this.optionsFn$().pipe(take(1), untilDestroyed(this)).subscribe(res => this.options = res)
+    if (this.optionsFn) this.options = this.optionsFn();
+    if (this.optionsFn$) this.optionsFn$().pipe(take(1), untilDestroyed(this)).subscribe(res => this.options = res)
   }
 
   ngAfterViewInit(): void {

@@ -66,6 +66,10 @@
       bottom: 0;
       padding: var(--content-padding);
       top: 120px;
+      .--docked{
+        @include helpers.kt-coloumn-flex-mixin;
+        @include helpers.kt-motion-slow-mixin;
+      }
     }
   }
 

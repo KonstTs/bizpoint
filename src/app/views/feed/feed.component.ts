@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, HostBinding, Inject, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { DASHBOARD_CONFIG as dbc, Ikt_DASHBOARD_MODE, IktDashboardLayoutType } from './feed-utils';
+import { FEED_CONFIG as dbc, Ikt_FEED_MODE, IktFeedLayoutType } from './feed-utils';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,6 +16,7 @@ import { ktListComponent } from '../../shared/structure/list/list.component';
 import { ktListHeaderComponent } from '../../shared/structure/list/list-header.component';
 import { kt_CELL_FORMATTER_TOKEN, ktCellRenderer } from '../../services/row-cell-renderers';
 import { kt_INIT_FEED_SEARCH } from '../../config/feed';
+import {ktTemplateDirective} from '../../directives/template.directive'
 
 
 @UntilDestroy()
@@ -27,7 +28,8 @@ import { kt_INIT_FEED_SEARCH } from '../../config/feed';
 		ktTextComponent,
 		ktSwipeDirective,
         ktListComponent,
-        ktListHeaderComponent
+        ktListHeaderComponent,
+		ktTemplateDirective
 	],
 	providers: [
 		ktNotificationService,
@@ -37,22 +39,29 @@ import { kt_INIT_FEED_SEARCH } from '../../config/feed';
 		LOCALSTORAGE_CACHE,
 		{ provide: kt_CELL_FORMATTER_TOKEN, useFactory: ktCellRenderer },
 		{ provide: kt_FEED_INIT_SEARCH_TOKEN, useValue: kt_INIT_FEED_SEARCH },
-		// { provide: kt_TABLE_COLDEFS_TOKEN, useValue: dbc.columns }
 	],
-	// styleUrls: ['./dashboard.component.scss'],
+	styleUrls: ['./feed.component.scss'],
 	template: `
 		<div class="feed --docked" [ngClass]="layout['hostClass']">
 			<section class="widget --list">
-            <kt-list [VM]="VM">
-                <ng-template ktTemplate="header">
-                    <kt-list-header
-                        [title]="'A really long feed title'"
-                    ></kt-list-header>
-                </ng-template>
-                
-            </kt-list>
+				<kt-list
+					[items]="data"
+				>
+					<!-- <ng-template ktTemplate="header"> -->
+						<!-- <h2>aaaaaaaaaaaaaaaaaaa</h2> -->
+						<!-- <kt-list-header
+							[title]="'A really long feed title'"
+						></kt-list-header> -->
+					<!-- </ng-template> -->
+					<!-- <ng-template ktTemplate="listItemTpl">
+						<h2>blah</h2>
+					</ng-template> -->
+					
+				</kt-list>
 			</section>
+			<section class="widget --dock">
 
+			</section>
 			
 		</div>
 	`
@@ -63,19 +72,16 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 	// @ViewChild(ktChartComponent) ktChart: ktChartComponent;
 	@ViewChild('drawer', { read: ktSwipeDirective }) drawer: ktSwipeDirective;
 	@HostBinding('class.mobile') get mobile() { 
-		return this.bootstraktorMobile
+		return this.bootstrapForMobile;
 	}
 
 	titleFeed = 'Feed';
 	titleCharts = 'Stats';
 
 	searchLabel = '';
-	columnsMap: any;
-	displayedColumns: string[];
 	// orderOptions: IktSelectOptions[];
-	
-	modes: Ikt_DASHBOARD_MODE;
-	layout: IktDashboardLayoutType;
+	modes: Ikt_FEED_MODE;
+	layout: IktFeedLayoutType;
 	
 	// chartActions: ktButtonConfig[];
 	// chartMobile = kt_CHART_MOBILE_OPTIONS;
@@ -89,23 +95,26 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 	showDrawer = true;
 	userSwipes = false;
 
-	bootstraktorMobile: boolean;
-
+	bootstrapForMobile: boolean;
+data;
 	search$: (e: any) => any;
 	currencies$: () => Observable<string[]>;
 	 
 
 	constructor(
-		public VM: ktFeedViewModelService<IktFeedLine>,
+		public VM: ktFeedViewModelService,
 		private _renderer: Renderer2,
 		@Inject(ktDeviceService) private _deviceSvc:ktDeviceService,
 		// @Inject(SelectMapperService) private _selectMapperSvc: SelectMapperService,
 		@Inject(LOCALSTORAGE_CACHE_TOKEN) private _localStorage: IktCacheService,
 	) {
 		const { layouts, ordering, provideLayoutActionsFor, provideChartData } = dbc;
-
+		this.VM.source$.subscribe(res => {
+			this.data = res
+			console.log('this.data:', this.data)
+		})
 		this._deviceSvc.isMobile$().subscribe(res => {
-			this.bootstraktorMobile = res; 
+			this.bootstrapForMobile = res; 
 		})
 		
 		this.modes = layouts;
@@ -173,7 +182,7 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 	
 
 	ngOnInit(): void {
-		this.VM.getList().subscribe()
+		this.VM.getList$().subscribe()
 	}
 
 	ngAfterViewInit(): void {

@@ -5,7 +5,7 @@ import { SESSIONSTORAGE_CACHE } from '../../../config/cache';
 import { IktButtonConfig } from '../button/button.component';
 import { ktListViewModelService } from './list-viewmodel.service';
 import { DataViewLayoutChangeEvent, DataViewModule, DataViewPageEvent, DataViewSortEvent } from 'primeng/dataview';
-import { ktListItemComponent } from './list-item.component';
+import { IktListItemConfig, ktListItemComponent } from './list-item.component';
 import { ktTemplateDirective } from '../../../directives/template.directive';
 import { ktHeaderComponent } from '../header/header.component';
 
@@ -22,7 +22,9 @@ export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
   static nextId = 0;
   @HostBinding() id = `kt-list-${ktListComponent.nextId++}`;
 
-  @Input() VM: ktListViewModelService<any>;
+  // @Input() VM: ktListViewModelService<any>;
+  @Input() items:any[];
+  @Input() itemsConfig:IktListItemConfig[];
   @Input() rows = 100;
   @Input() layout:any = 'list'
   @Input() totalRecords:number;
@@ -36,7 +38,7 @@ export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() alwaysShowPaginator = true;
   @Input() paginatorPosition:any = 'bottom';
   @Input() pageLinks = 5;
-  @Input() loading = true;
+  @Input() loading = false;
   @Input() loadingIcon;
   @Input() lazy = false;
   @Input() lazyLoadOnInit = false;
@@ -46,7 +48,7 @@ export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() pageFn:(...args) => void;
   @Input() sortFn:(...args) => void;
   @Input() layoutFn:(...args) => void;
-
+  
   @ContentChildren(ktTemplateDirective) templates: QueryList<ktTemplateDirective>;
 
     headerTpl: TemplateRef<ktHeaderComponent>;
@@ -54,7 +56,11 @@ export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
     gridItemTpl: TemplateRef<ktListItemComponent>;
     footerTpl: TemplateRef<any>;
   
-  constructor(private _renderer: Renderer2) { }
+  constructor(
+    private _renderer: Renderer2, 
+  ) { 
+   
+  }
 
   ngAfterContentInit(): void {
     this.templates.forEach((tpl) => {
@@ -79,23 +85,13 @@ export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   
   ngOnInit(): void {
-    if(this.VM) this.VM.ngOnInit();
   }
 
   ngAfterViewInit(): void {
-    // listen to global notifications
-    // especially valuable for error handling and strategy conforming  
-  
-    setTimeout(_ => { 
-      // this.VM.isBusy$.subscribe(busy => { 
-      //   this.loading = busy;
-      // })
-    })
   }
 
 
     ngOnDestroy(): void {
-      this.VM.ngOnDestroy()
     }
 
 }

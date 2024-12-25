@@ -3,6 +3,7 @@ import { ControlValueAccessor, NG_VALIDATORS, NgModel, Validator } from '@angula
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ktLoggerService } from '../../services/logger.service';
 import { ktNotificationService } from '../../services/notification.service';
+import { ktModelProxyService } from '../../services/model-proxy/model-proxy.service';
 
 
 @UntilDestroy()
@@ -48,13 +49,19 @@ export abstract class ktInputBase implements OnInit, AfterContentInit, AfterView
   protected loggerSvc: ktLoggerService;
   protected ngValidators: (Function | Validator)[];
   protected notificationSvc: ktNotificationService;
+  protected modelProxySvc: ktModelProxyService<any>;
 
   constructor(protected injector: Injector) {
+    this.modelProxySvc = injector.get(ktModelProxyService, null);
+    // implement modelvalidation svc and use with proxy
     this.loggerSvc = injector.get<ktLoggerService>(ktLoggerService);
     this.cdr = injector.get(ChangeDetectorRef);
     (<any>this.ngValidators) = injector.get(NG_VALIDATORS, null);
     this.notificationSvc = injector.get(ktNotificationService);
   }
+
+  //---------------- DO NOT FORGET ----------------------
+  // implement model validation bootstraping private method
 
   ngOnInit(): void {}
 

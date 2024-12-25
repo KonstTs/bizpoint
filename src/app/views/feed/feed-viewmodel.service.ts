@@ -16,6 +16,7 @@ export const kt_FEED_INIT_SEARCH_TOKEN = new InjectionToken<IktFeedSearchModel>(
 @UntilDestroy()
 @Injectable()   
 export class ktFeedViewModelService extends ktListViewModelService<IktFeedLine> implements OnInit, OnDestroy {
+    entityRoute: string;
     protected override getListCb = this.getList.bind(this);
     protected override getListItemCb = this.getItem.bind(this);
     columns: any;

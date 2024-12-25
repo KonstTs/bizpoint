@@ -1,3 +1,5 @@
+import { ktApiResponse } from "../model/api-response.model";
+
 export const getElement = (selector: string): Element | HTMLElement => document.querySelector(selector);
 
 export const getStyle = (selector: string, property: string, pseudo: string = null) => getComputedStyle(getElement(selector), pseudo).getPropertyValue(property);
@@ -11,6 +13,10 @@ export const extractPropertyPath = (path: string) => path.split('.').filter((p) 
 export const hasValue = (value: string | any[] | null): boolean => !(value == null || value.length === 0);
 
 export const hasDuplicates = (arr: any[]): boolean => arr.some((x: any) => arr.indexOf(x) !== arr.lastIndexOf(x));
+
+export function isApiResponse(obj: any): obj is ktApiResponse {
+  return !!obj && typeof obj !== 'string' && 'isError' in obj;
+}
 
 export function mergeObjects(_a: object, _b: object, strings = true) {
   const deepMerge = (a: object, b: object, fn: { (key: any, a: any, b: any): any; (key: any, a: any, b: any): any; (arg0: string, arg1: any, arg2: any): any }) =>

@@ -4,7 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable()
-export class PreflightInterceptor implements HttpInterceptor {
+export class LogInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('request:', request)
     return next.handle(request).pipe(

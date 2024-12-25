@@ -1,5 +1,7 @@
 import { ktApiResponse } from "../model/api-response.model";
 
+export const resolvedPromise = (() => Promise.resolve(null))();
+
 export const getElement = (selector: string): Element | HTMLElement => document.querySelector(selector);
 
 export const getStyle = (selector: string, property: string, pseudo: string = null) => getComputedStyle(getElement(selector), pseudo).getPropertyValue(property);

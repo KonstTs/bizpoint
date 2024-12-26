@@ -3,8 +3,5 @@ export type ktTemplateType =
     'body' | 
     'footer' | 
     'listItem' | 
-    'gridItem' | 
-    'headerLeftTpl' |
-    'headerMidTpl' |
-    'headerRightTpl'
-    ;
+    'gridItem' |
+    'headerMid';

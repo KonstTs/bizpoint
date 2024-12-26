@@ -4,22 +4,37 @@ import { ktTemplateDirective } from "../../../directives/template.directive";
 import { CommonModule } from "@angular/common";
 import { DialogModule } from "primeng/dialog";
 import { ktLoadingComponent } from "../../containers/loader/loader.component";
+import { Observable } from "rxjs";
+import { ktTextComponent } from "../../input/text/text.component";
+import { ktDropdownComponent } from "../../input/dropdown/dropdown.component";
+import { IktActionsConfig, ktActionsComponent } from "../actions/actions.component";
 
-export interface IktHeaderConfig {
-    title: string;
-    titleIcon?: string;
+export interface IktHeaderGraphic {
+    iconClass?: string;
+    iconStyle?: any;
+    imgSrc?: string;
+    imgStyle?: any;
+}
+
+export interface IktHeaderBaseConfig {
+    title?: string;
     subtitle?: string;
-    actions?: IktButtonConfig[];
-    hideActions?: boolean;
     styles?: any;
     cssClass?: string;
-    intermediateClass?: string;
-    headerActions:IktButtonConfig[];
-    headerTpl: TemplateRef<any>
-    headerActionsGroup: boolean;
-    headerIconClass: string
-    iconClass: string;
-    iconStyle: string;
+    
+}
+
+// create control generator class 
+export interface IktHeaderControls {   
+    filterCtrLabel?: string;
+    filterCtrlModel?: any
+    sortCtrLabel?: string;
+    sortCtrlModel?: any;
+    sortCtrlOptions?: any;
+    sortCtrlOptionLabel?: string;
+    sortCtrlOptionValue?: string;
+    filterFn?: (...args) => void | Observable<any>
+    sortFn?: (...args) => void
 }
 
 @Component({
@@ -27,26 +42,31 @@ export interface IktHeaderConfig {
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
     standalone: true,
-    imports: [CommonModule, DialogModule, ktLoadingComponent, ktButtonComponent]
+    imports: [
+        CommonModule,
+        DialogModule,
+        ktLoadingComponent,
+        ktButtonComponent,
+        ktTextComponent,
+        ktDropdownComponent,
+        ktActionsComponent
+    ]
 })
 export class ktHeaderComponent implements AfterContentInit, AfterViewInit {
     static nextId = 0;
     @HostBinding() id = `kt-header-${ktHeaderComponent.nextId++}`;
     @ContentChild(ktTemplateDirective) tpl: ktTemplateDirective
-    @Input() config:IktHeaderConfig;
     headerTpl: TemplateRef<any>;
-    bodyTpl: TemplateRef<any>;
-    actions:IktButtonConfig[];
-    
+
+    @Input() config: IktHeaderBaseConfig;
+    @Input() graphic: IktHeaderGraphic;
+    @Input() actions: IktActionsConfig;
+    @Input() controls: IktHeaderControls;
+        
     constructor() { }
 
-    ngAfterContentInit(): void {
-        const {name, template} = this.tpl;
-        this.headerTpl = name === 'header' && template;
-    }
-    ngAfterViewInit(): void {
-        this.actions = this.config?.headerActions;
-    }
+    ngAfterContentInit(): void { }
+    ngAfterViewInit(): void { }
 
 }
 

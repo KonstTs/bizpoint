@@ -7,14 +7,16 @@ import { ktListViewModelService } from './list-viewmodel.service';
 import { DataViewLayoutChangeEvent, DataViewModule, DataViewPageEvent, DataViewSortEvent } from 'primeng/dataview';
 import { IktListItemConfig, ktListItemComponent } from './list-item.component';
 import { ktTemplateDirective } from '../../../directives/template.directive';
-import { ktHeaderComponent } from '../header/header.component';
+import { IktHeaderBaseConfig, IktHeaderControls, IktHeaderGraphic, ktHeaderComponent } from '../header/header.component';
+import { ktModelProxyService } from '../../../services/model-proxy/model-proxy.service';
+import { IktActionsConfig } from '../actions/actions.component';
 
 
 @Component({
   selector: 'kt-list',
   standalone: true,
-  imports: [CommonModule, DataViewModule],
-  providers: [SESSIONSTORAGE_CACHE],
+  imports: [CommonModule, DataViewModule, ktHeaderComponent, ktListItemComponent],
+  providers: [SESSIONSTORAGE_CACHE, ktModelProxyService],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
@@ -23,8 +25,14 @@ export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
   @HostBinding() id = `kt-list-${ktListComponent.nextId++}`;
 
   // @Input() VM: ktListViewModelService<any>;
+  @Input() hdrConfig: IktHeaderBaseConfig;
+  @Input() hdrGraphic: IktHeaderGraphic;
+  @Input() hdrActions: IktActionsConfig;
+  @Input() hdrControls: IktHeaderControls;
+
   @Input() items:any[];
-  @Input() itemsConfig:IktListItemConfig[];
+  @Input() itemsConfig: IktListItemConfig[];
+
   @Input() rows = 100;
   @Input() layout:any = 'list'
   @Input() totalRecords:number;
@@ -52,14 +60,14 @@ export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
   @ContentChildren(ktTemplateDirective) templates: QueryList<ktTemplateDirective>;
 
     headerTpl: TemplateRef<ktHeaderComponent>;
+    headerMidTpl: TemplateRef<any>;
     listItemTpl: TemplateRef<ktListItemComponent>;
     gridItemTpl: TemplateRef<ktListItemComponent>;
     footerTpl: TemplateRef<any>;
   
   constructor(
-    private _renderer: Renderer2, 
   ) { 
-   
+    
   }
 
   ngAfterContentInit(): void {

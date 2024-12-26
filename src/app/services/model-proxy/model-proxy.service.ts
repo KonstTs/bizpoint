@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy, Optional, InjectionToken, Inject } from '@angular/core';
 import { isObservable, Observable, of, Subject } from 'rxjs';
-import { ktModelChangingArgs, ktModelChangeArgs } from '../../model/mode-state-args.model';
+import { ktModelChangingArgs, ktModelChangeArgs } from '../../model/model-state-args.model';
 import { Change, ObservableSlim } from './observable-slim';
 import { extractPropertyPath } from '../../config/utils';
 

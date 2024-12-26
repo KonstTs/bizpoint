@@ -7,7 +7,7 @@ import { ktNotificationService } from '../../../services/notification.service';
 import { StrictHttpResponse } from '../../../api/strict-http-response';
 import { ktFilterModelValues } from '../../../model/filters.model';
 import { ktModelProxyService } from '../../../services/model-proxy/model-proxy.service';
-import { ktModelChangingArgs, ktModelChangeArgs } from '../../../model/mode-state-args.model';
+import { ktModelChangingArgs, ktModelChangeArgs } from '../../../model/model-state-args.model';
 
 export interface IktBaseSearchModel {
   filters?: string | ktFilterModelValues[];
@@ -97,7 +97,6 @@ export abstract class ktListViewModelService<TModel extends ktBaseEntity> implem
       switchMap(() => this.getListCb(_query)),
       tap((res) => {
         if (!res) res = [];
-        console.log('res:', res)
         this.model = res;
         this.source$.next(this.model);
       }),

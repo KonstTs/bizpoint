@@ -13,10 +13,11 @@ import { ktTextComponent } from '../../shared/input/text/text.component';
 import { kt_FEED_INIT_SEARCH_TOKEN, ktFeedViewModelService } from './feed-viewmodel.service';
 import { IktFeedLine } from '../../api/model/feed-dto/feed.model';
 import { ktListComponent } from '../../shared/structure/list/list.component';
-import { ktListHeaderComponent } from '../../shared/structure/list/list-header.component';
 import { kt_CELL_FORMATTER_TOKEN, ktCellRenderer } from '../../services/row-cell-renderers';
 import { kt_INIT_FEED_SEARCH } from '../../config/feed';
 import {ktTemplateDirective} from '../../directives/template.directive'
+import { ktModelProxyService } from '../../services/model-proxy/model-proxy.service';
+import { ktHeaderComponent } from '../../shared/structure/header/header.component';
 
 
 @UntilDestroy()
@@ -28,13 +29,14 @@ import {ktTemplateDirective} from '../../directives/template.directive'
 		ktTextComponent,
 		ktSwipeDirective,
         ktListComponent,
-        ktListHeaderComponent,
+		ktHeaderComponent,
 		ktTemplateDirective
 	],
 	providers: [
 		ktNotificationService,
 		ktFeedViewModelService,
 		ktDeviceService,
+		ktModelProxyService,
 		SESSIONSTORAGE_CACHE,
 		LOCALSTORAGE_CACHE,
 		{ provide: kt_CELL_FORMATTER_TOKEN, useFactory: ktCellRenderer },
@@ -44,19 +46,13 @@ import {ktTemplateDirective} from '../../directives/template.directive'
 	template: `
 		<div class="feed --docked" [ngClass]="layout['hostClass']">
 			<section class="widget --list">
-				<kt-list
-					[items]="data"
+				<kt-list 
+					[items]="data" 
+					[hdrConfig]="hdrConfig" 
+					[hdrGraphic]="hdrGraphic" 
+					[hdrControls]="hdrControls" 
+					[hdrActions]="hdrActions"s
 				>
-					<!-- <ng-template ktTemplate="header"> -->
-						<!-- <h2>aaaaaaaaaaaaaaaaaaa</h2> -->
-						<!-- <kt-list-header
-							[title]="'A really long feed title'"
-						></kt-list-header> -->
-					<!-- </ng-template> -->
-					<!-- <ng-template ktTemplate="listItemTpl">
-						<h2>blah</h2>
-					</ng-template> -->
-					
 				</kt-list>
 			</section>
 			<section class="widget --dock">
@@ -74,6 +70,12 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 	@HostBinding('class.mobile') get mobile() { 
 		return this.bootstrapForMobile;
 	}
+
+	hdrConfig;
+	hdrGraphic;
+	hdrControls;
+	hdrActions
+
 
 	titleFeed = 'Feed';
 	titleCharts = 'Stats';
@@ -116,6 +118,15 @@ data;
 		this._deviceSvc.isMobile$().subscribe(res => {
 			this.bootstrapForMobile = res; 
 		})
+
+		// listen to the state and model updates 
+		// this.VM.modelChanged$.pipe(untilDestroyed(this)).subscribe(_=>{
+			// do some cool things with the updates
+		// })
+
+		// this.headerConfig = {
+		// 	title: 'a title'
+		// }
 		
 		this.modes = layouts;
 		// this.orderOptions = ordering;

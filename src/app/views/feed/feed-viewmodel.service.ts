@@ -1,7 +1,7 @@
 import { Injectable, OnInit, OnDestroy, Injector, Inject, forwardRef, InjectionToken } from "@angular/core";
 import { UntilDestroy } from "@ngneat/until-destroy";
 import { ktListViewModelService, ktSearchModel } from '../../shared/structure/list/list-viewmodel.service';
-import { Observable, of } from "rxjs";
+import { map, Observable, of, Subject, switchMap } from "rxjs";
 import { StrictHttpResponse } from "../../api/strict-http-response";
 import { IktFeedAd } from "../../api/model/feed-dto/feed-ad.model";
 import { ktFeedService } from "../../api/services/feed-services.service";
@@ -10,6 +10,7 @@ import { IktFeedSearchModel } from "../../model/search.model";
 import { IktCellRenderer, kt_CELL_FORMATTER_TOKEN } from "../../services/row-cell-renderers";
 import * as dummy from '../../../dummy'
 import { IktFeedLine } from "../../api/model/feed-dto/feed.model";
+import { ktModelChangeArgs } from "../../model/model-state-args.model";
 
 export const kt_FEED_INIT_SEARCH_TOKEN = new InjectionToken<IktFeedSearchModel>('initFeedSearch')
 
@@ -21,6 +22,25 @@ export class ktFeedViewModelService extends ktListViewModelService<IktFeedLine> 
     protected override getListItemCb = this.getItem.bind(this);
     columns: any;
     barchart$: any;
+    modelChanged$ = new Subject();
+
+    protected modelChanged(change: ktModelChangeArgs<IktFeedLine[]>): void {
+        // super.modelChanged(change);
+        // this.modelProxySvc.suspendChangeNotifications();
+        
+        // check which fragment of model has changed 
+        // eg if(change.propertyPath === 'modelproperty')
+        // and do some fancy stuff like update state, run validations
+        // cache, send notifications etc
+        
+
+        // this.modelProxySvc.resumeChangeNotifications();
+
+        // communicate the new state to whoever it might concern,
+        // this.modelChanged$.next()
+        // eg the attached component
+        
+    }
 
     constructor(
         injector: Injector,
@@ -37,7 +57,10 @@ export class ktFeedViewModelService extends ktListViewModelService<IktFeedLine> 
 
     getList(_query?:any): Observable<IktFeedLine[]>{
         // console.log(dummy.dummy)
-        return of(<any>dummy.dummy)
+        return of(<any>dummy.dummy).pipe(
+            map(({_feed_entry}) => <any>_feed_entry),
+            switchMap(entries => of(this.processResponse(entries)))
+        )
     }
     getItem(id:string): Observable<IktFeedAd>{
         return of(null)
@@ -56,5 +79,6 @@ export class ktFeedViewModelService extends ktListViewModelService<IktFeedLine> 
 
     ngOnDestroy() {
         super.ngOnDestroy();
+        // this.modelChanged$.complete();
     }
 }

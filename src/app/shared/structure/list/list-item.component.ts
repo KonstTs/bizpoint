@@ -28,10 +28,19 @@ export interface IktListItemConfig {
     imports:[CommonModule,TrustHTMLPipe],
     template: `
         <div class="kt-list-item kt-ai-center-flex" [style]="config?.styles" (click)="onclick($event)">
+        <!-- @defer(){ -->
+            <!-- make comp -->
             <div class="_thumb">
                 <img *ngIf="config?.thumbnail" [src]="config?.thumbnail"/>
                 <i *ngIf="config?.iconClass" [attr.class]="config?.iconClass" [attr.style]="config?.iconStyle"></i>>
             </div>
+        <!-- } -->
+        <!-- @placeholder {
+            <p>Placeholder content</p>
+        } -->
+        <!-- @placeholder { -->
+            <!-- <p>Placeholder content</p> -->
+        <!-- } -->
             <div class="_icon">
             
             </div>

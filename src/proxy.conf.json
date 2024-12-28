@@ -1,9 +1,20 @@
 {
-    "/api": {  
+  "/pexels/*": {
+    "target": "https://api.pexels.com",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/pexels": ""
+    }
+  },
+  "/nav/*": {
     "target": "https://pam-stilling-feed.nav.no",
     "secure": false,
     "logLevel": "debug",
-    "pathRewrite": { "^/api": "" },
-    "changeOrigin": true 
+    "pathRewrite": {
+      "^/nav": ""
+    },
+    "changeOrigin": true
   }
 }

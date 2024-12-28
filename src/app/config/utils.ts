@@ -6,6 +6,8 @@ export const getElement = (selector: string): Element | HTMLElement => document.
 
 export const getStyle = (selector: string, property: string, pseudo: string = null) => getComputedStyle(getElement(selector), pseudo).getPropertyValue(property);
 
+export const getStyleMap = (selector: string) => getElement(selector).computedStyleMap();
+
 export const colorme = () => Math.floor(Math.random() * 16777215).toString(16);
 
 export const extract = (key: any, { [key]: extracted, ...rest }: any) => rest;

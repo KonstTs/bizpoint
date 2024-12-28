@@ -1,16 +1,62 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------------- -->
+
+  <!-- angular-scope-agnostic worker to engage as soon as possible multithreading operations  -->
+  <!-- thus ensuring - in conjunction with the service worker - that the main thread is not blocked  -->
+  <!-- (earlier than angular's APP_INITIALIZER)  -->
+  <!-- later on, after app's bootstraping, an injectable worker service will be implemented 
+   to blend harmoniously with angular's ecosystem -->
+
+
+   <!--
+      <script>
+        ((wn) => {
+          console.log('wn:',wn)
+          if (!wn.Worker) return;
+
+          const onmessage = async (e) => {
+            const {data} = e;
+
+            await fetch(data[0], data[1])
+              .then(res => response.json())
+              .then(json => postMessage({ data: json }))
+              .catch((ex) => postMessage({ error: ex }));
+          }
+
+          const coburl = URL.createObjectURL(new Blob(
+            [`onmessage = ${String(onmessage)}`],
+            { type: "text\/javascript" }
+          ));
+
+          const _imgGetter_ = new Worker(coburl, {name: '_imgGetter_'});
+          _imgGetter_.postMessage([
+            'https://api.pexels.com/v1/search?query=job', 
+            {headers:{'Authorization': `Basic DzWjzptfM5qcEZ4LSqNnPvX1aydl8Aw9h2vi5mWGDrGMfuAIewvaplOE`}}
+          ]);
+        })(window);
+      </script>
+  -->
+
+
+
+<!-- ----------------------------------------------------------------------------------------------------------------------------------------- -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300&display=swap" rel="stylesheet">
   <meta charset="utf-8">
   <title>Instajob</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+
 <body>
   <app-root></app-root>
+
 </body>
+
 </html>

@@ -10,12 +10,12 @@
 <!-- provide default header fallback -->
 <ng-template #defaultHeader>
     <div class="tk-header" [ngClass]="config?.cssClass" [ngStyle]="config?.styles"> 
-        
+    
         <div class="_graphic">
             <i *ngIf="graphic.iconClass" [attr.class]="graphic.iconClass" [attr.style]="graphic.iconStyle"></i>
             <div *ngIf="graphic.imgSrc" class="kt-bg-img-auto-fit" [style.background.url]="graphic.imgSrc"></div>
         </div>
-
+    
         <div class="_main">
             <div class="_titles">
                 <h2 class="__title">{{config.title}}</h2>

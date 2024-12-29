@@ -20,3 +20,4 @@ export interface IktFeedLine {
     date_modified?: Date | string;
     _feed_entry: IktFeedEntry;
 }
+

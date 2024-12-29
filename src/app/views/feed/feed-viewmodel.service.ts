@@ -7,16 +7,27 @@ import { IktFeedAd } from "../../api/model/feed-dto/feed-ad.model";
 import { ktFeedService } from "../../api/services/feed-services.service";
 import { ktBaseEntity } from "../../model/base-entity.model";
 import { IktFeedSearchModel } from "../../model/search.model";
-import { IktCellRenderer, kt_CELL_FORMATTER_TOKEN } from "../../services/row-cell-renderers";
+import { IktCellRenderer, kt_CELL_FORMATTER_TOKEN } from "../../services/row-cell-renderers.factory";
 import {ads} from '../../../ads'
 import { IktFeedLine } from "../../api/model/feed-dto/feed.model";
 import { ktModelChangeArgs } from "../../model/model-state-args.model";
 
-export const kt_FEED_INIT_SEARCH_TOKEN = new InjectionToken<IktFeedSearchModel>('initFeedSearch')
+export const kt_FEED_INIT_SEARCH_TOKEN = new InjectionToken<IktFeedSearchModel>('initFeedSearch');
+export interface IktFeedRow {
+    id: string;
+    title?: string;
+    description?: string;
+    location: string;
+    employer?: string;
+    salary?: string
+    rating?: number;
+    img?: string;
+    favorite: boolean;
+} 
 
 @UntilDestroy()
 @Injectable()   
-export class ktFeedViewModelService extends ktListViewModelService<IktFeedLine> implements OnInit, OnDestroy {
+export class ktFeedViewModelService extends ktListViewModelService<IktFeedRow> implements OnInit, OnDestroy {
     protected getListCb = this.getList.bind(this);
     protected getListItemCb = this.getItem.bind(this);
     entityRoute = 'feed';
@@ -24,7 +35,7 @@ export class ktFeedViewModelService extends ktListViewModelService<IktFeedLine> 
     barchart$: any;
     modelChanged$ = new Subject();
 
-    protected modelChanged(change: ktModelChangeArgs<IktFeedLine[]>): void {
+    protected modelChanged(change: ktModelChangeArgs<IktFeedRow[]>): void {
         // super.modelChanged(change);
         // this.modelProxySvc.suspendChangeNotifications();
         // check which fragment of model has changed 
@@ -52,7 +63,7 @@ export class ktFeedViewModelService extends ktListViewModelService<IktFeedLine> 
         return ads;
     }
 
-    getList(_query?:any): Observable<IktFeedLine[]>{
+    getList(_query?:any): Observable<IktFeedRow[]>{
         // console.log(dummy.dummy)
         return of(<any>ads).pipe(
             switchMap(entries => of(this.processResponse(entries)))

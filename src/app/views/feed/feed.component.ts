@@ -13,7 +13,7 @@ import { ktTextComponent } from '../../shared/input/text/text.component';
 import { kt_FEED_INIT_SEARCH_TOKEN, ktFeedViewModelService } from './feed-viewmodel.service';
 import { IktFeedLine } from '../../api/model/feed-dto/feed.model';
 import { ktListComponent } from '../../shared/structure/list/list.component';
-import { kt_CELL_FORMATTER_TOKEN, ktCellRenderer } from '../../services/row-cell-renderers';
+import { kt_CELL_FORMATTER_TOKEN, ktCellRenderer } from '../../services/row-cell-renderers.factory';
 import { kt_INIT_FEED_SEARCH } from '../../config/feed';
 import {ktTemplateDirective} from '../../directives/template.directive'
 import { ktModelProxyService } from '../../services/model-proxy/model-proxy.service';

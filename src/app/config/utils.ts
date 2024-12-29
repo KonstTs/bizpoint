@@ -18,6 +18,10 @@ export const hasValue = (value: string | any[] | null): boolean => !(value == nu
 
 export const hasDuplicates = (arr: any[]): boolean => arr.some((x: any) => arr.indexOf(x) !== arr.lastIndexOf(x));
 
+export const arrayRandom = (arr) => (arr[Math.floor(Math.random() * arr.length)]);
+
+export const floatRandom = (_ceil,_floor) => (Math.random() * (_ceil - _floor) + _floor);
+
 export function isApiResponse(obj: any): obj is ktApiResponse {
   return !!obj && typeof obj !== 'string' && 'isError' in obj;
 }

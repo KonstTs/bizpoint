@@ -5,3 +5,4 @@ export interface IktFeedSearchModel {
     pageId?: string,
     entryId?: string
   }
+

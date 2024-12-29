@@ -8,6 +8,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { ktFeedViewModelService } from './views/feed/feed-viewmodel.service';
 import { ktPexelsService } from './api/services/pexels-services.service';
 import { ktAdsWorkerService } from './services/ads-worker.service';
+import { DatabaseService } from './services/indexedDB.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,6 +16,8 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     ktPexelsService,
     ktAdsWorkerService,
+    DatabaseService,
+    ktFeedViewModelService,
     provideHttpClient(withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]

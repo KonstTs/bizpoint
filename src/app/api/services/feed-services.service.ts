@@ -5,7 +5,7 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 import { RequestBuilder } from '../request-builder';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, filter, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { IktFeed } from '../model/feed-dto/feed.model';
@@ -20,6 +20,8 @@ export class ktFeedService extends BaseService {
     constructor(config: ApiConfiguration, http: HttpClient) {
       super(config, http);
     }
+
+    mandatorySubjectDueToCors$ = new Subject<any>(); 
 
     static feedPageGetPath = '/api/vi/feed';
     static feedPageByIdGetPath = '/api/vi/feed/{id}';

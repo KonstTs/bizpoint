@@ -1,4 +1,4 @@
-import { Injectable, OnInit, OnDestroy, Injector, Inject, forwardRef, InjectionToken } from "@angular/core";
+import { Injectable, OnInit, OnDestroy, Injector, Inject, forwardRef, InjectionToken, Pipe } from '@angular/core';
 import { UntilDestroy } from "@ngneat/until-destroy";
 import { ktListViewModelService, ktSearchModel } from '../../shared/structure/list/list-viewmodel.service';
 import { map, Observable, of, Subject, switchMap } from "rxjs";
@@ -46,7 +46,6 @@ export class ktFeedViewModelService extends ktListViewModelService<IktFeedRow> i
         // communicate the new state to whoever it might concern,
         // this.modelChanged$.next()
         // eg the attached component
-        
     }
 
     constructor(
@@ -63,12 +62,30 @@ export class ktFeedViewModelService extends ktListViewModelService<IktFeedRow> i
         return ads;
     }
 
-    getList(_query?:any): Observable<IktFeedRow[]>{
-        // console.log(dummy.dummy)
-        return of(<any>ads).pipe(
-            switchMap(entries => of(this.processResponse(entries)))
-        )
+    // peculiar cors issue at pam stiling api. 
+    // pexels api works properly
+    getList(_query?:any): Observable<any[]>{
+        //cors issue workaround
+        return this._apiSvc.mandatorySubjectDueToCors$.pipe(switchMap(res => of(res)));
+        
+        // proper implementation should be sth like this 
+        // this.decacheDB('Feed').pipe(
+        //       catchError(err => {
+        //         return of(null);
+        //       }),
+        //       switchMap(cached => {
+        //         if (cached) return of(cached);
+        //         return forkJoin([this._pexelsSvc.pexelsPhotosGet(), of(ads)])
+        //       }),
+        //       switchMap(([i, a]) => this.process$({ imgs: i, ads: a })),
+        //       tap(res => this.feedApiSvc.mandatorySubjectDueToCors$.next(res)),
+        //     )
+        //       .subscribe(res => {
+        //         this.idxdb.setItem('Feed', res);
+        //       })
+
     }
+    
     getItem(id:string): Observable<IktFeedAd>{
         return of(null)
     }

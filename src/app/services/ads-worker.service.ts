@@ -1,7 +1,6 @@
 /// <reference lib="webworker" />
 import { Injectable } from '@angular/core';
 
-
 @Injectable({
     providedIn: 'root',
 })
@@ -12,12 +11,15 @@ export class ktAdsWorkerService {
         this._worker_ = new Worker(new URL('../workers/ads.worker', import.meta.url));
     }
 
+    terminate() {
+        this._worker_.terminate();
+    }
+
+
     process(ads: any): Promise<any> {
         return new Promise((resolve, _) => {
-            console.log('process:', ads)
             this._worker_.postMessage(ads);
             this._worker_.onmessage = (e) => {
-                console.log('e:', e)
                 resolve(e.data);
             };
         });

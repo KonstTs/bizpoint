@@ -15,8 +15,8 @@ export class ErrorInterceptor implements HttpInterceptor {
       catchError((err: HttpErrorResponse) => {
         this._loggerSvc.logError('Interceptor error response', err);
 
-           if ([304].find((p) => p === err.status)) { }
-           else if ([404].find((p) => p === err.status)) {}
+           if(err.status === 304) { }
+           if(err.status === 404) {}
 
         return of(null);
       }),

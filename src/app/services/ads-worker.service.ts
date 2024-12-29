@@ -15,7 +15,6 @@ export class ktAdsWorkerService {
         this._worker_.terminate();
     }
 
-
     process(ads: any): Promise<any> {
         return new Promise((resolve, _) => {
             this._worker_.postMessage(ads);

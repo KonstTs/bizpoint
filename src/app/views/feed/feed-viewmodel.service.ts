@@ -103,6 +103,6 @@ export class ktFeedViewModelService extends ktListViewModelService<IktFeedRow> i
 
     ngOnDestroy() {
         super.ngOnDestroy();
-        // this.modelChanged$.complete();
+        this.modelChanged$.complete();
     }
 }

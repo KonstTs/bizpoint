@@ -37,7 +37,6 @@ export class AppComponent implements OnInit {
         untilDestroyed(this),
       )
       .subscribe(res => {
-        console.log('res:', res);
         this.idxdb.setItem('Feed', res);
         this.feedApiSvc.mandatorySubjectDueToCors$.next(res);
         this._adsWorker.terminate();

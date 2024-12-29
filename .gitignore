@@ -48,3 +48,6 @@ Thumbs.db
 src/app/views/feed/dummy.ts
 src/app/views/feed/dummy.ts
 src/app/views/feed/dummy.ts
+src/ads.json
+src/ads.ts
+src/app/views/feed/ads.json

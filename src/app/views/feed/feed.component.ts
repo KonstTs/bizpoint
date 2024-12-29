@@ -193,7 +193,7 @@ data;
 	
 
 	ngOnInit(): void {
-		this.VM.getList$().subscribe()
+		// this.VM.getList$().subscribe()
 	}
 
 	ngAfterViewInit(): void {

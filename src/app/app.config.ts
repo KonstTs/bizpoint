@@ -4,12 +4,18 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { routes } from './app.routes';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { LogInterceptor } from './interceptors/log.interceptor';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { ktFeedViewModelService } from './views/feed/feed-viewmodel.service';
+import { ktPexelsService } from './api/services/pexels-services.service';
+import { ktAdsWorkerService } from './services/ads-worker.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideAnimationsAsync(),
+    ktPexelsService,
+    ktAdsWorkerService,
     provideHttpClient(withInterceptorsFromDi()),
-    { provide: HTTP_INTERCEPTORS, useClass: LogInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ]
 };

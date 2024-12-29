@@ -9,6 +9,6 @@ export const routes: Routes = [{
 //     loadComponent: () => import('./views/about/about.component').then(m => m.ktAboutComponent) 
 // },
 { 
-    path: 'coins',
+    path: 'feed',
     loadComponent: () => import('./views/feed/feed.component').then(m => m.ktFeedComponent) 
 }];

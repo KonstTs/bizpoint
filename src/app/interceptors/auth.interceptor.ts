@@ -6,9 +6,11 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const {url} = request;
+    const auth = url.includes('pexels') ? 'pexelsAPIKEY' : 'psFeedAthToken';
     const _request = request.clone({
       setHeaders: {
-        'Authorization': `Bearer ${environment.psFeedAthToken}`
+        'Authorization': environment[auth]
       }
     });
     

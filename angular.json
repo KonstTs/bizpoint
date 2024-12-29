@@ -35,7 +35,8 @@
               "node_modules/primeng/resources/primeng.min.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "webWorkerTsConfig": "tsconfig.worker.json"
           },
           "configurations": {
             "production": {
@@ -64,8 +65,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-
-            "proxyConfig": "src/proxy.conf.json"
+            
         },
           "configurations": {
             "production": {
@@ -100,7 +100,8 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "webWorkerTsConfig": "tsconfig.worker.json"
           }
         }
       }

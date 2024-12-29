@@ -71,8 +71,6 @@ export abstract class ktListViewModelService<TModel extends ktBaseEntity> implem
     return this.modelProxySvc.isDirty$;
   }
 
-  
-
   //instance restricted callbacks
   protected abstract getListCb(_query: any): Observable<TModel[]>;
   protected abstract getListItemCb(_id: string): Observable<any>;
@@ -90,7 +88,7 @@ export abstract class ktListViewModelService<TModel extends ktBaseEntity> implem
     this.modelProxySvc = injector.get<ktModelProxyService<any>>(ktModelProxyService);
   }
 
-  //provides responce
+  //provides list
   getList$(_query?: any) {
     return of(null).pipe(
       tap(() => this.emitIsBusy(true)),
@@ -101,9 +99,7 @@ export abstract class ktListViewModelService<TModel extends ktBaseEntity> implem
         this.source$.next(this.model);
       }),
       untilDestroyed(this),
-      finalize(() => {
-        this.emitIsBusy(false);
-      })
+      finalize(() => this.emitIsBusy(false))
     )
   }
 
@@ -114,14 +110,12 @@ export abstract class ktListViewModelService<TModel extends ktBaseEntity> implem
       switchMap(() => this.getListItemCb(_id)),
       tap((res) => !!res && (this.spotlight = res)),
       untilDestroyed(this),
-      finalize(() => {
-        this.emitIsBusy(false);
-      })
+      finalize(() => this.emitIsBusy(false))
     )
   }
 
 
-  // --------- IMPLEMENT IN GENERIC CLASS AS WELL ------------
+  // --------- IMPLEMENT HERE AS WELL ------------
   handleError$(error: HttpErrorResponse): void {
     // handle message and provide strings;
     // this.notificationSvc.alert({title:'Bummer', severity: 'error'})

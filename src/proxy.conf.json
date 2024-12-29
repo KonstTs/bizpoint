@@ -1,5 +1,14 @@
 {
-  "/pexels/*": {
+  "/feed/**": {
+    "target": "https://pam-stilling-feed.nav.no/api",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/feed/": ""
+    }
+  },
+  "/pexels/**": {
     "target": "https://api.pexels.com",
     "secure": false,
     "logLevel": "debug",
@@ -7,14 +16,6 @@
     "pathRewrite": {
       "^/pexels": ""
     }
-  },
-  "/nav/*": {
-    "target": "https://pam-stilling-feed.nav.no",
-    "secure": false,
-    "logLevel": "debug",
-    "pathRewrite": {
-      "^/nav": ""
-    },
-    "changeOrigin": true
   }
+  
 }

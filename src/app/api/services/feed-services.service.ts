@@ -6,7 +6,7 @@ import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 import { RequestBuilder } from '../request-builder';
 import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { IktFeed } from '../model/feed-dto/feed.model';
 import { IktFeedEntryContent } from '../model/feed-dto/feed-entry.model';
@@ -21,9 +21,9 @@ export class ktFeedService extends BaseService {
       super(config, http);
     }
 
-    static readonly feedPageGetPath = '/api/vi/feed';
-    static readonly feedPageByIdGetPath = '/api/vi/feed/{id}';
-    static readonly feedEntryByIdGetPath = '/api/vi/feedentry/{id}';
+    static feedPageGetPath = '/api/vi/feed';
+    static feedPageByIdGetPath = '/api/vi/feed/{id}';
+    static feedEntryByIdGetPath = '/api/vi/feedentry/{id}';
     
     /**
     * "methodName$Response" methods provide access to the full `HttpResponse`, allowing access to response headers.
@@ -34,13 +34,16 @@ export class ktFeedService extends BaseService {
     //page
     // .../last return 500 erroe
     apiFeedGet$Response(params?: { ifModifiedSince: string }): Observable<StrictHttpResponse<IktFeed>> {
-        const rb = new RequestBuilder(environment.ktFeedBaseURL, ktFeedService.feedPageGetPath, 'get');
-        rb.header('Authorization', `Bearer ${environment.psFeedAthToken}`);
+        const rb = new RequestBuilder(environment.feedPathRewrite, ktFeedService.feedPageGetPath, 'get');
         rb.header('If-Modified-Since', params.ifModifiedSince);
+
+        console.log('rb', rb);
 
         return this.http.request(rb.build({responseType: 'json', accept: 'application/json'})).pipe(
             filter((r: any) => r instanceof HttpResponse), 
-            map((r: HttpResponse<any>) => r as StrictHttpResponse<IktFeed>)
+            tap((r: any) => console.log('r', r)),
+            map((r: HttpResponse<any>) => r as StrictHttpResponse<IktFeed>),
+            tap((r: any) => console.log('r', r)),
         );
     }
    
@@ -52,8 +55,7 @@ export class ktFeedService extends BaseService {
 
     //page by id
     feedPageByIdGet$Response(params?: { id:string, ifNoneMatchPageETag: string}): Observable<StrictHttpResponse<IktFeed>> {
-        const rb = new RequestBuilder(environment.ktFeedBaseURL, ktFeedService.feedPageByIdGetPath, 'get');
-        rb.header('Authorization', `Bearer ${environment.psFeedAthToken}`);
+        const rb = new RequestBuilder(environment.feedPathRewrite, ktFeedService.feedPageByIdGetPath, 'get');
         rb.header('If-None-Match', params.ifNoneMatchPageETag);
         rb.path('id', params.id);
         
@@ -71,8 +73,7 @@ export class ktFeedService extends BaseService {
 
     //entry by id
     feedEntryByIdGet$Response(params?: { id:string, ifNoneMatchEntryETag: string}): Observable<StrictHttpResponse<IktFeedEntryContent>> {
-        const rb = new RequestBuilder(environment.ktFeedBaseURL, ktFeedService.feedEntryByIdGetPath, 'get');
-        rb.header('Authorization', `Bearer ${environment.psFeedAthToken}`);
+        const rb = new RequestBuilder(environment.feedPathRewrite, ktFeedService.feedEntryByIdGetPath, 'get');
         rb.header('If-None-Match', params.ifNoneMatchEntryETag);
         if (params) rb.path('id', params.id);
 

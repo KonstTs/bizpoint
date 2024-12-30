@@ -1,4 +1,7 @@
 @use "../../../assets/sass/variables" as *;
+:root{
+    --header-border-negative: -2px 
+}
 
 :host.mobile{
     &::ng-deep{
@@ -16,7 +19,18 @@
         padding: 1rem 1.1rem;
 
         .kt-header{
-            padding: 0 0 1.5rem 0;
+            padding: 0 0 3rem 0;
+            // height: 50px;
+            
+            .kt-overlay-white{
+                left: -2px !important;
+                right:  -2px  !important;
+                top:  -2px  !important;
+                bottom: -1px;
+                width: auto;
+                height: auto;
+                background-color: #fff;
+            }
             h2{
                 font-size: 2rem;
                 .kt-icon{
@@ -43,7 +57,7 @@
             .kt-header-input-text{
                 .p-inputtext {
                     border-radius: 30px !important;
-                    height: 36px !important;
+                    height: 30px !important;
                     padding: 0 1rem;
                 }
             }
@@ -173,6 +187,7 @@
         margin-bottom: 1.5rem;
         border-right: solid 1px #f1f1f1;
     border-left: solid 1px #f1f1f1;
+    padding-top: 0;
         // background: rgba(255,255,255,.4);
         .--filters{
             ._filter-coloumns{width: 22vw;max-width:200px}

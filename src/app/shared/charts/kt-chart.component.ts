@@ -60,11 +60,12 @@ export class ktChartComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    // attach obeservation on provided element -sizer- and adjust chart's geometric behaviour accordingly
     this.resizer = new ResizeObserver((oens) => {
       for (let oen of oens) {
         const {contentRect: { width, height }} = oen;
-        setTimeout((_) => this.instance.resize({ width: Math.floor(width), height: Math.floor(height) }), 300);
+        setTimeout((_) => {
+          requestAnimationFrame(() => this.instance.resize({ width: Math.floor(width), height: Math.floor(height) })), 300
+      });
       }
     });
     this.resizer.observe(getElement(this.sizer ?? `#${this.id}`));

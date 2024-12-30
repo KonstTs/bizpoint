@@ -61,22 +61,23 @@ import { IktButtonConfig } from '../../shared/structure/button/button.component'
 	template: `
 		<div class="feed --docked" [ngClass]="layout['hostClass']">
 			<section class="widget --list">
-				<div class="sidebar"><!-- <kt-dropdown
-									class="kt-double-control-first"
-									label="config?.sortCtrLabel"
-									name="sortModel"
-									[optionSetFn]="hdrControls.sortFn"
-									[options]="hdrControls.sortCtrlOptions"
-									[optionLabel]="hdrControls.sortCtrlOptionLabel"
-									[optionValue]="hdrControls.sortCtrlOptionValue"
-									[appendTo]="'body'"
-									>
-								</kt-dropdown> -->
+				<div class="sidebar">
+					<!-- <kt-dropdown
+								class="kt-double-control-first"
+								label="config?.sortCtrLabel"
+								name="sortModel"
+								[optionSetFn]="hdrControls.sortFn"
+								[options]="hdrControls.sortCtrlOptions"
+								[optionLabel]="hdrControls.sortCtrlOptionLabel"
+								[optionValue]="hdrControls.sortCtrlOptionValue"
+								[appendTo]="'body'"
+								>
+							</kt-dropdown> -->
 							<!-- <div *ngIf="hdrActions?.btns.length">
 								<kt-actions [config]="hdrActions"></kt-actions>
 							</div> --></div>
 				<div class="kt-header kt-border-spin kt-width kt-rel" [ngClass]="hdrConfig?.cssClass" [ngStyle]="hdrConfig?.styles"> 
-    			<div class=" kt-jc-space-between-flex kt-ai-center-flex kt-overlay-white">
+    			<div class="kt-jc-space-between-flex kt-ai-center-flex kt-overlay-white" style="{background:#fff;right:-2px}">
 					<h2 class="__title kt-ai-center-flex">
 						<i [attr.class]="hdrGraphic.iconClass" [attr.style]="hdrGraphic.iconStyle"></i>	
 						<strong class="kt-mrgr10 kt-text-motion-color"><span>{{data?.length}}</span></strong>

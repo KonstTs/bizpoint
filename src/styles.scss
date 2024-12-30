@@ -1,6 +1,7 @@
 @use "assets/sass/index" as *;
 @import './assets/sass/_normalize';
 @import './assets/sass/_layout';
+@import "primeicons/primeicons.css";
 @import './assets/sass/overrides';
 
 :root{
@@ -18,7 +19,7 @@ html, body{
   position: relative;
   overflow: hidden;
 }
-a{display: block; text-decoration: none;}
+a{display: block; text-decoration: none; color: #222;}
 img{width:100%;vertical-align: top;}
 h1,h2,h3,h4,h5,h6{
   font-weight: 500;
@@ -28,6 +29,9 @@ button{
   background: none;
   outline: none;
   border: none;
+}
+.pi:before{
+  line-height: 0 !important
 }
 
 

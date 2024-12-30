@@ -3,7 +3,7 @@ import { Component, Input } from "@angular/core";
 import { IktButtonConfig, ktButtonComponent } from "../button/button.component";
 
 export interface IktActionsConfig{
-    btns: IktButtonConfig[];
+    btns?: IktButtonConfig[];
     group?: boolean;
     row?: boolean;
     column?: boolean;

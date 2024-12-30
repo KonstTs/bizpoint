@@ -96,6 +96,7 @@ export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    console.log('this.hdrConfig:', this.hdrConfig)
   }
 
 

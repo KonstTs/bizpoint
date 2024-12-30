@@ -15,9 +15,18 @@ import { IktFeedLine } from '../../api/model/feed-dto/feed.model';
 import { ktListComponent } from '../../shared/structure/list/list.component';
 import { kt_CELL_FORMATTER_TOKEN, ktCellRenderer } from '../../services/row-cell-renderers.factory';
 import { kt_INIT_FEED_SEARCH } from '../../config/feed';
-import {ktTemplateDirective} from '../../directives/template.directive'
+import { ktTemplateDirective } from '../../directives/template.directive'
 import { ktModelProxyService } from '../../services/model-proxy/model-proxy.service';
-import { ktHeaderComponent } from '../../shared/structure/header/header.component';
+import { IktHeaderBaseConfig, IktHeaderControls, IktHeaderGraphic, ktHeaderComponent } from '../../shared/structure/header/header.component';
+import { IktActionsConfig, ktActionsComponent } from '../../shared/structure/actions/actions.component';
+import { ktDropdownComponent } from '../../shared/input/dropdown/dropdown.component';
+import { ktLoggerService } from '../../services/logger.service';
+import { kt_ENVIRONMENT } from '../../config/environment';
+import { EChartsCoreOption } from 'echarts';
+import { ktChartComponent } from '../../shared/charts/kt-chart.component';
+import { ktChartWidgetHeaderComponent } from './dashboard-chart-widget-header.component';
+import { kt_CHART_MOBILE_OPTIONS, kt_CHART_OPTIONS } from '../../config/chart-base-options';
+import { IktButtonConfig } from '../../shared/structure/button/button.component';
 
 
 @UntilDestroy()
@@ -28,15 +37,21 @@ import { ktHeaderComponent } from '../../shared/structure/header/header.componen
 		FormsModule,
 		ktTextComponent,
 		ktSwipeDirective,
-        ktListComponent,
+		ktListComponent,
 		ktHeaderComponent,
-		ktTemplateDirective
+		ktTemplateDirective,
+		ktDropdownComponent,
+		ktActionsComponent,
+		ktChartComponent,
+		ktChartWidgetHeaderComponent
 	],
 	providers: [
 		ktNotificationService,
 		ktFeedViewModelService,
 		ktDeviceService,
 		ktModelProxyService,
+		ktLoggerService,
+		{ provide: kt_ENVIRONMENT, useValue: {} },
 		SESSIONSTORAGE_CACHE,
 		LOCALSTORAGE_CACHE,
 		{ provide: kt_CELL_FORMATTER_TOKEN, useFactory: ktCellRenderer },
@@ -46,9 +61,40 @@ import { ktHeaderComponent } from '../../shared/structure/header/header.componen
 	template: `
 		<div class="feed --docked" [ngClass]="layout['hostClass']">
 			<section class="widget --list">
+				<div class="sidebar"><!-- <kt-dropdown
+									class="kt-double-control-first"
+									label="config?.sortCtrLabel"
+									name="sortModel"
+									[optionSetFn]="hdrControls.sortFn"
+									[options]="hdrControls.sortCtrlOptions"
+									[optionLabel]="hdrControls.sortCtrlOptionLabel"
+									[optionValue]="hdrControls.sortCtrlOptionValue"
+									[appendTo]="'body'"
+									>
+								</kt-dropdown> -->
+							<!-- <div *ngIf="hdrActions?.btns.length">
+								<kt-actions [config]="hdrActions"></kt-actions>
+							</div> --></div>
+				<div class="kt-header kt-jc-space-between-flex kt-ai-center-flex kt-width" [ngClass]="hdrConfig?.cssClass" [ngStyle]="hdrConfig?.styles"> 
+    					<h2 class="__title kt-ai-center-flex">
+
+							<i [attr.class]="hdrGraphic.iconClass" [attr.style]="hdrGraphic.iconStyle"></i>	
+							<strong class="kt-mrgr10 kt-text-motion-color"><span>{{data?.length}}</span></strong>
+							<span>{{hdrConfig.title}}</span>
+						</h2>	
+						<kt-text
+							class="kt-header-input-text "
+							name="filterModel"
+							[iconClass]="'pi pi-search'"
+							[searchFn$]="hdrControls.filterFn"
+						></kt-text>
+
+								
+							
+					</div>
 				<kt-list 
+				class="kt-list-header-hide"
 					[items]="data" 
-					[hdrConfig]="hdrConfig" 
 					[hdrGraphic]="hdrGraphic" 
 					[hdrControls]="hdrControls" 
 					[hdrActions]="hdrActions"s
@@ -56,7 +102,17 @@ import { ktHeaderComponent } from '../../shared/structure/header/header.componen
 				</kt-list>
 			</section>
 			<section class="widget --dock">
+			<kt-chart-widget-header
+				[title]="titleCharts"
+				[titleIcon]="'bar_chart_4_bars'"
+				[actions]="chartActions"
+				[headerClass]="'--bg-blue'"
+				[stackData]="stackData"
+			></kt-chart-widget-header>
 
+			<div class="_charts kt-motion kt-animation-fade-in">
+				<kt-chart [options]="chartDesktop" [merge]="chartDataD" [sizer]="'._charts'"></kt-chart>
+			</div>
 			</section>
 			
 		</div>
@@ -64,17 +120,13 @@ import { ktHeaderComponent } from '../../shared/structure/header/header.componen
 })
 export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
-	// @ViewChild(ktTableComponent) ktTable: ktTableComponent;
 	// @ViewChild(ktChartComponent) ktChart: ktChartComponent;
 	@ViewChild('drawer', { read: ktSwipeDirective }) drawer: ktSwipeDirective;
-	@HostBinding('class.mobile') get mobile() { 
-		return this.bootstrapForMobile;
+	@HostBinding('class.mobile') get mobile() {
+		return this.bootstraktorMobile;
 	}
 
-	hdrConfig;
-	hdrGraphic;
-	hdrControls;
-	hdrActions
+
 
 
 	titleFeed = 'Feed';
@@ -84,74 +136,80 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 	// orderOptions: IktSelectOptions[];
 	modes: Ikt_FEED_MODE;
 	layout: IktFeedLayoutType;
-	
-	// chartActions: ktButtonConfig[];
-	// chartMobile = kt_CHART_MOBILE_OPTIONS;
-	// chartDesktop = kt_CHART_OPTIONS;
-	// chartDataD: EChartsCoreOption;
-	// chartDataM: EChartsCoreOption;
-	// stackData: EChartsCoreOption;
-	
+
+	chartActions: IktButtonConfig[];
+	chartMobile = kt_CHART_MOBILE_OPTIONS;
+	chartDesktop = kt_CHART_OPTIONS;
+	chartDataD: EChartsCoreOption;
+	chartDataM: EChartsCoreOption;
+	stackData: EChartsCoreOption;
+
 	drawerOpen = false;
 	showDrawerTip;
 	showDrawer = true;
 	userSwipes = false;
 
-	bootstrapForMobile: boolean;
-data;
-	search$: (e: any) => any;
+	bootstraktorMobile: boolean;
+	data;
 	currencies$: () => Observable<string[]>;
-	 
+
+	hdrConfig: IktHeaderBaseConfig;
+	hdrGraphic: IktHeaderGraphic;
+	hdrControls: IktHeaderControls;
+	hdrActions: IktActionsConfig;
 
 	constructor(
 		public VM: ktFeedViewModelService,
 		private _renderer: Renderer2,
-		@Inject(ktDeviceService) private _deviceSvc:ktDeviceService,
+		@Inject(ktDeviceService) private _deviceSvc: ktDeviceService,
 		// @Inject(SelectMapperService) private _selectMapperSvc: SelectMapperService,
 		@Inject(LOCALSTORAGE_CACHE_TOKEN) private _localStorage: IktCacheService,
 	) {
 		const { layouts, ordering, provideLayoutActionsFor, provideChartData } = dbc;
+
+		this._deviceSvc.isMobile$().subscribe(res => {
+			this.bootstraktorMobile = res;
+		})
+
 		this.VM.source$.subscribe(res => {
 			this.data = res
-			console.log('this.data:', this.data)
+			console.log('this.data:', this.data.length)
+
+
 		})
-		this._deviceSvc.isMobile$().subscribe(res => {
-			this.bootstrapForMobile = res; 
-		})
+
+		this.hdrConfig = {
+			title: `available job openings!`
+		};
+
+		this.hdrGraphic = {
+			iconClass: 'pi-building-columns'
+		};
+		this.hdrControls = {};
+		this.hdrActions = {};
+
+
 
 		// listen to the state and model updates 
 		// this.VM.modelChanged$.pipe(untilDestroyed(this)).subscribe(_=>{
-			// do some cool things with the updates
+		// do some cool things with the updates
 		// })
 
-		// this.headerConfig = {
-		// 	title: 'a title'
-		// }
-		
 		this.modes = layouts;
 		// this.orderOptions = ordering;
-		// this.columnsMap = this.VM.columns.map((c, i) => ({ label: c.header, value: c.columnDef }));
 		this.provideLayout('default');
 
 		// this.VM.barchart$.subscribe(([d, v]) => { 
-			// this.chartActions = provideLayoutActionsFor(layouts, this.provideLayout.bind(this));
-			// const { desktop, mobile, stack } = provideChartData([d, v], this.VM);
-			
-			// this.chartDataD = desktop;
-			// this.chartDataM = mobile;
-			// this.stackData = stack;
+		// this.chartActions = provideLayoutActionsFor(layouts, this.provideLayout.bind(this));
+		// const { desktop, mobile, stack } = provideChartData([d, v], this.VM);
+
+		// this.chartDataD = desktop;
+		// this.chartDataM = mobile;
+		// this.stackData = stack;
 		// });
 
-		// this.search$ = (e) => {
-		// 	this.ktTable.paginator.pageIndex = this.VM.filterModel.page = 1
-		// 	return this.VM.getRows$(this.VM.filterModel).subscribe(res => {
-		// 		if (res) this.VM.tableDataSource = new MatTableDataSource(res)
-		// 	})
-		// };
 
-		// this.currencies$ = () => {
-			// return this._selectMapperSvc.currencies() as any;
-		// };
+
 	}
 
 	provideLayout(type: string) {
@@ -160,56 +218,56 @@ data;
 		this.layout = (<any>this.modes)[type];
 	}
 
-	drawerSwiped(e:IktSwipeEvent){
-		const {element:{status, state}} = e;
+	drawerSwiped(e: IktSwipeEvent) {
+		const { element: { status, state } } = e;
 		const limitUp = state[status].max;
 		const limitDown = state[status].min;
-	
+
 		if (e.incrY <= limitUp) {
 			this.provideLayout('default');
-		  	e.element.reset();
-		  	e.element.status = 'open';
+			e.element.reset();
+			e.element.status = 'open';
 			this.drawerOpen = true;
 		}
 		if (e.incrY > limitDown) {
 			this.provideLayout('min')
 			this._renderer.setStyle(e.element.nativeEl, 'transform', `translateY(0)`);
 			e.element.status = 'closed';
-			e.element.rect.y = 0; 
+			e.element.rect.y = 0;
 			this.drawerOpen = false;
 		};
-		if (e.element.status === 'closed' && e.incrY <= limitDown) { 
+		if (e.element.status === 'closed' && e.incrY <= limitDown) {
 			this._renderer.setStyle(e.element.nativeEl, 'transform', `translateY(0)`);
 		}
 	}
 
-	private cacheDrawerTip(){
+	private cacheDrawerTip() {
 		this._localStorage.set('kt-drawer-tip-disable', 'true');
 	}
-	
+
 	private deCacheDrawerTip$() {
 		return this._localStorage.get('kt-drawer-tip-disable')
 	}
-	
+
 
 	ngOnInit(): void {
-		// this.VM.getList$().subscribe()
+		this.VM.getList$().subscribe()
 	}
 
 	ngAfterViewInit(): void {
 		this.deCacheDrawerTip$()
 			.pipe(untilDestroyed(this))
-			.subscribe(res => { 
+			.subscribe(res => {
 				this.showDrawerTip = !res;
 				this.cacheDrawerTip();
 			});
-		
-		setTimeout(_ => { 
+
+		setTimeout(_ => {
 			this.drawer?.setStatus('open');
 			this.drawerOpen = true;
 			this.provideLayout('default');
 		})
 	}
 
-	ngOnDestroy(): void {}
+	ngOnDestroy(): void { }
 }

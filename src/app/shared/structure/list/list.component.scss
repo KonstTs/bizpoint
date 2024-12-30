@@ -7,46 +7,36 @@
 
     &::ng-deep{
 
-        .mdc-notched-outline__leading, .mdc-notched-outline__notch, .mdc-notched-outline__trailing{
-            border-width: 0 !important;
-            border: none !important;
-        }
 
-        .mat-mdc-paginator-container{
-            justify-content: right;
-        } 
-
-        .mat-mdc-paginator-range-label{
-            font-weight: bold;
-            margin: 0;
-        }
-
-        .mat-mdc-form-field{
-            text-align: right;
-            padding-right: 10px;
-        }
-
-        .mat-mdc-select-arrow-wrapper{
-            padding: 0 5px;
-        }
-
-        .mat-mdc-paginator-page-size-select{
-            width: 80px;
-            height: 60px;
-        }
-        .mat-mdc-paginator-page-size-label, .mat-mdc-paginator-page-size-value{
-            color: #959595;
-        }
-        .mat-mdc-paginator {
-            .mat-mdc-select-value{
-                text-align: left;
-                width: auto;
+        p-dataview {
+            .p-dataview-list{
+                height: 100%;
+                overflow: auto;
+                padding-right: 20px;
             }
-            .mat-mdc-icon-button{
-                padding: 8px;
-           }
+            p-dataview-content{
+                background-color: none;
+            }
+    
+        }
+
+        ._thumb{
+            width: 10%;
+            height: 100%;
+        }
+        ._info{
+            padding-left: 1rem;
+            ._title{
+                font-weight: 600;
+            ._sub{
+                font-weight: 600 !important;
+                margin-right: 15px;
+            }
+            }
         }
     }
+
+   
 
     .kt-table-wrapper{
         &.--sticky{
@@ -72,11 +62,7 @@
             border-bottom: none;
             background-color: #f1f1f1;
         }
-        .mat-mdc-cell{
-        }
-        td.mat-column-name{
-            box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.2);
-       } 
+     
   
         
         &.--zebra{
@@ -89,41 +75,9 @@
         }
         
     }
-    .kt-paginator-wrapper{
-        position: absolute;
-        right: 0;
-        left: auto;
-        bottom:35px;
-        top:auto;
-        width: 100%;
-        .mat-mdc-paginator{
-            
-            color: $blue;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            
-            font-size: .9rem;
-        }
-    }
-        
-    .mat-mdc-input-element ._kt-table-filter-input .cdk-text-field-autofill-monitored{
-        // background-color: $inputBg;
-        // color: $inputColor;
-    }
 
     &::ng-deep{
-        .mat-mdc-header-cell{
-            // background-color: $white !important;
-            color: $blue;
-            font-weight: 700;
-        }
-        .mat-mdc-cell{
-            .kt-cell-image{
-                height: 25px;
-                width: auto;
-            }
-        }
-        
+
        
         tbody:hover{
             tr{

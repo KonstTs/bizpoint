@@ -2,13 +2,18 @@
 @use 'helpers';
 :root{
   --gradient-multi: linear-gradient(to right, #ffd30f, #F44336, #66db49, #c7ffbc);
+  --gradient-multi-to-left: linear-gradient(to left, #0f63ff, #66db49);
+  --gradient-ultra:linear-gradient(to right, #ffd30f, #4574ca, #82c272, #b14bca);
+  --topbar-height: 140px;
+  --bg-color: #f0f0f0;
 }
 .layout-wrapper{
     height: 100%;
     width: 100%;
     position: relative;
     overflow: hidden;
-    background-color: #f0f0f0;
+    // background-color: var(--bg-color);
+    
   
   
     .topbar{
@@ -19,8 +24,9 @@
       display: flex;
       align-items: flex-start;
       justify-content: center;
-      height: 120px;
-      padding-top: 3vh;
+      height: var(--topbar-height);
+      // padding-top: 3vh;
+
   
         .logo{    
           width: 100%;
@@ -28,15 +34,17 @@
             width: 100%;
             border: 10px solid;
             border-width: 2px;
-            border-image-source: var(--gradient-multi) ;
+            border-image-source: var(--gradient-multi);
             border-image-slice: 2%;
             border-left: 0;
             border-right: 0;
             border-top: 0;
+            background-color: #f9f9f9;
+            padding-top: 2rem;
             img{
-              max-width: 320px;
+              max-width: 360px;
               min-width: 280px;
-              width: 25%;
+              width: 30%;
               margin: 0 auto -1px auto;
               display: block;
             }
@@ -45,11 +53,11 @@
             color: var(--gray-500);
             font-weight: 100 !important;
             text-align: center;
-            font-size: 2vh;
+            font-size: 2.3vh;
             margin: -3px auto 0;
-            background: #f0f0f0;
-            max-width: 312px;
-            min-width: 272px;
+            background: #fff;
+            max-width: 352px;
+            min-width: 273px;
             width: 33%;
             padding-top: 6px;
 
@@ -64,8 +72,9 @@
       left: 0;
       right: 0;
       bottom: 0;
-      padding: var(--content-padding);
-      top: 120px;
+      // padding: var(--content-padding);
+      padding: 1.2rem 9%;
+      top: var(--topbar-height);
       .--docked{
         @include helpers.kt-coloumn-flex-mixin;
         @include helpers.kt-motion-slow-mixin;

@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { ktLoggerService } from '../services/logger.service';
 
 
@@ -12,6 +12,10 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
+      switchMap(r => {
+        console.log('r:', r)
+        return of(r)
+      }),
       catchError((err: HttpErrorResponse) => {
         this._loggerSvc.logError('Interceptor error response', err);
 
@@ -29,3 +33,43 @@ export class ErrorInterceptor implements HttpInterceptor {
     );
   }
 }
+
+/*
+Continue = 100,
+    SwitchingProtocols = 101,
+    Processing = 102,
+    Ok = 200,
+    Created = 201,
+    Accepted = 202,
+    NoContent = 204,
+    ResetContent = 205,
+    PartialContent = 206,
+    NotModified = 304,
+    UseProxy = 305,
+    BadRequest = 400,
+    Unauthorized = 401,
+    Forbidden = 403,
+    NotFound = 404,
+    MethodNotAllowed = 405,
+    NotAcceptable = 406,
+    ProxyAuthenticationRequired = 407,
+    RequestTimeout = 408,
+    Conflict = 409,
+    PreconditionFailed = 412,
+    PayloadTooLarge = 413,
+    UriTooLong = 414,
+    UnsupportedMediaType = 415,
+    MisdirectedRequest = 421,
+    Locked = 423,
+    UpgradeRequired = 426,
+    PreconditionRequired = 428,
+    TooManyRequests = 429,
+    InternalServerError = 500,
+    NotImplemented = 501,
+    BadGateway = 502,
+    ServiceUnavailable = 503,
+    GatewayTimeout = 504,
+    InsufficientStorage = 507,
+    LoopDetected = 508,
+    NetworkAuthenticationRequired = 511
+*/

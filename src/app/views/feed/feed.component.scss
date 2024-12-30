@@ -12,15 +12,54 @@
         
     .widget{
         border-radius: $borderRadius;
-        background-color: #f1f1f1;
+        // background-color: #f1f1f1;
         padding: 1rem 1.1rem;
 
+        .kt-header{
+            padding: 0 0 1.5rem 0;
+            h2{
+                font-size: 2rem;
+                .kt-icon{
+                    display: inline;
+                    color: $headerLightGrey;
+                    font-size: 26px;
+                    font-weight: 300 !important;
+                }
+            }
+            
+        }
+
         &::ng-deep{
-            ._header{
-                border-bottom: 2px solid $blue;
-                border-top-left-radius: 10px;
+            .p-dataview .p-dataview-header{
                 border-top-right-radius: 10px;
-                background-color: #ddd;
+                border-top-left-radius: 10px;
+                background-color: transparent;
+                width: 100%;
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: space-between;
+                padding: 1.2rem 0 2rem;
+            }
+            .kt-header-input-text{
+                .p-inputtext {
+                    border-radius: 30px !important;
+                    height: 36px !important;
+                    padding: 0 1rem;
+                }
+            }
+            .kt-list-header-hide{
+                .p-dataview .p-dataview-header{
+                    display: none !important;
+                }
+            }
+            ._header{
+                // border: 10px solid;
+            border-width: 1px;
+            // border-image-source: var(--gradient-multi) ;
+            // border-image-slice: 2%;
+            // border-left: 0;
+            // border-right: 0;
+            // border-top: 0;
                 padding: 0 1rem;
                 display: flex !important;
                 align-items: center;
@@ -29,6 +68,7 @@
     
                 h2{
                     max-width: 50%;
+                    font-size: 2rem;
                     .kt-icon{
                         display: inline;
                         color: $headerLightGrey;
@@ -77,21 +117,53 @@
                     display: flex;
                     height: 53px;
                     align-items: flex-end;
-                    .mat-mdc-select{
-                        padding-top: 20px !important;
-                    }
-                    .mat-mdc-form-field-infix{
-                        height: 50px;
-                    }
     
                     // *{border-bottom: none !important;}
                 }
     
-                &::ng-deep kt-text{
-                    .mdc-text-field{padding: 0 !important;}
-                }
-    
             }
+
+            .kt-list-item{
+                // padding: 1.4rem 0;
+                height: 10vh;
+                border-bottom: 1px solid #d0d0d0;
+                overflow: hidden;
+                    ._thumb{
+                        width: 10%;
+                        height: 100%;
+                        min-width: 90px;
+                        border: 10px solid;
+                        border-width: 4px;
+                        border-image-source: var(--gradient-ultra);
+                        border-image-slice: 2%;
+                        border-left: 0;
+                        border-right: 0;
+                        border-top: 0;
+                        &:nth-of-type(even){
+                            border-image-source: var(--gradient-multi-to-left);
+                        }
+                    }
+                    ._info{
+                        padding-left: 1.4rem;
+                        max-width: 70%;
+                        ._title{
+                            font-weight: 600;
+                            line-height: 120%;
+                            
+                        ._sub{
+                            font-weight: 600 !important;
+                            margin-right: 15px;
+                            flex-flow: nowrap;
+
+                            .pi-star-fill:before{
+                                columns: #999;
+                            }
+                        }
+                        }
+                    }
+                
+                
+            } 
         }
         }
         
@@ -99,10 +171,18 @@
     .--list{
         height: 100%;
         margin-bottom: 1.5rem;
+        border-right: solid 1px #f1f1f1;
+    border-left: solid 1px #f1f1f1;
+        // background: rgba(255,255,255,.4);
         .--filters{
             ._filter-coloumns{width: 22vw;max-width:200px}
             ._filter-order{width: 20vw;max-width:160px}
         }
+        
+
+
+
+
     }
 
     .--dock{

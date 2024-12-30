@@ -4,7 +4,12 @@
     position: relative;
     width: 100%;
     height: 100%;
-
+.kt-list {
+    position: absolute;
+    inset: 0 0 50px;
+    overflow: auto;
+    bottom: 85px;
+}
     &::ng-deep{
 
 

@@ -1,16 +1,15 @@
 import { Injectable, OnInit, OnDestroy, Injector, Inject, forwardRef, InjectionToken, Pipe } from '@angular/core';
 import { UntilDestroy } from "@ngneat/until-destroy";
 import { ktListViewModelService, ktSearchModel } from '../../shared/structure/list/list-viewmodel.service';
-import { map, Observable, of, Subject, switchMap } from "rxjs";
+import { defer, forkJoin, map, mergeMap, Observable, of, Subject, switchMap } from "rxjs";
 import { StrictHttpResponse } from "../../api/strict-http-response";
 import { IktFeedAd } from "../../api/model/feed-dto/feed-ad.model";
 import { ktFeedService } from "../../api/services/feed-services.service";
-import { ktBaseEntity } from "../../model/base-entity.model";
 import { IktFeedSearchModel } from "../../model/search.model";
 import { IktCellRenderer, kt_CELL_FORMATTER_TOKEN } from "../../services/row-cell-renderers.factory";
-import {ads} from '../../../ads'
-import { IktFeedLine } from "../../api/model/feed-dto/feed.model";
-import { ktModelChangeArgs } from "../../model/model-state-args.model";
+import { ktIconListComponent } from '../../shared/structure/details/icon-list-details';
+import { ktFeedWorkerService } from '../../services/feed-worker.service';
+
 
 export const kt_FEED_INIT_SEARCH_TOKEN = new InjectionToken<IktFeedSearchModel>('initFeedSearch');
 export interface IktFeedRow {
@@ -22,7 +21,8 @@ export interface IktFeedRow {
     salary?: string
     rating?: number;
     img?: string;
-    favorite: boolean;
+    favorite?: boolean;
+    details?: ktIconListComponent;
 } 
 
 @UntilDestroy()
@@ -35,26 +35,18 @@ export class ktFeedViewModelService extends ktListViewModelService<IktFeedRow> i
     barchart$: any;
     modelChanged$ = new Subject();
 
-    protected modelChanged(change: ktModelChangeArgs<IktFeedRow[]>): void {
-        // super.modelChanged(change);
-        // this.modelProxySvc.suspendChangeNotifications();
-        // check which fragment of model has changed 
-        // eg if(change.propertyPath === 'modelproperty')
-        // and do some fancy stuff like update state, run validations
-        // cache, send notifications etc
-        // this.modelProxySvc.resumeChangeNotifications();
-        // communicate the new state to whoever it might concern,
-        // this.modelChanged$.next()
-        // eg the attached component
-    }
-
     constructor(
         injector: Injector,
+        private _feedWorker: ktFeedWorkerService,
         @Inject(kt_CELL_FORMATTER_TOKEN) public Renderer:IktCellRenderer,
         @Inject(kt_FEED_INIT_SEARCH_TOKEN) public searchModel: ktSearchModel<IktFeedSearchModel>,
-        @Inject(forwardRef(() => ktFeedService)) private _apiSvc: ktFeedService
+        @Inject(forwardRef(() => ktFeedService)) private _apiSvc: ktFeedService,
     ){
         super(injector, searchModel)
+    }
+
+    private toWorker(_data){
+        return defer(()=> this._feedWorker.process(JSON.parse(JSON.stringify(_data))));
     }
 
     private processResponse(ads){
@@ -66,7 +58,10 @@ export class ktFeedViewModelService extends ktListViewModelService<IktFeedRow> i
     // pexels api works properly
     getList(_query?:any): Observable<any[]>{
         //cors issue workaround
-        return this._apiSvc.mandatorySubjectDueToCors$.pipe(switchMap(res => of(res)));
+        return this._apiSvc.mandatorySubjectDueToCors$.pipe(
+            switchMap(res => forkJoin(([of(res), of(this.Renderer)]))),
+            switchMap(([f, r] )=> this.toWorker([f, r]))
+        ) 
         
         // proper implementation should be sth like this 
         // this.decacheDB('Feed').pipe(
@@ -85,6 +80,8 @@ export class ktFeedViewModelService extends ktListViewModelService<IktFeedRow> i
         //       })
 
     }
+
+    
     
     getItem(id:string): Observable<IktFeedAd>{
         return of(null)
@@ -106,3 +103,4 @@ export class ktFeedViewModelService extends ktListViewModelService<IktFeedRow> i
         this.modelChanged$.complete();
     }
 }
+

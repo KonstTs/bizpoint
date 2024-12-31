@@ -40,20 +40,30 @@ function scaleImageData(imageData, origW, origH, scale) {
     return imgdata;
   }
   
-  let data = getImageData(document.getElementById("image"));
+  function provideScaledImage(){
+    let data = getImageData(document.getElementById("image"));
   
-  const scale = 3;
-  const newWidth = Math.round(data.width*scale);
-  const newHeight = Math.round(data.height*scale);
-  const scaled = scaleImageData(data.data, data.width, data.height, scale);
-  
-  const canvas = document.getElementById("scaled");
-  (<any>canvas).width = newWidth;
-  (<any>canvas).height = newHeight;
-  const ctx = (<any>canvas).getContext('2d');
-  
-  ctx.putImageData(
-      new ImageData(scaled, newWidth, newHeight ),
-      0,0
-  );
+    const scale = 3;
+    const newWidth = Math.round(data.width*scale);
+    const newHeight = Math.round(data.height*scale);
+    const scaled = scaleImageData(data.data, data.width, data.height, scale);
+    
+    const canvas = document.getElementById("scaled");
+    (<any>canvas).width = newWidth;
+    (<any>canvas).height = newHeight;
+    const ctx = (<any>canvas).getContext('2d');
+    
+    ctx.putImageData(
+        new ImageData(scaled, newWidth, newHeight ),
+        0,0
+    );
+  }
+
+
+  return {
+    getImageData:getImageData,
+    scaleImageData:scaleImageData,
+    provideScaledImage:provideScaledImage
+  }
+
 }

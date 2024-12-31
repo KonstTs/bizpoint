@@ -24,11 +24,10 @@ export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
   static nextId = 0;
   @HostBinding() id = `kt-list-${ktListComponent.nextId++}`;
 
-  // @Input() VM: ktListViewModelService<any>;
-  @Input() hdrConfig: IktHeaderBaseConfig;
-  @Input() hdrGraphic: IktHeaderGraphic;
-  @Input() hdrActions: IktActionsConfig;
-  @Input() hdrControls: IktHeaderControls;
+  @Input() hdrConfig?: IktHeaderBaseConfig;
+  @Input() hdrGraphic?: IktHeaderGraphic;
+  @Input() hdrActions?: IktActionsConfig;
+  @Input() hdrControls?: IktHeaderControls;
 
   @Input() items:any[];
   @Input() itemsConfig: IktListItemConfig[];
@@ -96,7 +95,6 @@ export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log('this.hdrConfig:', this.hdrConfig)
   }
 
 

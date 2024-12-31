@@ -5,10 +5,12 @@ import { TrustHTMLPipe } from "../../../pipes/html-sanitizer.pipe";
 import { CommonModule } from '@angular/common';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ktButtonComponent } from "../button/button.component";
+import { IktIconListDetailConfig, ktIconListComponent } from "../details/icon-list-details";
 
 export interface IktListItemConfig {
     title: string;
     subtitle?: string;
+    details?: any;
     location?: string;
     salary?: string;
     employer?: string;
@@ -29,7 +31,7 @@ export interface IktListItemConfig {
 @Component({
     selector: 'kt-list-item',
     standalone: true,
-    imports: [CommonModule, TrustHTMLPipe, ktButtonComponent, ktActionsComponent],
+    imports: [CommonModule, TrustHTMLPipe, ktButtonComponent, ktActionsComponent, ktIconListComponent],
     template: `
         <div class="kt-list-item kt-ai-center-flex" [style]="config?.styles" (click)="onclick($event)">
 
@@ -39,10 +41,15 @@ export interface IktListItemConfig {
             </div>
 
             <div class="_info">
+                <!-- title -->
                 <h2 class="_title kt-trim">
                     <a class="_link" [ngClass]="{'kt-no-events': !config?.link}" [href]="config?.link">{{config?.title}}</a>
                 </h2>
-                <div class="kt-flex kt-trim kt-mrgt10">
+                <!-- subtitle -->
+                <h5 *ngIf="config?.subtitle" class="_subtitle">{{config?.subtitle}}</h5>
+                <!-- list of icons for details -->
+                <div *ngIf="config?.details" class="_details-icon-list kt-flex kt-trim kt-mrgt10">
+                    <kt-icon-list [config]="config?.details"></kt-icon-list>
                     <h5 class="_sub kt-trim kt-mrgr30 kt-ai-stretch-flex">
                         <i class="pi pi-map-marker kt-mrgr5" style="color: #F39C19;"></i>
                         <span class="kt-txt-color-gr kt-font-600" style="background: linear-gradient(135deg, #F39C19, #C0382B);">
@@ -63,8 +70,7 @@ export interface IktListItemConfig {
                         <i class="pi pi-star-fill kt-txt-color-light-grey kt-mrgl10"></i>
                     </h5>
                 </div>
-                
-            </div>
+                            </div>
 
             <div *ngIf="config?.actions">
                 <kt-actions [config]="config?.actions"></kt-actions>

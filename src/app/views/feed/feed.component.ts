@@ -10,8 +10,7 @@ import { ktSwipeDirective, IktSwipeEvent } from '../../directives/swipe.directiv
 import { ktDeviceService } from '../../services/device.service';
 import { ktNotificationService } from '../../services/notification.service';
 import { ktTextComponent } from '../../shared/input/text/text.component';
-import { kt_FEED_INIT_SEARCH_TOKEN, ktFeedViewModelService } from './feed-viewmodel.service';
-import { IktFeedLine } from '../../api/model/feed-dto/feed.model';
+import { IktFeedRow, kt_FEED_INIT_SEARCH_TOKEN, ktFeedViewModelService } from './feed-viewmodel.service';
 import { ktListComponent } from '../../shared/structure/list/list.component';
 import { kt_CELL_FORMATTER_TOKEN, ktCellRenderer } from '../../services/row-cell-renderers.factory';
 import { kt_INIT_FEED_SEARCH } from '../../config/feed';
@@ -27,6 +26,8 @@ import { ktChartComponent } from '../../shared/charts/kt-chart.component';
 import { ktChartWidgetHeaderComponent } from './dashboard-chart-widget-header.component';
 import { kt_CHART_MOBILE_OPTIONS, kt_CHART_OPTIONS } from '../../config/chart-base-options';
 import { IktButtonConfig } from '../../shared/structure/button/button.component';
+import { IktFeedAd } from '../../api/model/feed-dto/feed-ad.model';
+import { IktListItemConfig } from '../../shared/structure/list/list-item.component';
 
 
 @UntilDestroy()
@@ -43,7 +44,7 @@ import { IktButtonConfig } from '../../shared/structure/button/button.component'
 		ktDropdownComponent,
 		ktActionsComponent,
 		ktChartComponent,
-		ktChartWidgetHeaderComponent
+		ktChartWidgetHeaderComponent,
 	],
 	providers: [
 		ktNotificationService,
@@ -60,62 +61,39 @@ import { IktButtonConfig } from '../../shared/structure/button/button.component'
 	styleUrls: ['./feed.component.scss'],
 	template: `
 		<div class="feed --docked" [ngClass]="layout['hostClass']">
+
 			<section class="widget --list">
-				<div class="sidebar">
-					<!-- <kt-dropdown
-								class="kt-double-control-first"
-								label="config?.sortCtrLabel"
-								name="sortModel"
-								[optionSetFn]="hdrControls.sortFn"
-								[options]="hdrControls.sortCtrlOptions"
-								[optionLabel]="hdrControls.sortCtrlOptionLabel"
-								[optionValue]="hdrControls.sortCtrlOptionValue"
-								[appendTo]="'body'"
-								>
-							</kt-dropdown> -->
-							<!-- <div *ngIf="hdrActions?.btns.length">
-								<kt-actions [config]="hdrActions"></kt-actions>
-							</div> --></div>
 				<div class="kt-header kt-border-spin kt-width kt-rel" [ngClass]="hdrConfig?.cssClass" [ngStyle]="hdrConfig?.styles"> 
-    			<div class="kt-jc-space-between-flex kt-ai-center-flex kt-overlay-white" style="{background:#fff;right:-2px}">
-					<h2 class="__title kt-ai-center-flex">
-						<i [attr.class]="hdrGraphic.iconClass" [attr.style]="hdrGraphic.iconStyle"></i>	
-						<strong class="kt-mrgr10 kt-text-motion-color"><span>{{data?.length}}</span></strong>
-						<span>{{hdrConfig.title}}</span>
-					</h2>	
-					<kt-text
-					class="kt-header-input-text "
-					name="filterModel"
-					[iconClass]="'pi pi-search'"
-					[searchFn$]="hdrControls.filterFn"
-					></kt-text>
-				</div>		
-				
-
-								
-							
-					</div>
-				<kt-list 
-				class="kt-list-header-hide"
-					[items]="data" 
-					[hdrGraphic]="hdrGraphic" 
-					[hdrControls]="hdrControls" 
-					[hdrActions]="hdrActions"s
-				>
-				</kt-list>
+    				<div class="kt-jc-space-between-flex kt-ai-center-flex kt-overlay-white">
+						<h2 class="__title kt-ai-center-flex">
+							<strong class="kt-mrgr10 kt-text-motion-color">
+								<span>{{data?.length}}</span>
+							</strong>
+							<span>{{hdrConfig.title}}</span>
+						</h2>	
+						<kt-text
+							class="kt-header-input-text "
+							name="filterModel"
+							[iconClass]="'pi pi-search'"
+							[searchFn$]="hdrControls.filterFn"
+						></kt-text>
+					</div>		
+				</div>
+				<kt-list class="kt-list-header-hide" [items]="data"></kt-list>
 			</section>
-			<section class="widget --dock">
-			<kt-chart-widget-header
-				[title]="titleCharts"
-				[titleIcon]="'bar_chart_4_bars'"
-				[actions]="chartActions"
-				[headerClass]="'--bg-blue'"
-				[stackData]="stackData"
-			></kt-chart-widget-header>
 
-			<div class="_charts kt-motion kt-animation-fade-in">
-				<kt-chart [options]="chartDesktop" [merge]="chartDataD" [sizer]="'._charts'"></kt-chart>
-			</div>
+			<section class="widget --dock">
+				<kt-chart-widget-header
+					[title]="titleCharts"
+					[titleIcon]="'bar_chart_4_bars'"
+					[actions]="chartActions"
+					[headerClass]="'--bg-blue'"
+					[stackData]="stackData"
+				></kt-chart-widget-header>
+
+				<div class="_charts kt-motion kt-animation-fade-in">
+					<kt-chart [options]="chartDesktop" [merge]="chartDataD" [sizer]="'._charts'"></kt-chart>
+				</div>
 			</section>
 			
 		</div>
@@ -123,15 +101,11 @@ import { IktButtonConfig } from '../../shared/structure/button/button.component'
 })
 export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
-	// @ViewChild(ktChartComponent) ktChart: ktChartComponent;
+	@ViewChild(ktChartComponent) ktChart: ktChartComponent;
 	@ViewChild('drawer', { read: ktSwipeDirective }) drawer: ktSwipeDirective;
 	@HostBinding('class.mobile') get mobile() {
 		return this.bootstraktorMobile;
 	}
-
-
-
-
 	titleFeed = 'Feed';
 	titleCharts = 'Stats';
 
@@ -153,7 +127,7 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 	userSwipes = false;
 
 	bootstraktorMobile: boolean;
-	data;
+	data: IktFeedRow[];
 	currencies$: () => Observable<string[]>;
 
 	hdrConfig: IktHeaderBaseConfig;
@@ -165,7 +139,6 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 		public VM: ktFeedViewModelService,
 		private _renderer: Renderer2,
 		@Inject(ktDeviceService) private _deviceSvc: ktDeviceService,
-		// @Inject(SelectMapperService) private _selectMapperSvc: SelectMapperService,
 		@Inject(LOCALSTORAGE_CACHE_TOKEN) private _localStorage: IktCacheService,
 	) {
 		const { layouts, ordering, provideLayoutActionsFor, provideChartData } = dbc;
@@ -176,7 +149,7 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
 		this.VM.source$.subscribe(res => {
 			this.data = res
-			console.log('this.data:', this.data.length)
+			console.log('this.data:', this.data)
 
 
 		})
@@ -191,12 +164,6 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.hdrControls = {};
 		this.hdrActions = {};
 
-
-
-		// listen to the state and model updates 
-		// this.VM.modelChanged$.pipe(untilDestroyed(this)).subscribe(_=>{
-		// do some cool things with the updates
-		// })
 
 		this.modes = layouts;
 		// this.orderOptions = ordering;
@@ -274,3 +241,18 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	ngOnDestroy(): void { }
 }
+
+
+// <div class="sidebar">
+// 					<kt-dropdown
+// 						class="kt-double-control-first"
+// 						label="config?.sortCtrLabel"
+// 						name="sortModel"
+// 						[optionSetFn]="hdrControls.sortFn"
+// 						[options]="hdrControls.sortCtrlOptions"
+// 						[optionLabel]="hdrControls.sortCtrlOptionLabel"
+// 						[optionValue]="hdrControls.sortCtrlOptionValue"
+// 						[appendTo]="'body'"
+// 						>
+// 					</kt-dropdown>
+// 				</div>

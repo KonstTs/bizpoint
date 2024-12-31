@@ -44,7 +44,6 @@ export abstract class ktBaseHeader implements OnInit, AfterViewInit, OnDestroy {
 
 @Directive()
 export abstract class ktHeader extends ktBaseHeader implements OnInit, AfterViewInit, OnDestroy{
-     @Input() VM?: any;
      @Input() titleIcon?: string;
      @Input() subtitle?: string;
      @Input() styles?: any;
@@ -52,15 +51,6 @@ export abstract class ktHeader extends ktBaseHeader implements OnInit, AfterView
      @Input() tpl?: TemplateRef<unknown>;
 
      constructor() { super() }
-     
-     public get values() {
-          return [this.title, this.subtitle]
-     }
-
-     public set values([t, s]) { 
-          this.title = t;
-          this.subtitle = s;
-     }
 
      ngOnInit(): void {super.ngOnInit()}
      ngAfterViewInit(): void {super.ngAfterViewInit()}
@@ -122,8 +112,6 @@ export interface IktHeaderControls {
     imports: [
         CommonModule,
         DialogModule,
-        ktLoadingComponent,
-        ktButtonComponent,
         ktTextComponent,
         ktDropdownComponent,
         ktActionsComponent
@@ -135,20 +123,18 @@ export class ktHeaderComponent implements AfterContentInit, AfterViewInit {
     @ContentChild(ktTemplateDirective) tpl: ktTemplateDirective
     headerTpl: TemplateRef<any>;
     
-
     @Input() config: IktHeaderBaseConfig;
     @Input() graphic: IktHeaderGraphic;
     @Input() actions: IktActionsConfig;
     @Input() controls: IktHeaderControls;
-    ctx
-    constructor(@Optional() public hdrCtx: ktHdrContext<any>) { 
-        this.ctx = hdrCtx;
+    constructor() { 
+;
     }
 
-    ngAfterContentInit(): void { }
+    ngAfterContentInit(): void {
+        
+     }
     ngAfterViewInit(): void { 
-        this.ctx = {config: this.config}
-        console.log('this.config:',this.config)
     }
 
 }

@@ -3,10 +3,12 @@
 :root{
   --gradient-multi: linear-gradient(to right, #ffd30f, #F44336, #66db49, #c7ffbc);
   --gradient-multi-to-left: linear-gradient(to left, #0f63ff, #66db49);
-  --gradient-ultra:linear-gradient(to right, #ffd30f, #4574ca, #82c272, #b14bca);
+  --gradient-ultra:linear-gradient(to right, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  // --gradient-ultra:linear-gradient(to right, #ffd30f, #4574ca, #82c272, #b14bca);
   --topbar-height: 140px;
   --bg-color: #f0f0f0;
 }
+// #ee7752, #e73c7e, #23a6d5, #23d5ab
 .layout-wrapper{
     height: 100%;
     width: 100%;
@@ -45,7 +47,7 @@
               max-width: 360px;
               min-width: 280px;
               width: 30%;
-              margin: 0 auto -1px auto;
+              margin: 0 auto -2px auto;
               display: block;
             }
           }
@@ -54,7 +56,7 @@
             font-weight: 100 !important;
             text-align: center;
             font-size: 2.3vh;
-            margin: -3px auto 0;
+            margin: -2px auto 0;
             background: #fff;
             max-width: 352px;
             min-width: 273px;
@@ -73,7 +75,7 @@
       right: 0;
       bottom: 0;
       // padding: var(--content-padding);
-      padding: 1.2rem 9%;
+      padding: 1.2rem 9% 0;
       top: var(--topbar-height);
       .--docked{
         @include helpers.kt-coloumn-flex-mixin;

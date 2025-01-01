@@ -8,7 +8,7 @@
     position: absolute;
     inset: 0 0 50px;
     overflow: auto;
-    bottom: 85px;
+    bottom: 43px;
 }
     &::ng-deep{
 
@@ -17,7 +17,7 @@
             .p-dataview-list{
                 height: 100%;
                 overflow: auto;
-                padding-right: 20px;
+                // padding-right: 20px;
             }
             p-dataview-content{
                 background-color: none;

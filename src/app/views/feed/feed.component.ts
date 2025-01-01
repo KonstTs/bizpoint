@@ -82,7 +82,7 @@ import { IktListItemConfig } from '../../shared/structure/list/list-item.compone
 				<kt-list class="kt-list-header-hide" [items]="data"></kt-list>
 			</section>
 
-			<section class="widget --dock">
+			<section class="widget --dock kt-bg-gradient-motion">
 				<kt-chart-widget-header
 					[title]="titleCharts"
 					[titleIcon]="'bar_chart_4_bars'"
@@ -127,7 +127,8 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 	userSwipes = false;
 
 	bootstraktorMobile: boolean;
-	data: IktFeedRow[];
+	data: any[];
+	stats: any[];
 	currencies$: () => Observable<string[]>;
 
 	hdrConfig: IktHeaderBaseConfig;
@@ -148,16 +149,15 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 		})
 
 		this.VM.source$.subscribe(res => {
-			this.data = res
-			console.log('this.data:', this.data)
-
-
+			const [data, stats] = res as any;
+			this.data = data;
+			this.stats = stats;
+			console.log('stats:', stats)
 		})
 
 		this.hdrConfig = {
 			title: `available job openings!`
 		};
-
 		this.hdrGraphic = {
 			iconClass: 'pi-building-columns'
 		};

@@ -31,49 +31,28 @@ export interface IktListItemConfig {
 @Component({
     selector: 'kt-list-item',
     standalone: true,
-    imports: [CommonModule, TrustHTMLPipe, ktButtonComponent, ktActionsComponent, ktIconListComponent],
+    imports: [CommonModule, TrustHTMLPipe, ktActionsComponent],
     template: `
         <div class="kt-list-item kt-ai-center-flex" [style]="config?.styles" (click)="onclick($event)">
-
             <div class="_thumb kt-pic">
                 <div *ngIf="config?.img" class="kt-bg-img-auto-fit kt-height" [style.background-image]="'url(&quot;' + config?.img + '&quot;)'"></div>
                 <i *ngIf="config?.iconClass" [attr.class]="config?.iconClass" [attr.style]="config?.iconStyle"></i>
             </div>
-
-            <div class="_info">
+            <div class="_info kt-trim">
                 <!-- title -->
-                <h2 class="_title kt-trim">
-                    <a class="_link" [ngClass]="{'kt-no-events': !config?.link}" [href]="config?.link">{{config?.title}}</a>
+                <h2 class="_title">
+                    <a class="_link kt-trim" [ngClass]="{'kt-no-events': !config?.link}" [href]="config?.link">{{config?.title}}</a>
                 </h2>
                 <!-- subtitle -->
                 <h5 *ngIf="config?.subtitle" class="_subtitle">{{config?.subtitle}}</h5>
                 <!-- list of icons for details -->
-                <div *ngIf="config?.details" class="_details-icon-list kt-flex kt-trim kt-mrgt10">
-                    <kt-icon-list [config]="config?.details"></kt-icon-list>
-                    <h5 class="_sub kt-trim kt-mrgr30 kt-ai-stretch-flex">
-                        <i class="pi pi-map-marker kt-mrgr5" style="color: #F39C19;"></i>
-                        <span class="kt-txt-color-gr kt-font-600" style="background: linear-gradient(135deg, #F39C19, #C0382B);">
-                            {{config?.location}}
-                        </span>
-                    </h5>
-                    <h5 class="_sub kt-trim kt-mrgr30 kt-ai-stretch-flex">
-                        <i class="pi pi-money-bill kt-mrgr5" style="color: #42d392;"></i>
-                        <span class="kt-txt-color-gr kt-font-600" style="background: linear-gradient(135deg, #42d392,rgb(2, 99, 34));">
-                            {{config?.salary}}
-                        </span>
-                    </h5>
-                    <h5 class="_sub kt-trim kt-mrgr30 kt-ai-stretch-flex ">
-                        <i class="pi pi-building-columns kt-mrgr5" style="color: rgb(248, 41, 172);"></i>
-                        <span class="kt-txt-color-gr kt-font-600" style="background: linear-gradient(135deg,rgb(248, 41, 172),rgb(82, 10, 141));">
-                            {{config?.employer}}
-                        </span>
-                        <i class="pi pi-star-fill kt-txt-color-light-grey kt-mrgl10"></i>
-                    </h5>
+                <div *ngIf="config?.details" class="_details-icon-list kt-flex kt-trim kt-mrgt10" [innerHTML]="config?.details | trustHTML">
                 </div>
-                            </div>
-
-            <div *ngIf="config?.actions">
-                <kt-actions [config]="config?.actions"></kt-actions>
+            </div>
+            <div class="_actions kt-ai-center-flex kt-jc-flex-end">
+                <div *ngIf="config?.actions">
+                    <kt-actions [config]="config?.actions"></kt-actions>
+                </div>
             </div>
         </div>
     `

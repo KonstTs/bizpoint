@@ -17,7 +17,7 @@ import { ktSectionHeader } from '../../shared/structure/header/header.component'
         <div class="_header --kt-chart-stacked-widget kt-motion" [class]="headerClass">			
             <h2 class="kt-mrgr10 kt-ai-jc-center-flex kt-animation-slide-in-right --text-white">
                 <span>{{ title }}</span>
-                <span class="_descr --text-white" >Stats</span>
+                <span class="_descr --text-white" ></span>
             </h2>
             <div class="kt-header-stacked-chart" style="width:50%">
                 <kt-stack-chart #chart [merge]="stackData"></kt-stack-chart>

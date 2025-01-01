@@ -6,7 +6,7 @@ import { StrictHttpResponse } from "../../api/strict-http-response";
 import { IktFeedAd } from "../../api/model/feed-dto/feed-ad.model";
 import { ktFeedService } from "../../api/services/feed-services.service";
 import { IktFeedSearchModel } from "../../model/search.model";
-import { IktCellRenderer, kt_CELL_FORMATTER_TOKEN } from "../../services/row-cell-renderers.factory";
+import { ICurrencyFormatter, IktCellRenderer, kt_CELL_FORMATTER_TOKEN } from "../../services/row-cell-renderers.factory";
 import { ktIconListComponent } from '../../shared/structure/details/icon-list-details';
 import { ktFeedWorkerService } from '../../services/feed-worker.service';
 
@@ -34,6 +34,7 @@ export class ktFeedViewModelService extends ktListViewModelService<IktFeedRow> i
     columns: any;
     barchart$: any;
     modelChanged$ = new Subject();
+    CurrencyFormatter:ICurrencyFormatter;
 
     constructor(
         injector: Injector,
@@ -43,24 +44,24 @@ export class ktFeedViewModelService extends ktListViewModelService<IktFeedRow> i
         @Inject(forwardRef(() => ktFeedService)) private _apiSvc: ktFeedService,
     ){
         super(injector, searchModel)
+        this.Renderer.CurrencyFormatter.setCurrency('NOK')
     }
 
-    private toWorker(_data){
-        return defer(()=> this._feedWorker.process(JSON.parse(JSON.stringify(_data))));
-    }
+    
 
     private processResponse(ads){
-        console.log('ads:', ads)
         return ads;
     }
 
+    private toWorker(_data){
+        return defer(()=> this._feedWorker.process(_data));
+    }
     // peculiar cors issue at pam stiling api. 
     // pexels api works properly
     getList(_query?:any): Observable<any[]>{
         //cors issue workaround
         return this._apiSvc.mandatorySubjectDueToCors$.pipe(
-            switchMap(res => forkJoin(([of(res), of(this.Renderer)]))),
-            switchMap(([f, r] )=> this.toWorker([f, r]))
+            switchMap(res => this.toWorker(res))
         ) 
         
         // proper implementation should be sth like this 
@@ -101,6 +102,8 @@ export class ktFeedViewModelService extends ktListViewModelService<IktFeedRow> i
     ngOnDestroy() {
         super.ngOnDestroy();
         this.modelChanged$.complete();
+        this._apiSvc.mandatorySubjectDueToCors$.complete();
+        this._feedWorker.terminate()
     }
 }
 

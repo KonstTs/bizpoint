@@ -16,7 +16,7 @@
     .widget{
         border-radius: $borderRadius;
         // background-color: #f1f1f1;
-        padding: 1rem 1.1rem;
+        // padding: 1rem 1.1rem;
 
         .kt-header{
             padding: 0 0 3rem 0;
@@ -140,7 +140,7 @@
             .kt-list-item{
                 // padding: 1.4rem 0;
                 height: 10vh;
-                border-bottom: 1px solid #d0d0d0;
+                // border-bottom: 1px solid #e9e9e9;
                 overflow: hidden;
                     ._thumb{
                         width: 10%;
@@ -159,7 +159,14 @@
                     }
                     ._info{
                         padding-left: 1.4rem;
-                        max-width: 70%;
+                        // max-width: 76%;
+                        padding-left: 1.4rem;
+                        height: 100%;
+                        border-bottom: 1px solid #e9e9e9;
+                        display: flex;
+                        flex-flow: column;
+                        justify-content: center;
+                        width: 70%;
                         ._title{
                             font-weight: 600;
                             line-height: 130%;
@@ -175,7 +182,11 @@
                         }
                         }
                     }
-                
+                ._actions{
+                    width: 20%;
+                    height: 100%;
+                    border-bottom: 1px solid #e9e9e9;
+                }
                 
             } 
         }
@@ -185,8 +196,8 @@
     .--list{
         height: 100%;
         margin-bottom: 1.5rem;
-        border-right: solid 1px #f1f1f1;
-    border-left: solid 1px #f1f1f1;
+        // border-right: solid 1px #f1f1f1;
+    // border-left: solid 1px #f1f1f1;
     padding-top: 0;
         // background: rgba(255,255,255,.4);
         .--filters{

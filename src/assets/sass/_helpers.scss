@@ -1190,6 +1190,16 @@
 }
 
 
+.kt-border-radius-gradient{
+  border-radius: 30px; 
+  border: 1px solid transparent; 
+  background: linear-gradient(to right, #ee7752, #e73c7e, #23a6d5, #23d5ab) border-box; /*3*/
+  mask: 
+      linear-gradient(#000 0 0) padding-box, 
+      linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
 .kt-bg-gradient-motion {
 	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
 	background-size: 400% 400%;

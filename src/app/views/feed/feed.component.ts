@@ -23,7 +23,7 @@ import { ktLoggerService } from '../../services/logger.service';
 import { kt_ENVIRONMENT } from '../../config/environment';
 import { EChartsCoreOption } from 'echarts';
 import { ktChartComponent } from '../../shared/charts/kt-chart.component';
-import { ktChartWidgetHeaderComponent } from './dashboard-chart-widget-header.component';
+import { ktChartWidgetHeaderComponent } from './feed-chart-widget-header.component';
 import { kt_CHART_MOBILE_OPTIONS, kt_CHART_OPTIONS } from '../../config/chart-base-options';
 import { IktButtonConfig } from '../../shared/structure/button/button.component';
 import { IktFeedAd } from '../../api/model/feed-dto/feed-ad.model';

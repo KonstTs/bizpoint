@@ -4,14 +4,22 @@
 
 /* Reset CSS */
 @layer primeng {
+    .kt-header-input-text{
+        .p-float-label{
+            box-shadow: none !important;
+            margin-left: 10px !important;
+        padding-left: 0 !important;
+            border-radius: 30px; 
+            border: 1px solid transparent; 
+            background: linear-gradient(to right, #ee7752, #e73c7e, #23a6d5, #23d5ab) border-box; /*3*/
+        // mask: 
+            // linear-gradient(#000 0 0) padding-box, 
+            // linear-gradient(#000 0 0);
+            mask-composite: exclude;
+        }
+    }
     .p-inputtext{
         box-shadow: none !important;
         border-radius: 30px; 
-        border: 1px solid transparent; 
-        background: linear-gradient(to right, #ee7752, #e73c7e, #23a6d5, #23d5ab) border-box; /*3*/
-        mask: 
-            linear-gradient(#000 0 0) padding-box, 
-            linear-gradient(#000 0 0);
-        mask-composite: exclude;
     }
 }

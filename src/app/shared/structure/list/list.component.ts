@@ -4,7 +4,7 @@ import { TrustHTMLPipe } from '../../../pipes/html-sanitizer.pipe';
 import { SESSIONSTORAGE_CACHE } from '../../../config/cache';
 import { IktButtonConfig } from '../button/button.component';
 import { ktListViewModelService } from './list-viewmodel.service';
-import { DataViewLayoutChangeEvent, DataViewModule, DataViewPageEvent, DataViewSortEvent } from 'primeng/dataview';
+import { DataView, DataViewLayoutChangeEvent, DataViewModule, DataViewPageEvent, DataViewSortEvent } from 'primeng/dataview';
 import { IktListItemConfig, ktListItemComponent } from './list-item.component';
 import { ktTemplateDirective } from '../../../directives/template.directive';
 import { IktHeaderBaseConfig, IktHeaderControls, IktHeaderGraphic, ktHeaderComponent } from '../header/header.component';
@@ -23,6 +23,7 @@ import { IktActionsConfig } from '../actions/actions.component';
 export class ktListComponent implements OnInit, OnDestroy, AfterViewInit {
   static nextId = 0;
   @HostBinding() id = `kt-list-${ktListComponent.nextId++}`;
+  @ViewChild(DataView) list: DataView;
 
   @Input() hdrConfig?: IktHeaderBaseConfig;
   @Input() hdrGraphic?: IktHeaderGraphic;

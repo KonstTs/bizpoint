@@ -1,0 +1,47 @@
+<div class="grid">
+  <div class="col-12 flex align-items-center kt-rel">
+      <i *ngIf="!!iconClass" [attr.class]="iconClass" [attr.style]="iconStyle"></i>
+      <span class="p-float-label">
+          <p-autoComplete
+              #autoCompleteCtrl
+              id="autocomplete"
+              inputId="float-label"
+              [(ngModel)]="selections"
+              [suggestions]="suggestions$ | async"
+              [multiple]="multiple"
+              [field]="field"
+              [delay]="delay"
+              [minLength]="minLength"
+              [readonly]="readonly"
+              [disabled]="disabled"
+              [required]="required"
+              [placeholder]="placeholder"
+              [group]="group"
+              [style]="style"
+              [styleClass]="styleClass"
+              [ngClass]="{'kt-autocomplete-no-suggestions': hasSuggestions}"
+              [dropdownIcon]="dropdownIcon"
+              [dropdown]="dropdown"
+              [dropdownMode]="dropdownMode"
+              [showClear]="showClear"
+              [inputStyleClass]="inputStyleClass"
+              [panelStyleClass]="panelStyleClass"
+              [showEmptyMessage]="showEmptyMessage"
+              [dataKey]="dataKey"
+              [type]="type"
+              (completeMethod)="search$($event)"
+              (onSelect)="select($event)"
+              (onUnselect)="unselect($event)"
+              (onClear)="clear($event)"
+              (onKeyUp)="keyUp(this)"
+              (onBlur)="onBlur(this)"
+          >
+          </p-autoComplete>
+          <label for="float-label">{{label}}</label>
+      </span>
+  </div>
+</div>
+
+
+<!-- [ngClass]="{'kt-autocomplete-no-suggestions': (suggestions$ | async)?.length === 0}" -->
+

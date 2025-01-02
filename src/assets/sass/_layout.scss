@@ -5,7 +5,7 @@
   --gradient-multi-to-left: linear-gradient(to left, #0f63ff, #66db49);
   --gradient-ultra:linear-gradient(to right, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   // --gradient-ultra:linear-gradient(to right, #ffd30f, #4574ca, #82c272, #b14bca);
-  --topbar-height: 140px;
+  --topbar-height: 110px;
   --bg-color: #f0f0f0;
 }
 // #ee7752, #e73c7e, #23a6d5, #23d5ab
@@ -42,7 +42,7 @@
             border-right: 0;
             border-top: 0;
             background-color: #f9f9f9;
-            padding-top: 2rem;
+            padding-top: 1rem;
             img{
               max-width: 360px;
               min-width: 280px;
@@ -75,7 +75,7 @@
       right: 0;
       bottom: 0;
       // padding: var(--content-padding);
-      padding: 1.2rem 9% 0;
+      padding: 1.2rem 10% 0;
       top: var(--topbar-height);
       .--docked{
         @include helpers.kt-coloumn-flex-mixin;

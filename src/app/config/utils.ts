@@ -1,5 +1,13 @@
 import { ktApiResponse } from "../model/api-response.model";
 
+export const filterArr = (fn, a) => {
+  const f = [];
+  for (let i = 0; i < a.length; i++) if (fn(a[i])) f.push(a[i]);
+  return f;
+};
+
+export const fIlterObjs = fn => a => filterArr(fn, a);
+
 export const resolvedPromise = (() => Promise.resolve(null))();
 
 export const getElement = (selector: string): Element | HTMLElement => document.querySelector(selector);

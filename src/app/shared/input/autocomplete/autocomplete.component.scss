@@ -1,0 +1,212 @@
+:host ::ng-deep {
+    label {
+      font-size: .95rem;
+      margin-left: 10px;
+      color: #999;
+      margin-top: -.6rem;
+    }
+   
+    .kt-autocomplete-no-suggestions{
+        .p-autocomplete-items{
+            display: none;
+        }
+      }
+    .kt-autocomplete-control{
+        width: 100%;
+        display: block;
+
+
+        .kt-autocomplete-input{
+            border: 1px solid #eee !important;
+            border-radius: 7px;
+            background: #f6f6f6;
+            padding: 1rem 10px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            height: unset;
+            // width: calc(100% - 5px) !important;
+        }
+
+
+        //material overwrite
+        input[type=text]:not(.browser-default):focus:not([readonly]){
+            box-shadow: none !important;
+            border: 1px solid #eee;
+        }
+
+
+        .p-autocomplete-multiple-container {
+            &:not(.p-disabled){
+                border: 1px solid #eee;
+                box-shadow: none !important;
+                padding:0.16rem 10px;
+                margin-left: 10px;
+                background: #f6f6f6;
+            }
+            &:not(.p-disabled):hover{
+                // border: none !important;
+                box-shadow: none !important;
+            }
+            &:not(.p-disabled).p-focus{
+                // border: none !important;
+                box-shadow: none !important;
+                // box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3);
+            }
+            .p-autocomplete-token{
+                max-width: 100%;
+                font-size: .9rem;
+                padding: 0.3rem 0.2rem;
+                color: #495057;
+                background: none;
+
+
+                .p-autocomplete-token-label{
+                    line-height: 120%;
+                }
+            }
+            .p-autocomplete-input-token{
+                padding: 0;
+                input{
+                    color: #495057;
+                    border-bottom: none;
+                    box-shadow: none;
+                }
+            }
+
+
+            .kt-autocomplete-input{
+                border: none;
+                height: 3rem;
+            }
+
+
+            //material overwrite
+            input[type=text]:not(.browser-default):focus:not([readonly]){
+                box-shadow: none !important;
+                border: none;
+            }
+        }
+       
+    }
+
+
+    // .p-autocomplete-multiple{
+
+
+    // }
+
+
+    .kt-autocomplete-panel{
+        right: 0;
+        left: 0;
+        min-width: unset !important;
+        margin-top: -5px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+       
+        .p-autocomplete-items{
+            padding-top: 0;
+            padding-bottom: 0;
+
+
+            .p-autocomplete-item{
+                color: #26a69a;
+                padding-top: 10px;
+                padding-bottom: 10px;
+
+
+                &:hover{
+                    color: #495057;
+                    background: #c8edf0;
+                }
+
+
+                span{
+                    display: block;
+                    width: 100%;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+
+
+
+
+    .p-autocomplete-multiple{
+        .kt-autocomplete-panel{
+            left: 10px !important;
+        }
+    }
+
+
+
+
+
+
+    p-autocomplete{
+        &.ng-dirty{
+            .p-autocomplete-input-token{
+                input{
+                    background: rgba(155,155,155,.1);
+                }
+            }
+        }
+        &.p-inputwrapper-focus{
+            box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.3) !important;
+        }
+    }    
+
+
+    i.pi:not(.pi-spinner), .kt-icon{
+      width: 30px;
+      font-size: 20px;
+      color: #ccc;
+      height: 30px;
+      position: absolute;
+      top: 50%;
+      margin-top: -10px;
+  }
+    .p-float-label{
+        margin-left: 30px;
+        width: 100%;
+        // margin-right: 5px;
+    }
+ 
+    .kt-filled-select {
+      .kt-select-wrapper {
+        background: #f3f3f3;
+        border-radius: 6px;
+ 
+        .p-inputtext {
+          border-color: #f3f3f3;
+        }
+      }
+    }
+       
+    // .p-inputtext {
+    //     color: #666;
+    //     padding: 0.25rem 0.75rem !important;
+    //     width: calc(100% - 1.5rem) !important;
+    // }
+
+
+    &.__invalid{
+        input[type=text]{
+            border-color: #f00000 !important;
+        }
+    }
+  }
+
+
+ 
+
+
+  .svg-fix {
+    position: absolute;
+    top: 10px;
+    left: 0;
+  }
+

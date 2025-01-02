@@ -1,4 +1,3 @@
-import { IktFeedLine } from "../../api/model/feed-dto/feed.model";
 import { colorme } from "../../config/utils";
 import { IktButtonConfig } from "../../shared/structure/button/button.component";
 import { ktFeedViewModelService } from "./feed-viewmodel.service";
@@ -32,14 +31,6 @@ export const FEED_CONFIG = {
       iconClass: 'toolbar'
     }
   },
-  ordering: [
-    { value: 'market_cap_asc', label: 'MCap Asc' },
-    { value: 'market_cap_desc', label: 'MCap Desc' },
-    { value: 'volume_asc', label: 'Vol Asc' },
-    { value: 'volume_desc', label: 'Vol Desc' },
-    { value: 'id_asc', label: 'Id Asc' },
-    { value: 'id_desc', label: 'Id Desc' }
-  ],
   provideLayoutActionsFor: (layouts, fn): IktButtonConfig[] =>
     Object.entries(layouts)
       .map(([key, obj]) =>
@@ -56,7 +47,18 @@ export const FEED_CONFIG = {
     const { Renderer: { CurrencyFormatter: { formatWithOptions } } } = vm;
     const fo = { maximumFractionDigits: 2, notation: 'compact' };
     const clr = v?.map(_ => `#${colorme()}`)
-    const stacks = d?.map((dt, i) => ({ name: dt, type: 'bar', stack: 'total', label: { show: false }, data:[{ value: v[i], itemStyle: { color: clr[i] } }] }))
+    const stacks = d?.map((dt, i) => ({ 
+      name: dt, 
+      type: 'bar', 
+      stack: 'total', 
+      label: { show: false }, 
+      data: [{ 
+        value: v[i], 
+        itemStyle: { 
+          color: clr[i] 
+        } 
+      }] 
+    }))
     
     return {
       desktop: {
@@ -67,10 +69,15 @@ export const FEED_CONFIG = {
           }
         },
         series: [{
-          name: 'Market Cap',
+          name: 'Job availability',
           type: 'bar',
           itemStyle: { borderRadius: [50, 50, 0, 0] },
-          data: v?.map((val,i) => ({ value: val, itemStyle: { color: clr[i] } }))
+          data: v?.map((val,i) => ({ 
+            value: val, 
+            itemStyle: { 
+              color: clr[i] 
+            } 
+          }))
         }]
       },
       mobile: {
@@ -84,7 +91,12 @@ export const FEED_CONFIG = {
           name: 'Market Cap',
           type: 'bar',
           itemStyle: { borderRadius: [0, 50, 50, 0] },
-          data: v?.map((val,i) => ({ value: val, itemStyle: { color: clr[i] } }))?.reverse()
+          data: v?.map((val,i) => ({
+            value: val, 
+            itemStyle: { 
+              color: clr[i] 
+            } 
+          }))?.reverse()
         }]
       },
       stack: {

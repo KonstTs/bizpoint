@@ -23,3 +23,44 @@
         </span>
     </div>
 </div>
+
+
+
+
+
+<!-- 
+
+
+    <div class="grid">
+      <div class="col flex align-items-center">
+  
+          <i *ngIf="!!iconClass" [attr.class]="iconClass" [attr.style]="iconStyle"></i>
+  
+        <span class="p-float-label kt-pdl10" style="width: 100%;">
+          <input
+            #ctrl="ngModel"
+            pInputText
+            id="input"
+            [(ngModel)]="value"
+            [ngModelOptions]="{ updateOn: updateOn, standalone: true }"
+            [placeholder]="placeholder"
+            [required]="required ? 'required' : null"
+            [attr.disabled]="disabled ? 'disabled' : null"
+            [pTooltip]="tooltip"
+            [tooltipEvent]="tooltipEvent"
+            [tooltipPosition]="tooltipPosition"
+            [ngStyle]="styles"
+            [class.phone-select]="isPhoneInput"
+            (blur)="blur();onBlur(this)"
+            (keyup)="search($event)"
+          />
+          <label htmlFor="input">{{label}}</label>
+          <span *ngIf="hint" class="kt-input-hint">{{hint}}</span>
+        </span>
+      </div>
+
+    </div>
+   -->
+  
+
+  

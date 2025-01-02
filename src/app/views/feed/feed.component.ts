@@ -1,16 +1,16 @@
 import { AfterViewInit, Component, HostBinding, Inject, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { FEED_CONFIG as dbc, Ikt_FEED_MODE, IktFeedLayoutType } from './feed-utils';
+import { FEED_CONFIG as fdc, Ikt_FEED_MODE, IktFeedLayoutType } from './feed-utils';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable } from 'rxjs';
+import { debounceTime, exhaustMap, fromEvent, map, Observable, of, switchMap, tap } from 'rxjs';
 import { SESSIONSTORAGE_CACHE, LOCALSTORAGE_CACHE, LOCALSTORAGE_CACHE_TOKEN, IktCacheService } from '../../config/cache';
 import { ktSwipeDirective, IktSwipeEvent } from '../../directives/swipe.directive';
 import { ktDeviceService } from '../../services/device.service';
 import { ktNotificationService } from '../../services/notification.service';
 import { ktTextComponent } from '../../shared/input/text/text.component';
-import { IktFeedRow, kt_FEED_INIT_SEARCH_TOKEN, ktFeedViewModelService } from './feed-viewmodel.service';
+import { kt_FEED_INIT_SEARCH_TOKEN, ktFeedViewModelService } from './feed-viewmodel.service';
 import { ktListComponent } from '../../shared/structure/list/list.component';
 import { kt_CELL_FORMATTER_TOKEN, ktCellRenderer } from '../../services/row-cell-renderers.factory';
 import { kt_INIT_FEED_SEARCH } from '../../config/feed';
@@ -26,8 +26,8 @@ import { ktChartComponent } from '../../shared/charts/kt-chart.component';
 import { ktChartWidgetHeaderComponent } from './feed-chart-widget-header.component';
 import { kt_CHART_MOBILE_OPTIONS, kt_CHART_OPTIONS } from '../../config/chart-base-options';
 import { IktButtonConfig } from '../../shared/structure/button/button.component';
-import { IktFeedAd } from '../../api/model/feed-dto/feed-ad.model';
-import { IktListItemConfig } from '../../shared/structure/list/list-item.component';
+import { fIlterObjs } from '../../config/utils';
+import { filter } from 'rxjs/operators';
 
 
 @UntilDestroy()
@@ -63,7 +63,10 @@ import { IktListItemConfig } from '../../shared/structure/list/list-item.compone
 		<div class="feed --docked" [ngClass]="layout['hostClass']">
 
 			<section class="widget --list">
-				<div class="kt-header kt-border-spin kt-width kt-rel" [ngClass]="hdrConfig?.cssClass" [ngStyle]="hdrConfig?.styles"> 
+				<div class="kt-header kt-border-spin kt-width kt-rel" 
+					[ngClass]="hdrConfig?.cssClass" 
+					[ngStyle]="hdrConfig?.styles"
+				> 
     				<div class="kt-jc-space-between-flex kt-ai-center-flex kt-overlay-white">
 						<h2 class="__title kt-ai-center-flex">
 							<strong class="kt-mrgr10 kt-text-motion-color">
@@ -72,14 +75,24 @@ import { IktListItemConfig } from '../../shared/structure/list/list-item.compone
 							<span>{{hdrConfig.title}}</span>
 						</h2>	
 						<kt-text
-							class="kt-header-input-text "
+							class="kt-header-input-text"
 							name="filterModel"
 							[iconClass]="'pi pi-search'"
-							[searchFn$]="hdrControls.filterFn"
+							[ngModel]="searchQuery"
+							(keyup)="filterFeed($event)"
 						></kt-text>
 					</div>		
 				</div>
-				<kt-list class="kt-list-header-hide" [items]="data"></kt-list>
+				<kt-list 
+					#dv
+					class="kt-list-header-hide" 
+					[totalRecords]="data?.length"
+					[items]="data" 
+					filterBy="title"
+      				[trackBy]="trackBy"
+      				[sortField]="sortField"
+      				[sortOrder]="sortOrder">
+				</kt-list>
 			</section>
 
 			<section class="widget --dock kt-bg-gradient-motion">
@@ -100,16 +113,25 @@ import { IktListItemConfig } from '../../shared/structure/list/list-item.compone
 	`
 })
 export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
-
+	@ViewChild('dv') dv: ktListComponent;
 	@ViewChild(ktChartComponent) ktChart: ktChartComponent;
 	@ViewChild('drawer', { read: ktSwipeDirective }) drawer: ktSwipeDirective;
 	@HostBinding('class.mobile') get mobile() {
-		return this.bootstraktorMobile;
+		return this.bootstrapforMobile;
 	}
 	titleFeed = 'Feed';
 	titleCharts = 'Stats';
-
+	bootstrapforMobile: boolean;
+	data: any[];
+	stats: any[];
+	
+	trackBy = 'id';
+	filterBy = ['id','title', 'employer', 'salary', 'location'];
+	sortField = ['id','title', 'employer', 'salary', 'location']
+	sortOrder = 1;
 	searchLabel = '';
+	searchQuery;
+	
 	// orderOptions: IktSelectOptions[];
 	modes: Ikt_FEED_MODE;
 	layout: IktFeedLayoutType;
@@ -126,15 +148,14 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 	showDrawer = true;
 	userSwipes = false;
 
-	bootstraktorMobile: boolean;
-	data: any[];
-	stats: any[];
-	currencies$: () => Observable<string[]>;
-
 	hdrConfig: IktHeaderBaseConfig;
 	hdrGraphic: IktHeaderGraphic;
 	hdrControls: IktHeaderControls;
 	hdrActions: IktActionsConfig;
+//(value: string) => this.data.filter(item => item.title.includes(value));
+
+	filterFeed: (...args) => void;
+	search$: (...args) => any;
 
 	constructor(
 		public VM: ktFeedViewModelService,
@@ -142,21 +163,21 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 		@Inject(ktDeviceService) private _deviceSvc: ktDeviceService,
 		@Inject(LOCALSTORAGE_CACHE_TOKEN) private _localStorage: IktCacheService,
 	) {
-		const { layouts, ordering, provideLayoutActionsFor, provideChartData } = dbc;
+		const { layouts, provideLayoutActionsFor, provideChartData } = fdc;
 
 		this._deviceSvc.isMobile$().subscribe(res => {
-			this.bootstraktorMobile = res;
+			this.bootstrapforMobile = res;
 		})
 
-		this.VM.source$.subscribe(res => {
+		this.VM.source$.pipe().subscribe(res => {
 			const [data, stats] = res as any;
 			this.data = data;
 			this.stats = stats;
-			console.log('stats:', stats)
+			console.log('stats:', stats);
 		})
 
 		this.hdrConfig = {
-			title: `available job openings!`
+			title: `jobs available!`
 		};
 		this.hdrGraphic = {
 			iconClass: 'pi-building-columns'
@@ -167,18 +188,15 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 
 		this.modes = layouts;
 		// this.orderOptions = ordering;
-		this.provideLayout('default');
+		this.provideLayout('min');
 
-		// this.VM.barchart$.subscribe(([d, v]) => { 
-		// this.chartActions = provideLayoutActionsFor(layouts, this.provideLayout.bind(this));
-		// const { desktop, mobile, stack } = provideChartData([d, v], this.VM);
+		this.filterFeed = (e) => {
+			this.dv.list.filter(e.target.value);
+		 }
 
-		// this.chartDataD = desktop;
-		// this.chartDataM = mobile;
-		// this.stackData = stack;
-		// });
-
-
+	 
+		
+		
 
 	}
 

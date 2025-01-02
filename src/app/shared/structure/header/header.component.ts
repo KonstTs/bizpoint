@@ -96,11 +96,11 @@ export interface IktHeaderControls {
     filterCtrLabel?: string;
     filterCtrlModel?: any
     sortCtrLabel?: string;
-    sortCtrlModel?: any;
+    sortCtrktodel?: any;
     sortCtrlOptions?: any;
     sortCtrlOptionLabel?: string;
     sortCtrlOptionValue?: string;
-    filterFn?: (...args) => void | Observable<any>
+    filterFn?: (...args) => Observable<any> | void;
     sortFn?: (...args) => void
 }
 

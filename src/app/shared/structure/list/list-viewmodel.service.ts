@@ -76,6 +76,7 @@ export abstract class ktListViewModelService<TModel extends ktBaseEntity> implem
   protected abstract getListItemCb(_id: string): Observable<any>;
 
   abstract search(_term: string): Observable<TModel[]>;
+  abstract filter(_term: string): Observable<TModel[]>;
   abstract delete(_id: string): Observable<StrictHttpResponse<void>>;
 
 

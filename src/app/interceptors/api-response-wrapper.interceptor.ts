@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { METADATA_PROP_NAME } from '../config/response-wrapper-metadata';
 import { ktApiResponse } from '../model/api-response.model';
-import { isApiResponse } from '../config/utils';
+import { isApiResponse } from '../services/utils';
 
 @Injectable()
 export class ktApiResponseWrapperInterceptor implements HttpInterceptor {

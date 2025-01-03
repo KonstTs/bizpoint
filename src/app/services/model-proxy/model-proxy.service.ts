@@ -2,7 +2,7 @@ import { Injectable, OnDestroy, Optional, InjectionToken, Inject } from '@angula
 import { isObservable, Observable, of, Subject } from 'rxjs';
 import { ktModelChangingArgs, ktModelChangeArgs } from '../../model/model-state-args.model';
 import { Change, ObservableSlim } from './observable-slim';
-import { extractPropertyPath } from '../../config/utils';
+import { extractPropertyPath } from '../utils';
 
 // ----------------- DO NOT FORGET -------------------
 // IMPLEMENT MODEL VALIDATION

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, HostBinding, Input, NgModule, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ktButtonComponent, IktButtonConfig } from '../../shared/structure/button/button.component'
 import { EChartsCoreOption } from 'echarts';
-import { getElement } from '../../config/utils';
+import { getElement } from '../../services/utils';
 import { ktStackChartComponent } from '../../shared/charts/kt-stack-chart.component';
 import { ktSectionHeader } from '../../shared/structure/header/header.component';
 

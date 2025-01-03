@@ -7,6 +7,7 @@ addEventListener('message', ({ data }) => {
         maximumFractionDigits:0,
         minimumFractionDigits: 0
     }
+
     let locations=[], salaries=[], employers=[];
 
     data.forEach(dato => {
@@ -17,14 +18,62 @@ addEventListener('message', ({ data }) => {
         employers.push(employer);
         dato.details = w_details(location, salary, options, employer, dato.rating);
     });
-    const stats = {
+    const locationsMapper = w_occurrenceMapper(locations);
+    const salariesMapper = w_occurrenceMapper(salaries)
+    const employersMapper = w_occurrenceMapper(employers)
+
+    console.log('locationsMapper,',locationsMapper)
+    console.log('salariesMapper,',salariesMapper)
+    console.log('employersMapper,',employersMapper)
+
+    const reports = {
         locations: Array.from(new Set(locations)), 
         salaries: Array.from(new Set(salaries)), 
         employers: Array.from(new Set(employers))
     }
 
-    postMessage([data,stats]);
+    postMessage([data,reports]);
 });
+// locations -> most jobs
+// locations -> highest salaries
+// employers -> highest salaries
+// employers -> highest ratings++++++++
+
+function w_Report([l,s,e]){
+    this.map[entity] = undefined;
+    this.map = undefined;
+
+    return new function(){
+        this.locations = Array.from(new Set(l));
+        this.salaries = Array.from(new Set(s));
+        this.employers = Array.from(new Set(e));
+        this.locationsMapper = w_occurrenceMapper(l);
+        this.salariesMapper = w_occurrenceMapper(s);
+        this.employersMapper = w_occurrenceMapper(e);
+    }
+
+const Engine ={
+    gas: undefined,
+    list: undefined,
+    map: undefined,
+    start: (_gas) => {
+        Engine.gas = _gas;
+        return Engine;
+    },
+    normalize: (_arr) => {
+        Engine.list = Array.from(new Set(arr));
+        return Engine;
+    },
+                    
+}
+}
+
+function w_occurrenceMapper(arr){
+return arr.reduce(function(obj, b) {
+    obj[b] = ++obj[b] || 1;
+    return obj;
+  }, {});
+} 
 
 
 function w_details(l,s,o,e,r){

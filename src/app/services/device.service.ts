@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, of, Subject, switchMap } from 'rxjs';
-import { deviceIsMobile } from '../config/utils';
+import { deviceIsMobile } from './utils';
 import { tap } from 'rxjs/operators';
 @Injectable({providedIn:'root'})
 export class ktDeviceService implements OnDestroy{

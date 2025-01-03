@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { resolvedPromise, hasValue } from '../../config/utils';
+import { resolvedPromise, hasValue } from '../utils';
 
 export interface Change<T> {
   type: ChangeType;

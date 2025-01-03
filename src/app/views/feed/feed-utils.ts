@@ -1,4 +1,4 @@
-import { colorme } from "../../config/utils";
+import { colorme } from "../../services/utils";
 import { IktButtonConfig } from "../../shared/structure/button/button.component";
 import { ktFeedViewModelService } from "./feed-viewmodel.service";
 

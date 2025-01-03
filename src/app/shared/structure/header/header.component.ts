@@ -81,7 +81,7 @@ export abstract class ktTableHeader extends ktSectionHeader implements OnInit, A
      
      @Input() inputControls: ktHeaderControls[];
      @Input() filterFn: (...args) => void;
-     @Input() searchFn$ = (...args) => Observable<any>;
+     @Input() searchFn$ = (e) => Observable<any>;
      constructor() { super() }
 
      ngOnInit(): void {super.ngOnInit()}
@@ -101,7 +101,8 @@ export interface IktHeaderControls {
     sortCtrlOptionLabel?: string;
     sortCtrlOptionValue?: string;
     filterFn?: (...args) => Observable<any> | void;
-    sortFn?: (...args) => void
+    sortFn?: (...args) => void;
+    searchFn?: (...args) => Observable<any>;
 }
 
 @Component({

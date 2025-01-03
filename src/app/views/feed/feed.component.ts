@@ -26,7 +26,7 @@ import { ktChartComponent } from '../../shared/charts/kt-chart.component';
 import { ktChartWidgetHeaderComponent } from './feed-chart-widget-header.component';
 import { kt_CHART_MOBILE_OPTIONS, kt_CHART_OPTIONS } from '../../config/chart-base-options';
 import { IktButtonConfig } from '../../shared/structure/button/button.component';
-import { fIlterObjs } from '../../config/utils';
+import { fIlterObjs } from '../../services/utils';
 import { filter } from 'rxjs/operators';
 
 
@@ -119,17 +119,16 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 	@HostBinding('class.mobile') get mobile() {
 		return this.bootstrapforMobile;
 	}
+	bootstrapforMobile: boolean;
 	titleFeed = 'Feed';
 	titleCharts = 'Stats';
-	bootstrapforMobile: boolean;
+	
 	data: any[];
-	stats: any[];
+	reports: any[];
 	
 	trackBy = 'id';
-	filterBy = ['id','title', 'employer', 'salary', 'location'];
 	sortField = ['id','title', 'employer', 'salary', 'location']
 	sortOrder = 1;
-	searchLabel = '';
 	searchQuery;
 	
 	// orderOptions: IktSelectOptions[];
@@ -164,20 +163,22 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 		@Inject(LOCALSTORAGE_CACHE_TOKEN) private _localStorage: IktCacheService,
 	) {
 		const { layouts, provideLayoutActionsFor, provideChartData } = fdc;
+		this.modes = layouts;
+		this.provideLayout('min');
 
 		this._deviceSvc.isMobile$().subscribe(res => {
 			this.bootstrapforMobile = res;
 		})
 
 		this.VM.source$.pipe().subscribe(res => {
-			const [data, stats] = res as any;
+			const [data, reports] = res as any;
 			this.data = data;
-			this.stats = stats;
-			console.log('stats:', stats);
+			this.reports = reports;
+			console.log('reports:', reports);
 		})
 
 		this.hdrConfig = {
-			title: `jobs available!`
+			title: `jobs!`
 		};
 		this.hdrGraphic = {
 			iconClass: 'pi-building-columns'
@@ -186,9 +187,7 @@ export class ktFeedComponent implements OnInit, AfterViewInit, OnDestroy {
 		this.hdrActions = {};
 
 
-		this.modes = layouts;
-		// this.orderOptions = ordering;
-		this.provideLayout('min');
+		
 
 		this.filterFeed = (e) => {
 			this.dv.list.filter(e.target.value);

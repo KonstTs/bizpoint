@@ -1,14 +1,16 @@
 import { ktApiResponse } from "../model/api-response.model";
 
-export const filterArr = (fn, a) => {
-  const f = [];
+export const occurrenceMapper = (arr) => arr.reduce(function(obj, b) {
+  obj[b] = ++obj[b] || 1;
+  return obj;
+}, {});
+
+export const filterArr = (fn, a) => (f = []) => { 
   for (let i = 0; i < a.length; i++) if (fn(a[i])) f.push(a[i]);
   return f;
 };
 
 export const fIlterObjs = fn => a => filterArr(fn, a);
-
-export const resolvedPromise = (() => Promise.resolve(null))();
 
 export const getElement = (selector: string): Element | HTMLElement => document.querySelector(selector);
 
@@ -47,6 +49,9 @@ export function mergeObjects(_a: object, _b: object, strings = true) {
 
   return deepMerge(_a, _b, mergerFn);
 }
+
+export const resolvedPromise = (() => Promise.resolve(null))();
+
 //mdn brower sniffing
 export function deviceIsMobile(){
   let hasTouchScreen = false;

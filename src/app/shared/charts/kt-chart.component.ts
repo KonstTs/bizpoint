@@ -8,7 +8,7 @@ import { ChartView, ECharts, EChartsCoreOption, SeriesOption } from 'echarts';
 import { CommonModule } from '@angular/common';
 import { TooltipComponent } from 'echarts/components';
 import { ECBasicOption } from 'echarts/types/dist/shared';
-import { CssSelector } from '@angular/compiler';import { getElement } from '../../config/utils';
+import { CssSelector } from '@angular/compiler';import { getElement } from '../../services/utils';
 import { kt_CHART_OPTIONS } from '../../config/chart-base-options';
 ;
 echarts.use([BarChart, LineChart, PieChart, GridComponent, TooltipComponent, LegendComponent, CanvasRenderer]);
